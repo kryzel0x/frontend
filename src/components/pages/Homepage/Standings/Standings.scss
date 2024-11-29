@@ -1,0 +1,13 @@
+@import "../../../../assets/theme/_var.scss";
+
+.bottom_spacing {
+    padding-bottom: 10rem;
+
+    @media (max-width: 1399px) {
+        padding-bottom: 7.5rem;
+    }
+
+    @media (max-width: 991px) {
+        padding-bottom: 5rem;
+    }
+}

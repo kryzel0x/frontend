@@ -1,0 +1,32 @@
+@import "../../../assets/theme/_var.scss";
+
+.leaderboard_standings {
+    .custom_table {
+        thead {
+            th {
+                background: #35323E;
+                text-align: center;
+                vertical-align: top;
+
+                &:first-child {
+                    padding-left: 4.2rem;
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                td {
+                    transition: 200ms ease-in-out;
+                }
+
+                &.active {
+                    td {
+                        color: $black;
+                        background-color: $baseclr;
+                    }
+                }
+            }
+        }
+    }
+}

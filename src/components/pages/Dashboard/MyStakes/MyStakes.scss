@@ -1,0 +1,112 @@
+@import "../../../../assets/theme/_var.scss";
+
+.my_stakes {
+    .my_stakes_in {
+        .custom_table {
+            h2 {
+                border-bottom: 2px solid $secondaryclr;
+            }
+
+            thead {
+                th {
+                    background: #35323E;
+                    font-size: 2.4rem;
+                    font-weight: 500;
+                    line-height: 3rem;
+                    padding: 2rem 1.6rem;
+                    text-align: center;
+                    vertical-align: top;
+
+                    @media (max-width: 1599px) {
+                        font-size: 2rem;
+                    }
+
+                    @media (max-width: 1399px) {
+                        font-size: 1.8rem;
+                    }
+
+                    @media (max-width: 575px) {
+                        font-size: 1.6rem;
+                    }
+
+                    &:first-child {
+                        padding-left: 4.2rem;
+
+                        @media (max-width: 575px) {
+                            padding-left: 2rem;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                td {
+                    padding: 1.95rem 1.6rem;
+                    text-align: center;
+
+                    @media (max-width: 575px) {
+                        padding: 1rem 1rem;
+                    }
+
+                    &:first-child {
+                        padding-left: 4.2rem;
+
+                        @media (max-width: 575px) {
+                            padding-left: 2rem;
+                        }
+                    }
+
+                    .year {
+                        font-size: 1.8rem;
+                        font-weight: 500;
+                        line-height: 2.4rem;
+                        display: block;
+
+                        @media (max-width: 575px) {
+                            font-size: 1.4rem;
+                        }
+                    }
+
+                    &.share {
+                        color: $baseclr;
+                    }
+
+                    &.active {
+                        color: $baseclr;
+                    }
+
+                    &.expired {
+                        color: $redclr;
+                    }
+
+                    .invest_btn {
+                        font-size: 2.4rem;
+                        width: 17.8rem;
+                        height: 5.2rem;
+
+                        @media (max-width: 1599px) {
+                            font-size: 2rem;
+                            height: 4.8rem;
+                        }
+
+                        @media (max-width: 575px) {
+                            font-size: 1.6rem;
+                            height: 4.4rem;
+                            width: 14rem;
+                        }
+
+                        &:enabled {
+                            background-color: transparent;
+                            color: $baseclr;
+
+                            &:hover {
+                                background-color: $baseclr;
+                                color: $black;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

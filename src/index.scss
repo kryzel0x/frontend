@@ -1,0 +1,409 @@
+@import "./assets/theme/_var.scss";
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: $basefont;
+    color: $white;
+    background: $layout_bg;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+p {
+    margin-bottom: 0;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+a,
+span {
+    display: inline-block;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.clickable {
+    cursor: pointer !important;
+}
+
+.modal {
+    &.fade {
+        .modal-dialog {
+            transform: scale(0.9);
+            opacity: 0;
+            transition: 400ms ease-in-out;
+        }
+
+        &.show {
+            .modal-dialog {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    }
+}
+
+.modal-backdrop {
+    transition: 400ms ease-in-out;
+
+    &.show {
+        opacity: 1;
+        background-color: rgba(black, 0.5);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.table {
+    --bs-table-bg: transparent;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+input {
+    -webkit-box-shadow: 0 0 0 10rem transparent inset !important;
+    box-shadow: 0 0 0 10rem transparent inset !important;
+    // -webkit-text-fill-color: white !important;
+    // caret-color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 10rem black inset !important;
+    -webkit-text-fill-color: white !important;
+    caret-color: white;
+}
+
+//  z -indexes
+.z-xlg {
+    z-index: 15 !important;
+}
+
+.z-lg {
+    z-index: 10 !important;
+}
+
+.z-md {
+    z-index: 5 !important;
+}
+
+.z-low {
+    z-index: 1 !important;
+}
+
+// toast
+.go4109123758 {
+    font-size: 1.4rem;
+
+    .go2072408551 {
+        background-color: $disable_bg;
+        color: $white;
+        border: 1px solid rgba($white , 0.1);
+
+        @media (max-width: 359px) {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
+
+.row {
+    margin: -0.75rem;
+
+    >div {
+        padding: 0.75rem;
+    }
+}
+
+.container {
+    padding: 0 1.5rem;
+
+    @media (min-width: 1400px) {
+        max-width: 134.2rem;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0.8rem;
+    height: 0.8rem;
+    background-color: rgba($white, 0.1);
+    border-radius: 4rem;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 0.8rem;
+    border-radius: 4rem;
+    height: 0.8rem;
+    background-color: rgba($baseclr, 1);
+}
+
+.custom_phone {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 991px) {
+        display: block;
+    }
+
+    .react-tel-input {
+        width: 51.2rem;
+
+        @media (max-width: 991px) {
+            width: 100%;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 6.5rem;
+            border-radius: 1.1rem;
+            border: 0.1rem solid $secondaryclr;
+            outline: none;
+            font-size: 3.2rem;
+            font-weight: 400;
+            padding: 0 2rem 0 7rem;
+            background-color: transparent;
+            transition: 300ms ease-in-out;
+            color: $white;
+
+            @media (max-width: 1599px) {
+                font-size: 2.8rem;
+            }
+
+            @media (max-width: 1399px) {
+                font-size: 2.4rem;
+            }
+
+            @media (max-width: 1199px) {
+                height: 4.8rem;
+            }
+
+            @media (max-width: 991px) {
+                font-size: 2rem;
+            }
+
+            &:enabled {
+                &:focus {
+                    border-color: $secondaryclr;
+                }
+            }
+
+            &:disabled,
+            &:read-only {
+                background-color: $disable_bg !important;
+                border-color: rgba($white, 0.1) !important;
+                color: rgba($white, 0.5) !important;
+            }
+        }
+
+        .flag-dropdown {
+            background: transparent !important;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            width: 4rem;
+            padding-left: 1rem;
+
+            .selected-flag {
+                background: transparent !important;
+            }
+
+            .flag {
+                scale: 1.5;
+            }
+
+            .arrow {
+                background: url("./assets/icons/down-arrow.svg") center/contain no-repeat;
+                border: none !important;
+                width: 0.8rem;
+                height: 0.8rem;
+                margin-top: -0.4rem;
+            }
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
+        .country-list {
+            background-color: $layout_bg;
+            border: 1px solid $secondaryclr;
+            border-radius: 0.8rem;
+            padding: 0.8rem;
+
+            li {
+                background-color: transparent;
+                font-size: 1.8rem;
+                border-radius: 0.5rem;
+                font-weight: 500;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                transition: 300ms ease-in-out;
+
+                @media (max-width: 1199px) {
+                    font-size: 1.6rem;
+                    font-family: $basefont;
+                }
+
+                &:not(:last-child) {
+                    margin-bottom: 0.1rem;
+                }
+
+                &:hover,
+                &.highlight {
+                    background-color: $baseclr;
+                    color: $black;
+                }
+            }
+        }
+    }
+}
+
+.custom_select {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 991px) {
+        display: block;
+    }
+
+    .select__control {
+        width: 51.2rem;
+        height: 6.5rem;
+        cursor: pointer;
+        border-radius: 1.1rem;
+        border: 0.1rem solid $secondaryclr;
+        outline: none;
+        font-size: 3.2rem;
+        font-weight: 400;
+        padding: 0 2rem;
+        background-color: transparent;
+        transition: 300ms ease-in-out;
+        color: $white;
+        box-shadow: none;
+
+        @media (max-width: 1599px) {
+            font-size: 2.8rem;
+        }
+
+        @media (max-width: 1399px) {
+            font-size: 2.4rem;
+        }
+
+        @media (max-width: 1199px) {
+            height: 4.8rem;
+        }
+
+        @media (max-width: 991px) {
+            font-size: 2rem;
+            width: 100%;
+        }
+
+        &:hover {
+            border-color: $secondaryclr;
+        }
+
+        .select__single-value {
+            text-align: center;
+            color: inherit;
+        }
+
+        .select__indicators {
+            .select__indicator-separator {
+                display: none;
+            }
+
+            .select__indicator {
+                padding: 0;
+                width: 3.4rem;
+                height: 1.8rem;
+                background: url("./assets/icons/down-arrow.svg") center/contain no-repeat;
+
+                svg {
+                    display: none;
+                }
+            }
+        }
+
+        &.select__control--is-disabled {
+            background-color: $disable_bg !important;
+            border-color: rgba($white, 0.1) !important;
+            color: rgba($white, 0.5) !important;
+        }
+    }
+
+    .select__menu {
+        width: 100%;
+        background-color: $layout_bg;
+        border: 1px solid $secondaryclr;
+        border-radius: 0.8rem;
+        padding: 0.8rem;
+
+        .select__option {
+            background-color: transparent;
+            font-size: 1.8rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 300ms ease-in-out;
+
+            @media (max-width: 1199px) {
+                font-size: 1.6rem;
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 0.1rem;
+            }
+
+            &.select__option--is-focused {
+                background-color: transparent;
+            }
+
+            &:hover,
+            &.select__option--is-selected {
+                background-color: $baseclr;
+                color: $black;
+            }
+        }
+    }
+}

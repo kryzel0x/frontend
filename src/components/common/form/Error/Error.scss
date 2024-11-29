@@ -1,0 +1,16 @@
+@import "../../../../assets/theme/_var.scss";
+
+.custom_error {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: $redclr;
+    display: flex;
+    margin-top: 0.3rem;
+    align-items: center;
+    line-height: 1.8rem;
+
+    @media (max-width: 767px) {
+        font-size: 1.2rem;
+        line-height: 2rem;
+    }
+}

@@ -1,0 +1,115 @@
+@import "../../../../assets/theme/_var.scss";
+
+.banner_design {
+    padding: 2.5rem 0 6rem;
+
+    @media (max-width: 991px) {
+        padding: 2rem 0 4rem;
+    }
+
+    .banner_in {
+        background: linear-gradient(180deg, #402E66 35%, #261051 100%);
+        border: 0.1rem solid #4B4850;
+        box-shadow: 0px 4px 4px 0px #00000040;
+        padding: 7.95rem 2rem;
+        text-align: center;
+        border-radius: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @media (min-width: 1500px) {
+            min-height: 58.2rem;
+        }
+
+        @media (max-width: 1599px) {
+            padding: 6rem 2rem;
+        }
+
+        @media (max-width: 1399px) {
+            padding: 4rem 2rem;
+        }
+
+        h2 {
+            font-size: 4rem;
+            font-weight: 500;
+            line-height: 5rem;
+
+            @media (max-width: 1599px) {
+                font-size: 3.6rem;
+                line-height: 1.4;
+            }
+
+            @media (max-width: 1399px) {
+                font-size: 3rem;
+            }
+
+            @media (max-width: 991px) {
+                font-size: 2.6rem;
+            }
+
+            @media (max-width: 575px) {
+                font-size: 2rem;
+            }
+
+            span {
+                display: block;
+                // width: fit-content;
+                background: linear-gradient(177.65deg, #5F40BC 45.98%, #FFFFFF 50.57%, #7E42EE 59.08%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-position: -12rem;
+            }
+        }
+
+        h1 {
+            font-size: 7rem;
+            font-weight: 500;
+            line-height: 8.6rem;
+            margin: 5rem 0;
+
+            @media (max-width: 1599px) {
+                font-size: 5.6rem;
+                line-height: 1.4;
+                margin: 3.6rem 0;
+            }
+
+            @media (max-width: 1399px) {
+                margin: 2.4rem 0;
+                font-size: 4.4rem;
+            }
+
+            @media (max-width: 991px) {
+                font-size: 3.2rem;
+            }
+
+            @media (max-width: 575px) {
+                font-size: 2.8rem;
+            }
+        }
+
+        .custom_btn {
+            width: 25.2rem;
+            height: 7.2rem;
+            font-size: 3.7rem;
+
+            @media (max-width: 1599px) {
+                font-size: 3rem;
+                line-height: 1.4;
+                height: 6.8rem;
+            }
+
+            @media (max-width: 1399px) {
+                font-size: 2.4rem;
+                height: 5.8rem;
+            }
+
+            @media (max-width: 575px) {
+                width: 18rem;
+                height: 5rem;
+            }
+        }
+    }
+}

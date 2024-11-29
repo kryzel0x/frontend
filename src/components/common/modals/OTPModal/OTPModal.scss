@@ -1,0 +1,97 @@
+@import "../../../../assets/theme/_var.scss";
+
+.otp_modal {
+    .modal_heading {
+        h2 {
+            margin-bottom: 3.5rem;
+        }
+    }
+
+    form {
+        .otp_input {
+            >div {
+                justify-content: center;
+                width: 100%;
+
+                input {
+                    width: 7.4rem !important;
+                    border: 0.1rem solid #BF9DF7;
+                    border-radius: 3rem;
+                    outline: none;
+                    background-color: transparent;
+                    color: $white;
+                    font-size: 3.2rem;
+                    font-weight: 400;
+                    height: 7.4rem;
+
+                    @media (max-width: 991px) {
+                        width: 6rem !important;
+                        border-radius: 2.4rem;
+                        height: 6rem;
+                        font-size: 2.4rem;
+                    }
+
+                    @media (max-width: 339px) {
+                        width: 4.5rem !important;
+                        height: 4.5rem;
+                        border-radius: 2rem;
+                        font-size: 2rem;
+                    }
+
+                    &:not(:last-child) {
+                        margin-right: 1rem;
+                    }
+                }
+            }
+        }
+
+        button[type="submit"] {
+            margin: 2.4rem 0;
+        }
+
+        .timer_txt {
+            font-size: 2.4rem;
+            font-weight: 500;
+            line-height: 2.4rem;
+            text-align: center;
+            color: #BF9DF7;
+            font-variant-numeric: tabular-nums;
+
+            @media (max-width: 499px) {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            &.resend_txt {
+                color: $white;
+                font-size: 1.6rem;
+                font-weight: 500;
+                line-height: 2.4rem;
+
+                @media (max-width: 575px) {
+                    font-size: 1.4rem;
+                }
+
+                button {
+                    color: #BF9DF7;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    padding: 0;
+                    font-size: 2.4rem;
+                    font-weight: 500;
+                    line-height: 2.4rem;
+                    margin-left: 0.8rem;
+
+                    @media (max-width: 1599px) {
+                        font-size: 2rem;
+                    }
+
+                    @media (max-width: 575px) {
+                        font-size: 1.8rem;
+                    }
+                }
+            }
+        }
+    }
+}

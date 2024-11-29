@@ -1,0 +1,109 @@
+@import "../../../../assets/theme/_var.scss";
+
+.staking_statements {
+    padding: 4rem 0;
+
+    .statements_in {
+        .custom_table {
+            h2 {
+                border-bottom: 2px solid $secondaryclr;
+            }
+
+            thead {
+                th {
+                    background: #35323E;
+                    text-align: center;
+                    vertical-align: top;
+
+                    &:first-child {
+                        padding-left: 4.2rem;
+
+                        @media (max-width: 1599px) {
+                            padding-left: 4rem;
+                        }
+
+                        @media (max-width: 1399px) {
+                            padding-left: 3.6rem;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                td {
+                    font-size: 2.4rem;
+                    font-weight: 500;
+                    line-height: 3.7rem;
+
+                    @media (max-width: 1599px) {
+                        line-height: 1.4;
+                        font-size: 2rem;
+                    }
+
+                    @media (max-width: 1399px) {
+                        font-size: 1.8rem;
+                    }
+
+                    @media (max-width: 575px) {
+                        font-size: 1.6rem;
+                    }
+
+                    .date {
+                        font-size: 3.6rem;
+                        font-weight: 500;
+                        line-height: 2.4rem;
+                        display: block;
+
+                        @media (max-width: 1599px) {
+                            line-height: 1.4;
+                            font-size: 2.8rem;
+                        }
+
+                        @media (max-width: 1399px) {
+                            font-size: 2.4rem;
+                        }
+
+                        @media (max-width: 991px) {
+                            font-size: 2.2rem;
+                        }
+
+                        @media (max-width: 575px) {
+                            font-size: 1.8rem;
+                        }
+                    }
+
+                    .year {
+                        font-size: 2rem;
+                        font-weight: 500;
+                        line-height: 2.4rem;
+
+                        @media (max-width: 1599px) {
+                            font-size: 1.8rem;
+                            line-height: 1.4;
+                        }
+
+                        @media (max-width: 1399px) {
+                            font-size: 1.6rem;
+                        }
+
+                        @media (max-width: 575px) {
+                            font-size: 1.4rem;
+                        }
+                    }
+
+                    &.deposit {
+                        color: #BF9DF7;
+                    }
+
+                    &.expiry {
+                        color: $redclr;
+                    }
+
+                    &.bonus {
+                        color: $baseclr;
+                    }
+                }
+            }
+        }
+    }
+}
