@@ -11,23 +11,24 @@ import { EditIcon } from "../../../../assets/icons/icons";
 import { RootState } from "../../../../redux/store";
 
 const Standings = ({
-  title,
+  title = "Leaderboard",
   className,
-  bottomSpacing,
+  bottomSpacing = false,
   isStanding = false,
-  leaderboardData,
-  rankUser,
+  leaderboardData = [],
+  rankUser = [],
 }: {
   title?: string;
   className?: string;
   bottomSpacing?: boolean;
   isStanding?: boolean;
-  leaderboardData: any;
-  rankUser?: any;
+  leaderboardData?: any[];
+  rankUser?: any[];
 }) => {
   const krzDecimals = useAppSelector(
-    (state: RootState) => state.user.krzDecimals
+    (state: RootState) => state.user.krzDecimals || 1
   );
+
   const fields = [
     { name: "#" },
     { name: "User" },
@@ -35,15 +36,12 @@ const Standings = ({
     { name: "Overall Score" },
   ];
 
-  // const sortedLeaderboard = [...leaderboardData].sort((a, b) => b.creditScore - a.creditScore);
-
   const [set_Copied] = useCopyClipboard();
   const copy = (data: string) => {
     set_Copied(data);
     toast.success("Address copied", { id: "address" });
   };
 
-  console.log("isStanding", isStanding, rankUser);
   return (
     <section
       className={clsx(
@@ -54,13 +52,14 @@ const Standings = ({
     >
       <Container>
         <Table
-          title={title || "Leaderboard"}
+          title={title}
           fields={fields}
           loading={!leaderboardData.length}
         >
-          {isStanding && rankUser.length > 0 &&
+          {isStanding &&
+            rankUser?.length > 0 &&
             rankUser.map((item, index) => {
-              const isGolden = index < 1; // Top 3 users get golden crowns
+              const isGolden = index === 0;
               return (
                 <tr
                   key={item.walletAddress + index}
@@ -69,30 +68,25 @@ const Standings = ({
                     index === 0 && "active"
                   )}
                 >
-                  <td>
-                    {item?.rank}{" "}
-                    {/* <img
-                      src={isGolden ? golden : silver}
-                      className="crown_icon"
-                      alt="crown"
-                    /> */}
-                  </td>
-                  <td>{item.name || "N/A"}</td>
+                  <td>{item?.rank || "N/A"}</td>
+                  <td>{item?.name || "N/A"}</td>
                   <td className="d-flex align-items-center">
-                    {collapseAddress(item.walletAddress)}
+                    {collapseAddress(item.walletAddress || "")}
                     <button
-                      onClick={() => copy(item.walletAddress)}
+                      onClick={() => copy(item.walletAddress || "")}
                       type="button"
                       className="copy-btn"
                     >
                       <EditIcon />
                     </button>
                   </td>
-                  <td>{item.creditScore / Math.pow(10, krzDecimals)}</td>
+                  <td>
+                    {(item?.creditScore ?? 0) / Math.pow(10, krzDecimals)}
+                  </td>
                 </tr>
               );
             })}
-          {leaderboardData.length > 0 &&
+          {leaderboardData?.length > 0 &&
             leaderboardData.map((item, index) => {
               const isGolden = index < 3; // Top 3 users get golden crowns
               return (
@@ -111,18 +105,20 @@ const Standings = ({
                       alt="crown"
                     />
                   </td>
-                  <td>{item.name || "N/A"}</td>
+                  <td>{item?.name || "N/A"}</td>
                   <td className="d-flex align-items-center">
-                    {collapseAddress(item.walletAddress)}
+                    {collapseAddress(item.walletAddress || "")}
                     <button
-                      onClick={() => copy(item.walletAddress)}
+                      onClick={() => copy(item.walletAddress || "")}
                       type="button"
                       className="copy-btn"
                     >
                       <EditIcon />
                     </button>
                   </td>
-                  <td>{item.creditScore / Math.pow(10, krzDecimals)}</td>
+                  <td>
+                    {(item?.creditScore ?? 0) / Math.pow(10, krzDecimals)}
+                  </td>
                 </tr>
               );
             })}
