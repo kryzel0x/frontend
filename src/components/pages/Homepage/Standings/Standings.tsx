@@ -1,45 +1,135 @@
 import { Container } from "react-bootstrap";
+import silver from "../../../../assets/icons/silver-crown.svg";
+import golden from "../../../../assets/icons/golden-crown.svg";
 import { clsx } from "../../../../utils/utils";
 import Table from "../../../common/Table/Table";
 import "./Standings.scss";
+import { collapseAddress } from "../../../../core/utils";
+import useCopyClipboard, { useAppSelector } from "../../../../utils/hooks";
+import toast from "react-hot-toast";
+import { EditIcon } from "../../../../assets/icons/icons";
+import { RootState } from "../../../../redux/store";
 
-const Standings = ({ className, bottomSpacing }: { className?: string, bottomSpacing?: boolean, }) => {
-    const fields = [
-        { name: "#" },
-        { name: "User" },
-        { name: "Wallet Address" },
-        { name: "Score" },
-    ]
-    const data = [
-        { hash: "1", user: "CryptoKing321", address: "4343sds77778d7hh44fh4f8hfh4f8fh", score: "7893", },
-        { hash: "2", user: "megaWeb3Champ", address: "342ds77778d7hh44fh4f8hfh4f8fh", score: "7554", },
-        { hash: "3", user: "CryptoKing321", address: "4343sds77778d7hh44fh4f8hfh4f8fh", score: "6666", },
-        { hash: "4", user: "megaWeb3Champ", address: "342ds77778d7hh44fh4f8hfh4f8fh", score: "5555", },
-    ]
-    return (
-        <section className={clsx("standings_sec", className, bottomSpacing && "bottom_spacing")}>
-            <Container>
-                <Table
-                    title="Standings"
-                    fields={fields}
+const Standings = ({
+  title,
+  className,
+  bottomSpacing,
+  isStanding = false,
+  leaderboardData,
+  rankUser,
+}: {
+  title?: string;
+  className?: string;
+  bottomSpacing?: boolean;
+  isStanding?: boolean;
+  leaderboardData: any;
+  rankUser?: any;
+}) => {
+  const krzDecimals = useAppSelector(
+    (state: RootState) => state.user.krzDecimals
+  );
+  const fields = [
+    { name: "#" },
+    { name: "User" },
+    { name: "Wallet Address" },
+    { name: "Overall Score" },
+  ];
+
+  // const sortedLeaderboard = [...leaderboardData].sort((a, b) => b.creditScore - a.creditScore);
+
+  const [set_Copied] = useCopyClipboard();
+  const copy = (data: string) => {
+    set_Copied(data);
+    toast.success("Address copied", { id: "address" });
+  };
+
+  console.log("isStanding", isStanding, rankUser);
+  return (
+    <section
+      className={clsx(
+        "standings_sec",
+        className,
+        bottomSpacing && "bottom_spacing"
+      )}
+    >
+      <Container>
+        <Table
+          title={title || "Leaderboard"}
+          fields={fields}
+          loading={!leaderboardData.length}
+        >
+          {isStanding && rankUser.length > 0 &&
+            rankUser.map((item, index) => {
+              const isGolden = index < 1; // Top 3 users get golden crowns
+              return (
+                <tr
+                  key={item.walletAddress + index}
+                  className={clsx(
+                    isGolden ? "golden" : "silver",
+                    index === 0 && "active"
+                  )}
                 >
-                    {
-                        data.length > 0 &&
-                        data.map((item, index) => {
-                            return (
-                                <tr key={item.user + index}>
-                                    <td>{item.hash}</td>
-                                    <td>{item.user}</td>
-                                    <td>{item.address}</td>
-                                    <td>{item.score}</td>
-                                </tr>
-                            )
-                        })
-                    }
-                </Table>
-            </Container>
-        </section>
-    )
-}
+                  <td>
+                    {item?.rank}{" "}
+                    {/* <img
+                      src={isGolden ? golden : silver}
+                      className="crown_icon"
+                      alt="crown"
+                    /> */}
+                  </td>
+                  <td>{item.name || "N/A"}</td>
+                  <td className="d-flex align-items-center">
+                    {collapseAddress(item.walletAddress)}
+                    <button
+                      onClick={() => copy(item.walletAddress)}
+                      type="button"
+                      className="copy-btn"
+                    >
+                      <EditIcon />
+                    </button>
+                  </td>
+                  <td>{item.creditScore / Math.pow(10, krzDecimals)}</td>
+                </tr>
+              );
+            })}
+          {leaderboardData.length > 0 &&
+            leaderboardData.map((item, index) => {
+              const isGolden = index < 3; // Top 3 users get golden crowns
+              return (
+                <tr
+                  key={item.walletAddress + index}
+                  className={clsx(
+                    isGolden ? "golden" : "silver",
+                    !isStanding && index === 0 && "active"
+                  )}
+                >
+                  <td>
+                    {index + 1}{" "}
+                    <img
+                      src={isGolden ? golden : silver}
+                      className="crown_icon"
+                      alt="crown"
+                    />
+                  </td>
+                  <td>{item.name || "N/A"}</td>
+                  <td className="d-flex align-items-center">
+                    {collapseAddress(item.walletAddress)}
+                    <button
+                      onClick={() => copy(item.walletAddress)}
+                      type="button"
+                      className="copy-btn"
+                    >
+                      <EditIcon />
+                    </button>
+                  </td>
+                  <td>{item.creditScore / Math.pow(10, krzDecimals)}</td>
+                </tr>
+              );
+            })}
+        </Table>
+      </Container>
+    </section>
+  );
+};
 
-export default Standings
+export default Standings;

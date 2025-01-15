@@ -1,29 +1,58 @@
 @import "../../../../assets/theme/_var.scss";
 
 .staking_statements {
-    padding: 4rem 0;
+    padding: 22.4rem 0 20rem;
+    overflow-x: clip;
+
+    @media (max-width: 1399px) {
+        padding: 14rem 0;
+    }
+
+    @media (max-width: 575px) {
+        padding: 10rem 0;
+    }
 
     .statements_in {
+        position: relative;
+        z-index: 1;
+
+        .coins {
+            position: absolute;
+            z-index: -1;
+            top: -287px;
+            right: -290px;
+            pointer-events: none;
+        }
+
         .custom_table {
             h2 {
-                border-bottom: 2px solid $secondaryclr;
+                @media (min-width: 1600px) {
+                    font-size: 9.6rem;
+                    line-height: 11.6rem;
+                }
             }
 
             thead {
                 th {
-                    background: #35323E;
                     text-align: center;
-                    vertical-align: top;
+
+                    @media (min-width: 1600px) {
+                        font-size: 2.8rem;
+                        line-height: 3rem;
+                    }
 
                     &:first-child {
-                        padding-left: 4.2rem;
+                        padding-left: 3.3rem;
 
-                        @media (max-width: 1599px) {
-                            padding-left: 4rem;
+                    }
+
+                    @media (max-width: 575px) {
+                        &:first-child {
+                            padding-left: 2rem;
                         }
 
-                        @media (max-width: 1399px) {
-                            padding-left: 3.6rem;
+                        br {
+                            display: none;
                         }
                     }
                 }
@@ -31,76 +60,20 @@
 
             tbody {
                 td {
-                    font-size: 2.4rem;
-                    font-weight: 500;
-                    line-height: 3.7rem;
-
-                    @media (max-width: 1599px) {
-                        line-height: 1.4;
-                        font-size: 2rem;
-                    }
-
-                    @media (max-width: 1399px) {
-                        font-size: 1.8rem;
-                    }
-
-                    @media (max-width: 575px) {
-                        font-size: 1.6rem;
-                    }
+                    text-align: center;
 
                     .date {
-                        font-size: 3.6rem;
-                        font-weight: 500;
-                        line-height: 2.4rem;
                         display: block;
-
-                        @media (max-width: 1599px) {
-                            line-height: 1.4;
-                            font-size: 2.8rem;
-                        }
-
-                        @media (max-width: 1399px) {
-                            font-size: 2.4rem;
-                        }
-
-                        @media (max-width: 991px) {
-                            font-size: 2.2rem;
-                        }
-
-                        @media (max-width: 575px) {
-                            font-size: 1.8rem;
-                        }
-                    }
-
-                    .year {
-                        font-size: 2rem;
                         font-weight: 500;
-                        line-height: 2.4rem;
+                    }
 
-                        @media (max-width: 1599px) {
-                            font-size: 1.8rem;
-                            line-height: 1.4;
-                        }
+                    &:first-child {
+                        padding-left: 3.3rem;
 
-                        @media (max-width: 1399px) {
-                            font-size: 1.6rem;
-                        }
 
                         @media (max-width: 575px) {
-                            font-size: 1.4rem;
+                            padding-left: 2rem;
                         }
-                    }
-
-                    &.deposit {
-                        color: #BF9DF7;
-                    }
-
-                    &.expiry {
-                        color: $redclr;
-                    }
-
-                    &.bonus {
-                        color: $baseclr;
                     }
                 }
             }

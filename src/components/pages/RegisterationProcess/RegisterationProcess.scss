@@ -1,0 +1,47 @@
+@import "../../../assets/theme/_var.scss";
+
+.register_process {
+    min-height: calc(100dvh - 19rem);
+    display: flex;
+    align-items: center;
+
+    .page_in {
+        .logo {
+            width: 6rem;
+            margin: 0 auto 2rem;
+            display: block;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .desc {
+            margin: 1rem auto 4rem;
+            text-align: center;
+        }
+
+        ul {
+            width: fit-content;
+            margin: 0 auto;
+            border: 0.1rem solid rgba($light_gray, 0.5);
+            border-radius: 0.4rem;
+
+            li {
+                display: flex;
+                align-items: center;
+                padding: 1.2rem 2.6rem;
+
+                &:not(:last-child) {
+                    border-bottom: 0.1rem solid rgba($light_gray, 0.5);
+                }
+
+                .spinner {
+                    color: $white;
+                    margin-right: 1.6rem;
+                    display: flex;
+                }
+            }
+        }
+    }
+}

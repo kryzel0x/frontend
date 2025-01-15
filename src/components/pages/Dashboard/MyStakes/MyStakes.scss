@@ -1,88 +1,89 @@
 @import "../../../../assets/theme/_var.scss";
 
 .my_stakes {
+    padding-top: 14rem;
+
+    @media (max-width: 1399px) {
+        padding-top: 0rem;
+    }
+
+    @media (max-height: 499px) {
+        padding-top: 4rem;
+    }
+
     .my_stakes_in {
         .custom_table {
             h2 {
-                border-bottom: 2px solid $secondaryclr;
+                @media (min-width: 1600px) {
+                    font-size: 9.6rem;
+                    line-height: 11.6rem;
+                }
             }
 
             thead {
                 th {
-                    background: #35323E;
-                    font-size: 2.4rem;
-                    font-weight: 500;
-                    line-height: 3rem;
-                    padding: 2rem 1.6rem;
                     text-align: center;
-                    vertical-align: top;
 
-                    @media (max-width: 1599px) {
-                        font-size: 2rem;
-                    }
-
-                    @media (max-width: 1399px) {
-                        font-size: 1.8rem;
-                    }
-
-                    @media (max-width: 575px) {
-                        font-size: 1.6rem;
-                    }
-
-                    &:first-child {
-                        padding-left: 4.2rem;
-
-                        @media (max-width: 575px) {
-                            padding-left: 2rem;
-                        }
+                    @media (min-width: 1600px) {
+                        font-size: 2.8rem;
+                        line-height: 3rem;
                     }
                 }
             }
 
             tbody {
                 td {
-                    padding: 1.95rem 1.6rem;
                     text-align: center;
+                    // padding: 1.95rem 1.6rem;
+                    // text-align: center;
 
-                    @media (max-width: 575px) {
-                        padding: 1rem 1rem;
-                    }
+                    // @media (max-width: 575px) {
+                    //     padding: 1rem 1rem;
+                    // }
 
-                    &:first-child {
-                        padding-left: 4.2rem;
+                    // &:first-child {
+                    //     padding-left: 4.2rem;
 
-                        @media (max-width: 575px) {
-                            padding-left: 2rem;
-                        }
-                    }
-
-                    .year {
-                        font-size: 1.8rem;
-                        font-weight: 500;
-                        line-height: 2.4rem;
+                    //     @media (max-width: 575px) {
+                    //         padding-left: 2rem;
+                    //     }
+                    // }
+                    .date {
                         display: block;
-
-                        @media (max-width: 575px) {
-                            font-size: 1.4rem;
-                        }
+                        font-weight: 500;
                     }
+
+                    // .year {
+                    //     font-size: 1.8rem;
+                    //     font-weight: 500;
+                    //     line-height: 2.4rem;
+                    //     display: block;
+
+                    //     @media (max-width: 575px) {
+                    //         font-size: 1.4rem;
+                    //     }
+                    // }
 
                     &.share {
                         color: $baseclr;
                     }
 
-                    &.active {
-                        color: $baseclr;
-                    }
+                    // &.active {
+                    //     color: $baseclr;
+                    // }
 
                     &.expired {
                         color: $redclr;
                     }
 
                     .invest_btn {
-                        font-size: 2.4rem;
-                        width: 17.8rem;
+                        font-size: 2.5rem;
+                        width: 17.1rem;
                         height: 5.2rem;
+                        font-weight: 400;
+                        color: #0DC2FF;
+                        background: linear-gradient(180deg, #005774 0%, #001117 100%) padding-box, linear-gradient(180deg, #1FECFF 0%, #009DFF 100%) border-box;
+                        border: 1px solid transparent;
 
                         @media (max-width: 1599px) {
                             font-size: 2rem;
@@ -90,20 +91,12 @@
                         }
 
                         @media (max-width: 575px) {
-                            font-size: 1.6rem;
-                            height: 4.4rem;
-                            width: 14rem;
+                            font-size: 1.4rem;
+                            height: 3.8rem;
+                            width: 9rem;
+                            padding: 0;
                         }
 
-                        &:enabled {
-                            background-color: transparent;
-                            color: $baseclr;
-
-                            &:hover {
-                                background-color: $baseclr;
-                                color: $black;
-                            }
-                        }
                     }
                 }
             }

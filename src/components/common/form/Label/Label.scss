@@ -1,20 +1,14 @@
 @import "../../../../assets/theme/_var.scss";
 
 .custom_label {
-    font-size: 3.2rem;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
     font-weight: 500;
     line-height: 2.4rem;
     color: $light_gray;
 
-    @media (max-width: 1599px) {
-        font-size: 2.8rem;
-    }
-
-    @media (max-width: 1399px) {
-        font-size: 2.4rem;
-    }
-
     @media (max-width: 991px) {
-        font-size: 2rem;
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
     }
 }

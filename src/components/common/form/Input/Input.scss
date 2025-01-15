@@ -5,33 +5,18 @@
 
         input,
         textarea {
-            height: 6.5rem;
+            height: 4.1rem;
             border-radius: 1.1rem;
-            border: 0.1rem solid $secondaryclr;
+            background: linear-gradient(180deg, $white, $white) padding-box, linear-gradient(141.5deg, #0CD3A5 2.35%, #007BFF 97.65%) border-box;
+            border: 1px solid transparent;
             outline: none;
-            font-size: 3.2rem;
+            font-size: 2.2rem;
             font-weight: 400;
             padding: 0 2rem;
             background-color: transparent;
             transition: 300ms ease-in-out;
-            color: $white;
+            color: $black;
             width: 100%;
-
-            @media (max-width: 1599px) {
-                font-size: 2.8rem;
-            }
-
-            @media (max-width: 1399px) {
-                font-size: 2.4rem;
-            }
-
-            @media (max-width: 1199px) {
-                height: 4.8rem;
-            }
-
-            @media (max-width: 991px) {
-                font-size: 2rem;
-            }
 
             &:enabled {
                 &:focus {

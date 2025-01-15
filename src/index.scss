@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "./assets/theme/_var.scss";
 
 html {
@@ -155,31 +156,50 @@ input:-webkit-autofill:active {
     }
 }
 
+.container-fluid {
+    max-width: 154.2rem;
+    padding: 0;
+
+    @media (max-width: 1599px) {
+        max-width: 140rem;
+    }
+
+    @media (max-width: 1479px) {
+        max-width: 124rem;
+    }
+
+    @media (max-width: 1283px) {
+        max-width: 100rem;
+    }
+}
+
 .container {
     padding: 0 1.5rem;
 
     @media (min-width: 1400px) {
-        max-width: 134.2rem;
+        max-width: 118.6rem;
     }
 }
 
 ::-webkit-scrollbar {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 0.4rem;
+    height: 0.4rem;
     background-color: rgba($white, 0.1);
     border-radius: 4rem;
 }
 
 ::-webkit-scrollbar-thumb {
-    width: 0.8rem;
+    width: 0.4rem;
     border-radius: 4rem;
-    height: 0.8rem;
-    background-color: rgba($baseclr, 1);
+    height: 0.4rem;
+    background-color: rgba($secondaryclr, 1);
 }
+
 
 .custom_phone {
     display: flex;
     align-items: center;
+    position: relative;
 
     @media (max-width: 991px) {
         display: block;
@@ -297,11 +317,22 @@ input:-webkit-autofill:active {
             }
         }
     }
+
+    .custom_error {
+        @media (min-width: 992px) {
+            position: absolute;
+            bottom: 0;
+            transform: translateY(100%);
+            margin-top: 0.4rem;
+            left: 27.3rem;
+        }
+    }
 }
 
 .custom_select {
     display: flex;
     align-items: center;
+    position: relative;
 
     @media (max-width: 991px) {
         display: block;
@@ -406,4 +437,25 @@ input:-webkit-autofill:active {
             }
         }
     }
+
+    .custom_error {
+        @media (min-width: 992px) {
+            position: absolute;
+            bottom: 0;
+            transform: translateY(100%);
+            margin-top: 0.4rem;
+            left: 27.3rem;
+        }
+    }
+}
+
+.particles_design {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    // background-color: $layout_bg;
+    background-color: $black;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }

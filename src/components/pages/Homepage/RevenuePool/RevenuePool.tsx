@@ -1,45 +1,51 @@
 import { Container } from "react-bootstrap";
-import coin from "../../../../assets/icons/coin.png";
-import "./RevenuePool.scss";;
+import logo from "../../../../assets/images/krz-logo.png";
 import Table from "../../../common/Table/Table";
+import "./RevenuePool.scss";
 
 const RevenuePool = () => {
     const fields = [
-        { name: "Date" },
-        { name: "Revenue Pool Capital" },
-        { name: "Revenue Pool" },
-        { name: "% Return" },
+        { name: "Date of Staking" },
+        { name: <>$KRZ <br /> in Liquidity Pool</> },
+        { name: <>Revenue <br /> Earned</> },
+        { name: "APY" },
     ]
     const data = [
-        { date: "23rd", month: "December", year: "24", capital: "50", "pool": "50", return: "0" },
-        { date: "19th", month: "December", year: "24", capital: "50824", "pool": "50", return: "1657" },
-        { date: "16th", month: "December", year: "24", capital: "454", "pool": "50", return: "454" },
-        { date: "9th", month: "December", year: "24", capital: "50", "pool": "50", return: "33" },
-        { date: "3rd", month: "December", year: "24", capital: "50", "pool": "50", return: "0" },
-        { date: "2nd", month: "December", year: "24", capital: "50", "pool": "50", return: "0" },
+        { date: "23rd", month: "Dec", year: "2024", pool: "259698", revenue: "50", apy: "0", },
+        { date: "19th", month: "Dec", year: "2024", pool: "19th", revenue: "50", apy: "1657", },
+        { date: "16th", month: "Dec", year: "2024", pool: "16th", revenue: "50", apy: "454", },
+        { date: "9th", month: "Dec", year: "2024", pool: "9th", revenue: "50", apy: "33", },
+        { date: "3rd", month: "Dec", year: "2024", pool: "3rd", revenue: "50", apy: "0", },
+        { date: "2nd", month: "Dec", year: "2024", pool: "2nd", revenue: "50", apy: "0", },
     ]
     return (
         <section className="revenue_pool_sec">
             <Container>
                 <div className="revenue_pool_box">
-                    <p>Total Current Revenue Pool Investment</p>
-                    <h3><img src={coin} alt="coin" /> 2351606402 <span>KRZ</span></h3>
+                    <img src={logo} alt="" />
+                </div>
+                <div className="revenue_details">
+                    <h3><span>37680595487</span><>KRZ</></h3>
+                    <p>Total $KRZ Staked</p>
+                    <h4>in Liquidity Pool Till Date</h4>
+                    <h2>
+                        <span>Your Daily Returns from the</span>
+                        $KRZ Staked in Liquidity Pools</h2>
                 </div>
                 <Table
-                    title="Daily Return to Revenue Pool"
                     fields={fields}
                 >
                     {
                         data.length > 0 &&
                         data.map((item, index) => {
                             return (
-                                <tr key={item.capital + index}>
+                                <tr key={index}>
                                     <td>
-                                        <span className="date">{item.date}</span><span className="year">{item.month} ‘{item.year}</span>
+                                        <span className="date">{item.date}</span><span className="year">{item.month} {item.year}</span>
                                     </td>
-                                    <td>{item.capital}</td>
                                     <td>{item.pool}</td>
-                                    <td>{item.return}</td>
+                                    <td>{item.revenue}</td>
+                                    <td>{item.apy}</td>
                                 </tr>
                             )
                         })

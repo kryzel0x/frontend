@@ -1,45 +1,84 @@
 @import "../../../assets/theme/_var.scss";
 
 .custom_btn {
-    height: 5.9rem;
-    border-radius: 0.7rem;
-    border: 0.1rem solid $baseclr;
-    outline: none;
-    font-size: 3.2rem;
+    height: 4.2rem;
+    font-size: 1.8rem;
     font-weight: 500;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0 2.4rem;
-    transition: 300ms ease-in-out;
-    color: $btn_text;
-    background-color: $baseclr;
-
-    @media (max-width: 1599px) {
-        font-size: 2.8rem;
-        height: 5.6rem;
-    }
-
-    @media (max-width: 1399px) {
-        font-size: 2.4rem;
-        height: 5rem;
-    }
+    background: linear-gradient(180deg, #1FECFF 0%, #009DFF 100%) padding-box, linear-gradient(180deg, #0DC2FF 0%, #009DFF 100%) border-box;
+    border: 0.1rem solid transparent;
+    color: $white;
+    border-radius: 1rem;
+    overflow: clip;
+    z-index: 1;
+    position: relative;
 
     .spinner {
         color: inherit;
     }
 
-    &:enabled {
+    // &:enabled {
+    //     &:hover {}
+    // }
+
+
+    &::before {
+        content: "";
+        width: 50rem;
+        height: 50rem;
+        z-index: -1;
+        border-radius: 50%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        background: linear-gradient(180deg, #0a7194 0%, #045283 100%);
+        transition: 0.8s ease-in-out;
+        pointer-events: none;
+        transform: translateX(-100%);
+    }
+
+    &.dark_btn {
+        box-shadow: 0px 24px 34px 0px #0F6481;
+        background: linear-gradient(273.7deg, #151515 5.67%, #313131 94.33%) padding-box, linear-gradient(178deg, #DADADA 0, rgba(0, 0, 0, 0) 91.51%) border-box;
+
+        span {
+            background: linear-gradient(90deg, #FFFFFF 0%, #999999 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         &:hover {
-            background-color: transparent;
-            color: $baseclr;
+            &::before {
+                left: 100%;
+                transform: translateY(-100%);
+            }
         }
     }
 
     &:disabled {
-        background-color: $disable_bg !important;
-        border-color: rgba($white, 0.1) !important;
+        background: $disable_bg !important;
+        border-color: rgba($white, 0.05) !important;
         color: rgba($white, 0.5);
 
         .spinner {
             color: inherit;
+        }
+    }
+
+    &.secondary_btn {
+        background: linear-gradient(180deg, #0DC2FF 0%, #00526E 100%);
+        border: none;
+
+        &:hover {
+            &::before {
+                left: 100%;
+                transform: translateY(-100%);
+            }
         }
     }
 }

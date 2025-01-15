@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Container } from "react-bootstrap";
-import coin from "../../../../assets/icons/coin.png";
+import left from "../../../../assets/images/dashboard-banner-left-coin.png";
+import right from "../../../../assets/images/dashboard-banner-right-coin.png";
+import top from "../../../../assets/images/dashboard-banner-top-coin.png";
 import Button from "../../../common/Button/Button";
 import TransactModal from "../../../common/modals/TransactModal/TransactModal";
 import "./StartEarning.scss";
@@ -12,10 +14,14 @@ const StartEarning = () => {
         <section className="start_earning">
             <Container>
                 <div className="earning_in">
+                    <img src={top} alt="top-shadow" className="top_shadow"/>
+                    <img src={left} alt="left-shadow" className="left_shadow"/>
+                    <img src={right} alt="right-shadow" className="right_shadow"/>
                     <h1>Start earning now!</h1>
+                    <h2>1500 KRZ</h2>
                     <Button onClick={() => setShow(true)} className="stake_btn">Stake [+]  to Reserve Pool</Button>
                     <TransactModal show={show} handleClose={() => setShow(false)} />
-                    <div className="earn_details">
+                    {/* <div className="earn_details">
                         <div className="earn_details_box">
                             <h3> Wallet Balance</h3>
                             <p><img src={coin} alt="coin" /> 3563 <span>KRZ</span></p>
@@ -41,7 +47,7 @@ const StartEarning = () => {
                             <h3> Wallet Balance</h3>
                             <p><img src={coin} alt="coin" /> 3563 <span>KRZ</span></p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </Container>
         </section>

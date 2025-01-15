@@ -1,0 +1,138 @@
+@import "../../../../assets/theme/_var.scss";
+
+.graphs_design {
+    padding: 0 0 9rem;
+
+    .graphs_in {
+        .nav {
+            margin-bottom: 2.1rem;
+            justify-content: center;
+            flex-wrap: nowrap;
+
+            @media (max-width: 767px) {
+                overflow: auto;
+                justify-content: flex-start;
+
+                &::-webkit-scrollbar {
+                    height: 0;
+                    width: 0;
+                }
+            }
+
+            .nav-link {
+                width: 22.2rem;
+                height: 5.8rem;
+                background: linear-gradient(180deg, #252525, #252525) padding-box, linear-gradient(180deg, #1FECFF 0%, #009DFF 100%) border-box;
+                border: 1px solid transparent;
+                position: relative;
+                font-size: 2rem;
+                font-weight: 500;
+                line-height: 2.4rem;
+                text-align: center;
+                z-index: 1;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+
+                @media (max-width: 1399px) {
+                    font-size: 1.6rem;
+                    width: 18rem;
+                }
+
+                @media (max-width: 991px) {
+                    font-size: 1.4rem;
+                    width: 100%;
+                }
+
+                @media (max-width: 767px) {
+                    height: 5rem;
+                    width: auto;
+                    flex-shrink: 0;
+                    padding: 0 2rem;
+                }
+
+                &:not(:last-child) {
+                    margin-right: 1.1rem;
+                }
+
+                &::before {
+                    z-index: -1;
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    border-radius: inherit;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background: linear-gradient(180deg, #0DC2FF 0%, #00526E 100%) padding-box, linear-gradient(180deg, #1FECFF 0%, #009DFF 100%) border-box;
+                    border: 1px solid transparent;
+                    opacity: 0;
+                    transition: 300ms ease-in-out;
+                    pointer-events: none;
+                }
+
+                &.active {
+                    &::before {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .tab-pane {
+            .graph_box {
+                background: linear-gradient(180deg, #212121 0%, #000000 100%) padding-box, linear-gradient(180deg, #1FECFF 0%, #009DFF 100%) border-box;
+                border: 1px solid transparent;
+                border-radius: 1.2rem;
+                padding: 3rem 6.4rem;
+
+                @media (max-width: 767px) {
+                    padding: 2rem 1.6rem;
+                }
+
+                .graph_box_header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 6rem;
+
+                    h3 {
+                        font-size: 1.7rem;
+                        font-weight: 700;
+                        line-height: 1.9rem;
+                    }
+
+                    p {
+                        display: flex;
+                        align-items: center;
+                        font-weight: 400;
+                        font-size: 2.9rem;
+                        font-family: $secondaryfont;
+                        line-height: 1;
+
+                        img {
+                            flex-shrink: 0;
+                            margin-right: 0.8rem;
+                        }
+
+                        span {
+                            align-self: flex-end;
+                            font-size: 1.9rem;
+                            line-height: 1.2;
+                        }
+                    }
+                }
+
+                .recharts-area-dots {
+                    circle {
+                        &:not(:last-child) {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

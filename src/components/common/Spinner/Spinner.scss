@@ -2,7 +2,8 @@
 
 .spinner {
     --size: 3rem;
-    color: $baseclr;
+    color: $secondaryclr;
+    display: inline-flex;
 
     .lds-spinner {
         display: inline-block;

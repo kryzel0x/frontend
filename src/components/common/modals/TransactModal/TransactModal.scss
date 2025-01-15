@@ -1,98 +1,113 @@
 @import "../../../../assets/theme/_var.scss";
 
 .transact_modal {
-    .modal-dialog {
-        max-width: 52.6rem;
-    }
-
     .modal-content {
-        padding-inline: 5.4rem;
-
-        @media (max-width: 1399px) {
-            padding-inline: 2.5rem;
-        }
+        padding-inline: 4.3rem;
     }
 
     .modal_heading {
         h2 {
-            font-size: 4.4rem;
-            font-weight: 500;
-            line-height: 2.4rem;
+            font-family: $secondaryfont;
+            font-size: 6.2rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-inline: -2rem;
 
-            @media (max-width: 1479px) {
-                font-size: 3.8rem;
-            }
-
-            @media (max-width: 1399px) {
-                font-size: 3.2rem;
-            }
-
-            @media (max-width: 991px) {
-                font-size: 2.8rem;
-            }
-
-            @media (max-width: 575px) {
-                font-size: 2.4rem;
+            img {
+                width: 6.4rem;
+                height: 6.4rem;
             }
         }
 
-        h3 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 3.2rem;
-            font-weight: 500;
-            line-height: 2.4rem;
+        // h3 {
+        //     display: flex;
+        //     align-items: center;
+        //     justify-content: center;
+        //     text-align: center;
+        //     font-size: 3.2rem;
+        //     font-weight: 500;
+        //     line-height: 2.4rem;
 
-            @media (max-width: 1599px) {
-                font-size: 2.8rem;
-            }
+        //     @media (max-width: 1599px) {
+        //         font-size: 2.8rem;
+        //     }
 
-            @media (max-width: 1399px) {
-                font-size: 2.4rem;
-            }
+        //     @media (max-width: 1399px) {
+        //         font-size: 2.4rem;
+        //     }
 
-            @media (max-width: 575px) {
-                font-size: 2rem;
-            }
+        //     @media (max-width: 575px) {
+        //         font-size: 2rem;
+        //     }
 
-            >img {
-                width: 3.6rem;
-                height: 3.6rem;
-                flex-shrink: 0;
-                margin-right: 0.4rem;
+        //     >img {
+        //         width: 3.6rem;
+        //         height: 3.6rem;
+        //         flex-shrink: 0;
+        //         margin-right: 0.4rem;
 
-                @media (max-width: 991px) {
-                    width: 3rem;
-                    height: 3rem;
-                }
-            }
-        }
+        //         @media (max-width: 991px) {
+        //             width: 3rem;
+        //             height: 3rem;
+        //         }
+        //     }
+        // }
     }
 
-    .current_bal {
-        display: flex;
-        align-items: center;
-        margin: 1rem 0 2rem;
-        font-size: 1.6rem;
-        font-weight: 500;
-        justify-content: center;
-        line-height: 2.4rem;
-        color: $light_gray;
-        text-align: center;
+    // .current_bal {
+    //     display: flex;
+    //     align-items: center;
+    //     margin: 1rem 0 2rem;
+    //     font-size: 1.6rem;
+    //     font-weight: 500;
+    //     justify-content: center;
+    //     line-height: 2.4rem;
+    //     color: $light_gray;
+    //     text-align: center;
 
-        img {
-            width: 1.5rem;
-            height: 1.5rem;
-            flex-shrink: 0;
-            margin-inline: 0.5rem 0.4rem;
-        }
+    //     img {
+    //         width: 1.5rem;
+    //         height: 1.5rem;
+    //         flex-shrink: 0;
+    //         margin-inline: 0.5rem 0.4rem;
+    //     }
+    // }
+    .current_bal {
+        font-size: 1.9rem;
+        font-weight: 400;
+        line-height: 2.2rem;
+        text-align: center;
+        color: #D5D5D5;
+        margin: 0.4rem 0 2.4rem;
     }
 
     form {
         .custom_input {
             margin-bottom: 3rem;
+
+            label {
+                font-size: 1.5rem;
+                font-weight: 400;
+                line-height: 1.8rem;
+                text-align: left;
+                margin-bottom: 0.5rem;
+                color: #D5D5D5;
+            }
+
+            .input_in {
+                input {
+                    padding-inline: 5rem 11rem;
+                }
+
+                &.right_icon_input {
+                    >div {
+                        font-size: 1.4rem;
+                        font-weight: 400;
+                        line-height: 1.7rem;
+                        color: rgba($black, 0.5);
+                    }
+                }
+            }
         }
 
         .custom_checkbox {
@@ -100,19 +115,7 @@
             align-items: flex-start;
 
             &:not(:last-child) {
-                margin-bottom: 4rem;
-
-                @media (max-width: 991px) {
-                    margin-bottom: 3rem;
-                }
-
-                @media (max-width: 575px) {
-                    margin-bottom: 2rem;
-                }
-
-                @media (max-width: 379px) {
-                    margin-bottom: 1.4rem;
-                }
+                margin-bottom: 1.4rem;
             }
 
             input {
@@ -121,13 +124,12 @@
                 border-radius: 0.2rem;
                 flex-shrink: 0;
                 margin-right: 1rem;
-                transform: translateY(0.3rem);
                 appearance: none;
                 background-color: $white;
                 transition: 300ms ease-in-out;
 
                 &:checked {
-                    background-color: $baseclr;
+                    background-color: #0DC2FF;
                     background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>');
                     background-size: contain;
                     background-position: center;
@@ -135,28 +137,15 @@
             }
 
             label {
-                font-size: 2rem;
-                font-weight: 500;
-                line-height: 2.4rem;
-                max-width: 33.4rem;
-
-                @media (max-width: 991px) {
-                    font-size: 1.6rem;
-                }
-
-                @media (max-width: 379px) {
-                    font-size: 1.4rem;
-                }
+                font-size: 1.2rem;
+                font-weight: 400;
+                line-height: 1.8rem;
             }
         }
 
         .stake_btn {
-            margin-top: 3.15rem;
-            padding: 0;
-
-            @media (min-width: 1600px) {
-                height: 8.2rem;
-            }
+            margin-top: 5.4rem;
+            height: 5.3rem;
         }
     }
 }

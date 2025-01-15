@@ -2,88 +2,46 @@
 
 .logout_modal {
     .modal-content {
-        padding-top: 9.5rem;
+        padding-bottom: 4.9rem;
 
-        @media (max-width: 991px) {
-            padding-top: 4rem;
+        &::before {
+            content: unset;
         }
     }
 
     .modal_heading {
         h2 {
-            font-size: 2.8rem;
-            font-weight: 500;
-            line-height: 3.4rem;
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 3.6rem;
+            letter-spacing: -0.03em;
+            text-align: center;
+            margin-bottom: 4.8rem;
 
-            @media (max-width: 1399px) {
-                font-size: 2.4rem;
+            @media (max-width: 1599px) {
+                font-size: 2.6rem;
                 line-height: 1.4;
+                margin-bottom: 4rem;
             }
 
-            @media (max-width: 991px) {
+            @media (max-width: 575px) {
                 font-size: 2rem;
-            }
-
-            @media (max-width: 321px) {
-                br {
-                    display: none;
-                }
-
-                span {
-                    margin-left: 0.2rem;
-                }
-            }
-
-            span {
-                font-size: 4rem;
-                line-height: 5rem;
-
-                @media (max-width: 1399px) {
-                    font-size: 2.8rem;
-                }
-
-                @media (max-width: 991px) {
-                    font-size: 2.4rem;
-                }
             }
         }
     }
 
     .modal_action {
         display: flex;
-        align-items: center;
+        justify-content: center;
 
-        @media (max-width: 359px) {
-            flex-wrap: wrap;
-        }
+        button {
+            width: 12.6rem;
+            height: 4.2rem;
+            font-size: 1.7rem;
+            font-weight: 500;
 
-        >button {
             &:not(:last-child) {
-                margin-right: 2rem;
-
-                @media (max-width: 359px) {
-                    margin: 0 0 0.8rem;
-                }
-            }
-
-            &.custom_btn {
-                width: 19.1rem;
-                border-radius: 5rem;
-
-                @media (max-width: 359px) {
-                    width: 100%;
-                }
-
-                &.cancel_btn {
-                    border-color: #BF9DF7;
-                    background-color: transparent;
-                    color: #BF9DF7;
-
-                    &:hover {
-                        background-color: #BF9DF7;
-                        color: $black;
-                    }
-                }
+                margin-right: 3.6rem;
             }
         }
     }

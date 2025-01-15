@@ -2,36 +2,38 @@
 
 .congratulations_modal {
     .modal-content {
-        min-height: 36.7rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
-        @media (max-width: 991px) {
-            min-height: auto;
-        }
+        padding-top: 4.5rem;
+        padding-bottom: 3.4rem;
     }
 
     .modal_heading {
+        img {
+            width: 17.1rem;
+            margin: 0 auto 2.9rem;
+            display: block;
+        }
+
         h2 {
             margin-bottom: 0;
-
-            &:first-child {
-                margin-bottom: 2rem;
-
-                @media (max-width: 991px) {
-                    margin-bottom: 1rem;
-                }
+            font-size: 2.6rem;
+            line-height: 3.1rem;
+            margin: 0 -3rem 1rem;
+            @media (max-width: 575px) {
+                margin: 0 0 1rem;
             }
         }
     }
 
     h3 {
-        margin: 2.5rem 0 0.5rem;
         font-size: 2rem;
-        font-weight: 500;
-        line-height: 4rem;
+        font-weight: 400;
+        line-height: 2.8rem;
+        max-width: 29rem;
+        margin: 0 auto;
         text-align: center;
 
         @media (max-width: 991px) {
@@ -40,7 +42,7 @@
         }
 
         span {
-            color: #BF9DF7;
+            color: #0DC2FF;
         }
     }
 
@@ -49,37 +51,87 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        font-size: 3.6rem;
-        font-weight: 500;
-        line-height: 4rem;
-        color: $baseclr;
+        color: #D5D5D5;
+        font-size: 7rem;
+        font-weight: 700;
+        line-height: 1;
+        font-family: $secondaryfont;
+        margin: 1rem 0 2rem;
 
-        @media (max-width: 1599px) {
-            line-height: 1.4;
-            font-size: 2.8rem;
+        span {
+            font-size: 2.7rem;
+            font-weight: 400;
+            line-height: 1;
+            align-self: flex-end;
+            transform: translateY(-1rem);
         }
 
-        @media (max-width: 1399px) {
-            font-size: 2.4rem;
+        >div {
+            position: relative;
+            z-index: 1;
+
+            &::before {
+                content: "";
+                width: 20rem;
+                height: 20rem;
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: url("../../../../assets/images/krz-logo-bg.png") center/contain no-repeat;
+                z-index: -1;
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: 300ms ease-in-out;
+            }
+
+            img {
+                width: 5.6rem;
+                height: 5.6rem;
+                flex-direction: 0;
+                transition: 300ms ease-in-out;
+                margin-right: 0.6rem;
+            }
+
+            &:hover {
+                &::before {
+                    opacity: 1;
+                    visibility: visible;
+                }
+
+                img {
+                    transform: rotate(16deg);
+                }
+            }
         }
 
-        @media (max-width: 991px) {
-            font-size: 2.2rem;
+    }
+
+    .custom_btn {
+        background: transparent;
+        border: 1px solid white;
+        font-weight: 400;
+
+        @media (min-width: 1500px) {
+            font-size: 2.6rem;
         }
 
-        @media (max-width: 575px) {
-            font-size: 1.8rem;
+        &::before {
+            background: radial-gradient(circle, #1FECFF 0%, #009DFF 100%);
+            filter: blur(2.3rem);
+            transform: translate(40%, -70%);
+            top: 50%;
+            left: 50%;
+            width: 90%;
+            height: 6rem;
         }
 
-        img {
-            width: 3.6rem;
-            height: 3.6rem;
-            flex-direction: 0;
-            margin-right: 0.6rem;
-
-            @media (max-width: 991px) {
-                width: 3rem;
-                height: 3rem;
+        &:hover {
+            &::before {
+                filter: blur(2rem);
+                transform: rotate(180deg) translateX(50%) translateY(50%);
             }
         }
     }

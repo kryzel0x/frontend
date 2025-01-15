@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity Web Player | CrashGames</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+        /* General styles */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #2E2C2F; /* Background color */
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        #unity-container {
+            position: absolute;
+            top: 1%; /* 1% space from the top */
+            left: 0;
+            width: 100%;
+            height: 99%; /* Remaining 99% of the screen */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #unity-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Loading bar styles */
+        #unity-loading-bar {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%; /* Half of the screen */
+        }
+
+        #unity-progress-bar-empty {
+            width: 100%;
+            background-color: #555;
+            height: 15px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #unity-progress-bar-full {
+            width: 0;
+            height: 100%;
+            background-color: #6948B9; /* Bar color */
+            transition: width 0.3s ease;
+        }
+
+        /* Footer */
+        #unity-footer {
+            margin-top: 10px;
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="unity-container">
+        <canvas id="unity-canvas" tabindex="-1"></canvas>
+        <div id="unity-loading-bar">
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+        <div id="unity-warning"></div>
+        <div id="unity-footer">
+            <div id="unity-logo-title-footer"></div>
+            <div id="unity-build-title">CrashGames</div>
+        </div>
+    </div>
+    <script>
+        const canvas = document.querySelector("#unity-canvas");
+        const unityLoadingBar = document.querySelector("#unity-loading-bar");
+        const unityProgressBarFull = document.querySelector("#unity-progress-bar-full");
+
+        function unityShowBanner(msg, type) {
+            const warningBanner = document.querySelector("#unity-warning");
+            function updateBannerVisibility() {
+                warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+            }
+            const div = document.createElement('div');
+            div.innerHTML = msg;
+            warningBanner.appendChild(div);
+            if (type == 'error') div.style = 'background: red; padding: 10px;';
+            else {
+                if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+                setTimeout(function () {
+                    warningBanner.removeChild(div);
+                    updateBannerVisibility();
+                }, 5000);
+            }
+            updateBannerVisibility();
+        }
+
+        const buildUrl = "Build";
+        const loaderUrl = buildUrl + "/BuildCrashGame.loader.js";
+        const config = {
+            arguments: [],
+            dataUrl: buildUrl + "/BuildCrashGame.data",
+            frameworkUrl: buildUrl + "/BuildCrashGame.framework.js",
+            codeUrl: buildUrl + "/BuildCrashGame.wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "Kryzel",
+            productName: "CrashGames",
+            productVersion: "0.1",
+            showBanner: unityShowBanner,
+        };
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            const meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+            document.querySelector("#unity-container").className = "unity-mobile";
+            canvas.className = "unity-mobile";
+        }
+
+        document.querySelector("#unity-loading-bar").style.display = "block";
+
+        const script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                unityProgressBarFull.style.width = 100 * progress + "%";
+            }).then((unityInstance) => {
+                unityLoadingBar.style.display = "none";
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+
+        document.body.appendChild(script);
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+@import "../../../assets/theme/_var.scss";
+
+.shimmer {
+    height: 4rem;
+    border-radius: 0.4rem;
+    width: 10rem;
+    background: linear-gradient(-45deg, $layout_bg 40%, #2b2a2a 50%, $layout_bg 60%);
+    background-size: 300%;
+    background-position-x: 100%;
+    animation: shimmer 1s infinite linear;
+}
+
+@keyframes shimmer {
+    to {
+        background-position-x: 0%
+    }
+}
