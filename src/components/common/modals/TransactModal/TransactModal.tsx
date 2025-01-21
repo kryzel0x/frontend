@@ -102,7 +102,6 @@ const TransactModal = ({ show, handleClose }: CommonModalProps) => {
         },
         validationSchema,
         onSubmit: async (values) => {
-            console.log('values', values)
             const res = await handleStakeCoins(
                 activeAccount,
                 values.amount * Math.pow(10, krzDecimals)
@@ -141,7 +140,7 @@ const TransactModal = ({ show, handleClose }: CommonModalProps) => {
                     label="Amount KRZ"
                     icon={<img src={amountIcon} alt="amount" />}
                     name="amount"
-                    rightIcon={"≈$0.00 USD"}
+                    // rightIcon={"≈$0.00 USD"}
                     value={formik.values.amount}
                     isInvalid={formik.touched.amount && !!formik.errors.amount}
                     onChange={formik.handleChange}

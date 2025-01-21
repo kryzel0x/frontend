@@ -5,8 +5,8 @@ import store from "../redux/store";
 import { KRYZEL_COIN } from "../core/constants";
 
 const USDT_COINS_TO_MINT = 1000;
-const moduleAddress = '0x2b604fb7d844d471f3ae5e574a96e0cf9c0078939ec04dee3711fdf45691cb9e';
-const stakeModuleAddress = '0x2b604fb7d844d471f3ae5e574a96e0cf9c0078939ec04dee3711fdf45691cb9e';
+const moduleAddress = '0x69d738995c2d7ee9b59c87a6b4ba578ebb6848c9d8de4f47f9ea9512584f4de3';
+const stakeModuleAddress = '0x69d738995c2d7ee9b59c87a6b4ba578ebb6848c9d8de4f47f9ea9512584f4de3';
 const coinType = KRYZEL_COIN;
 const poolAddress = '0xcbc2c79870a290cecdbaac4b8d9f38b428d7a46f2a24e965613161121b7dd438';
 // Setup the client
@@ -27,7 +27,7 @@ export async function handleStakeCoins(account: Account, amount: number) {
     const txn = await aptos.transaction.build.simple({
         sender: account.accountAddress,
         data: {
-            function: `${stakeModuleAddress}::kryzel_staking_test_v20::stake`,
+            function: `${stakeModuleAddress}::kryzel_staking_v1::stake`,
             typeArguments: [], // Remove coinType - it's hardcoded to Kryzel
             functionArguments: [
                 amount  // Only amount needed
@@ -58,7 +58,7 @@ export async function handleGetUserStakes(account: Account) {
     try {
         const userAddress = account.accountAddress;
         const data = {
-            function: `${stakeModuleAddress}::kryzel_staking_test_v20::get_user_stakes`,
+            function: `${stakeModuleAddress}::kryzel_staking_v1::get_user_stakes`,
             typeArguments: [],
             functionArguments: [userAddress]
         };
@@ -80,7 +80,7 @@ export async function handleRestakeFunc(account: Account, index: any) {
     const txn = await aptos.transaction.build.simple({
         sender: account.accountAddress,
         data: {
-            function: `${stakeModuleAddress}::kryzel_staking_test_v20::restake`,
+            function: `${stakeModuleAddress}::kryzel_staking_v1::restake`,
             typeArguments: [],
             functionArguments: [
                 index
@@ -110,7 +110,7 @@ export async function handleGetUserDailyReturn(account: Account) {
     try {
         const userAddress = account.accountAddress;
         const data = {
-            function: `${stakeModuleAddress}::kryzel_staking_test_v20::get_daily_returns_v2`,
+            function: `${stakeModuleAddress}::kryzel_staking_v1::get_user_daily_summary`,
             typeArguments: [],
             functionArguments: [userAddress]
         };
@@ -158,7 +158,6 @@ export async function
     let txn: AnyRawTransaction;
 
     if (stake.amount > amount) {
-        console.log("here");
         // If stake is larger, remove from stakeIndex and withdraw
         txn = await aptos.transaction.build.simple({
             sender: alice.accountAddress,

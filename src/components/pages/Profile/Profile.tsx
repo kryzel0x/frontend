@@ -142,7 +142,6 @@ const Profile = () => {
         .max(3, "Maximum 3 emails allowed"),
     }),
     onSubmit: async (values) => {
-      console.log("values", values);
       const isFormChanged = Object.keys(values).some(
         (key) => values[key] !== userDetails[key]
       );

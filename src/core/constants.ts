@@ -16,7 +16,7 @@ export const GOOGLE_CLIENT_ID = "838101731945-1d7oqmchi1jma9ksk8caq5hr4k76kbcf.a
 
 export const BONUS_AMOUNT = 10000;
 
-export const KRYZEL_COIN = '0x2b604fb7d844d471f3ae5e574a96e0cf9c0078939ec04dee3711fdf45691cb9e::kryzel_coin_test_v20::Kryzel';
+export const KRYZEL_COIN = '0x69d738995c2d7ee9b59c87a6b4ba578ebb6848c9d8de4f47f9ea9512584f4de3::kryzel_coin_v1::Kryzel';
 
 export const errorMessages = {
   "LOOKUP_FAILED": "Function not found on the network in use.",

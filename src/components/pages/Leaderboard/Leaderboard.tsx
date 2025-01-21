@@ -31,7 +31,6 @@ const Leaderboard = () => {
         setLeaderboardData(res?.result);
         setRankUser([res?.rank])
       }
-      console.log("res", res);
     };
     handleGetLeaderboardData();
   }, [dispatch]);

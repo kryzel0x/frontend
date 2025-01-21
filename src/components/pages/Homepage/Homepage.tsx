@@ -100,7 +100,6 @@ const Homepage = () => {
       if(res && !res.error){
           setLeaderboardData(res.result)
       }
-      console.log("res", res);
     };
     handleGetLeaderboardData();
   }, [dispatch]);

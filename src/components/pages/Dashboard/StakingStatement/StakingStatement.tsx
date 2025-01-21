@@ -35,6 +35,7 @@ const StakingStatement = () => {
       try {
         setTableLoading(true);
         const res = await handleGetUserDailyReturn(activeAccount);
+        console.log('res', res)
         if (res && res.length) {
           // Format the response data
           const formattedData = res[0].map((item) => {
@@ -55,7 +56,7 @@ const StakingStatement = () => {
             };
           });
 
-          setMyDailyReturns(formattedData);
+          // setMyDailyReturns(formattedData);
           setTableLoading(false);
         } else {
           setTableLoading(false);
