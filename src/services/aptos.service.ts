@@ -27,7 +27,7 @@ export async function handleStakeCoins(account: Account, amount: number) {
     const txn = await aptos.transaction.build.simple({
         sender: account.accountAddress,
         data: {
-            function: `${stakeModuleAddress}::kryzel_staking_v1::stake`,
+            function: `${stakeModuleAddress}::kryzel_staking_v2::stake`,
             typeArguments: [], // Remove coinType - it's hardcoded to Kryzel
             functionArguments: [
                 amount  // Only amount needed
@@ -58,7 +58,7 @@ export async function handleGetUserStakes(account: Account) {
     try {
         const userAddress = account.accountAddress;
         const data = {
-            function: `${stakeModuleAddress}::kryzel_staking_v1::get_user_stakes`,
+            function: `${stakeModuleAddress}::kryzel_staking_v2::get_user_stakes`,
             typeArguments: [],
             functionArguments: [userAddress]
         };
@@ -80,7 +80,7 @@ export async function handleRestakeFunc(account: Account, index: any) {
     const txn = await aptos.transaction.build.simple({
         sender: account.accountAddress,
         data: {
-            function: `${stakeModuleAddress}::kryzel_staking_v1::restake`,
+            function: `${stakeModuleAddress}::kryzel_staking_v2::restake`,
             typeArguments: [],
             functionArguments: [
                 index
@@ -110,7 +110,7 @@ export async function handleGetUserDailyReturn(account: Account) {
     try {
         const userAddress = account.accountAddress;
         const data = {
-            function: `${stakeModuleAddress}::kryzel_staking_v1::get_user_daily_summary`,
+            function: `${stakeModuleAddress}::kryzel_staking_v2::get_user_daily_summary`,
             typeArguments: [],
             functionArguments: [userAddress]
         };
