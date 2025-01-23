@@ -59,18 +59,18 @@ const MyStakes = () => {
 
   const getStatus = (activationDate) => {
     const now = moment.utc();
-    const activation = moment.unix(activationDate);
+    const activation = moment.unix(activationDate).utc();
     const expiry = activation.clone().add(2, "days");
     const secondDay = activation.clone().add(1, "day");
-
+ 
     if (now.isBefore(activation)) {
-      return "In Process"; // Before activation
+      return "In Process";
     } else if (now.isSame(secondDay, "day")) {
-      return "Restake"; // Second day - can restake
+      return "Restake";
     } else if (now.isBetween(activation, expiry)) {
-      return "Active"; // Active but not restake day
+      return "Active";
     } else {
-      return "Expired"; // After expiry
+      return "Expired";
     }
   };
 
@@ -88,21 +88,18 @@ const MyStakes = () => {
   //   }
   // };
 
-  const formatExpiryDate = (expiryDate) => {
-    return moment.unix(expiryDate).format("Do MMMM 'YY"); // e.g., "24th January '25"
-  };
-
   useEffect(() => {
     const handleGetMyStakes = async () => {
       setTableLoading(true);
       const res = await handleGetUserStakes(activeAccount);
 
+      console.log('res', res)
       if (res && res.length) {
         const formattedStakes = res[0].map((stake) => ({
-          date: moment.unix(stake.activation_date).format("Do MMMM 'YY"), // Formats activation date
-          amount: stake.amount / Math.pow(10, krzDecimals), // Converts to human-readable amount
-          expiry: formatExpiryDate(stake.expiry_date), // Formats expiry date
-          status: getStatus(stake.activation_date), // Determines stake status
+          date: moment.unix(stake.stake_date).utc().format("Do MMMM 'YY"), // Added .utc()
+          amount: stake.amount / Math.pow(10, krzDecimals),
+          expiry: moment.unix(stake.expiry_date).utc().format("Do MMMM 'YY"), // Added .utc()
+          status: getStatus(stake.activation_date),
         }));
         setMyStakes(formattedStakes);
       }
