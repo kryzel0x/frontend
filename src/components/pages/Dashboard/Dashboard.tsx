@@ -36,14 +36,14 @@ const Dashboard = () => {
         dispatch(
           setUserDetails({
             ...userDetails, // Spread existing userDetails
-            walletAddress: dataToSend.walletAddress, // Update only walletAddress
+            walletAddress: dataToSend?.walletAddress, // Update only walletAddress
           })
         );
         setShowCong(true);
       }
     };
 
-    if (!userDetails.walletAddress && activeAccount) {
+    if (!userDetails?.walletAddress && activeAccount) {
       handleUpdateWalletAddress();
     }
   }, [activeAccount, dispatch, userDetails]);

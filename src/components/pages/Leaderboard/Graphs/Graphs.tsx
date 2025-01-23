@@ -11,6 +11,7 @@ import {
     ResponsiveContainer,
     Legend,
 } from 'recharts';
+import { formatAmount } from "../../../../services/common.service";
 
 const data = [
     { date: '27 Dec', value1: 5, value2: 10, value3: 8 },
@@ -43,7 +44,7 @@ const Graphs = () => {
                                 <div className="graph_box">
                                     <div className="graph_box_header">
                                         <h3>Monthly Report</h3>
-                                        <p><img src={logo} alt="logo" />2895 <span>KRZ</span></p>
+                                        <p><img src={logo} alt="logo" />{formatAmount(2895)} <span>KRZ</span></p>
                                     </div>
                                     <ResponsiveContainer width="100%" height={document.body.clientWidth > 767 ? 400 : 200}>
                                         <AreaChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>

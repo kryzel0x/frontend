@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import { useAppSelector } from "../../../../utils/hooks";
 import { RootState } from "../../../../redux/store";
+import { formatAmount } from "../../../../services/common.service";
 
 const MyStakes = () => {
   const loading = useAppSelector(
@@ -57,18 +58,35 @@ const MyStakes = () => {
   const [tableLoading, setTableLoading] = useState(false);
 
   const getStatus = (activationDate) => {
-    const now = moment.utc(); // Current UTC time
-    const activation = moment.unix(activationDate); // Activation time (UTC midnight)
-    const expiry = activation.clone().add(2, "days"); // Expiry time (2 days after activation)
+    const now = moment.utc();
+    const activation = moment.unix(activationDate);
+    const expiry = activation.clone().add(2, "days");
+    const secondDay = activation.clone().add(1, "day");
 
     if (now.isBefore(activation)) {
-      return "In Process"; // Before activation (Day 1)
+      return "In Process"; // Before activation
+    } else if (now.isSame(secondDay, "day")) {
+      return "Restake"; // Second day - can restake
     } else if (now.isBetween(activation, expiry)) {
-      return "Active"; // Between activation and expiry (Day 2-3)
+      return "Active"; // Active but not restake day
     } else {
-      return "Expired"; // After expiry (Day 4+)
+      return "Expired"; // After expiry
     }
   };
+
+  // const getStatus = (activationDate) => {
+  //   const now = moment.utc(); // Current UTC time
+  //   const activation = moment.unix(activationDate); // Activation time (UTC midnight)
+  //   const expiry = activation.clone().add(2, "days"); // Expiry time (2 days after activation)
+
+  //   if (now.isBefore(activation)) {
+  //     return "In Process"; // Before activation (Day 1)
+  //   } else if (now.isBetween(activation, expiry)) {
+  //     return "Active"; // Between activation and expiry (Day 2-3)
+  //   } else {
+  //     return "Expired"; // After expiry (Day 4+)
+  //   }
+  // };
 
   const formatExpiryDate = (expiryDate) => {
     return moment.unix(expiryDate).format("Do MMMM 'YY"); // e.g., "24th January '25"
@@ -113,11 +131,11 @@ const MyStakes = () => {
                     <td>
                       <span className="date">{item.date}</span>
                     </td>
-                    <td>{item.amount}</td>
+                    <td>{formatAmount(item.amount)}</td>
                     <td>{item.expiry}</td>
                     <td className={item.status.toLowerCase()}>{item.status}</td>
                     <td>
-                      {item.status === "Active" && (
+                      {item.status === "Restake" && (
                         <Button
                           className="invest_btn"
                           loading={loading}

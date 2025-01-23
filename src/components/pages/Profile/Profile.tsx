@@ -33,7 +33,10 @@ import { useKeylessAccounts } from "../../../core/useKeylessAccounts";
 import { setUserDetails } from "../../../redux/slices/user.slice";
 import Error from "../../common/form/Error/Error";
 import Spinner from "../../common/Spinner/Spinner";
-import { truncateToTwoDecimals } from "../../../services/common.service";
+import {
+  formatAmount,
+  truncateToTwoDecimals,
+} from "../../../services/common.service";
 import Poweredby from "../Homepage/PoweredBy/PoweredBy";
 
 const Profile = () => {
@@ -80,20 +83,22 @@ const Profile = () => {
 
   const formik = useFormik({
     initialValues: initialValues,
-    enableReinitialize: true, // This ensures that the form is reset when initialValues change
+    enableReinitialize: true, // Ensures the form resets when initialValues change
     validationSchema: Yup.object({
+      name: Yup.string().required("Username is required").min(3, "Name should be atleast 3 characters"),
       twitter: Yup.string()
+        .notRequired() // Makes the field optional
         .matches(
           /^@?(\w){1,15}$/,
           "Invalid Twitter username. It must start with an optional '@' and be 1-15 characters long, containing only letters, numbers, or underscores."
-        )
-        .required("Twitter handle is required"),
+        ),
       telegram: Yup.string()
+        .notRequired() // Makes the field optional
         .matches(
           /^[a-zA-Z0-9_]{5,32}$/,
           "Invalid Telegram username. It must be 5-32 characters long, containing only letters, numbers, or underscores."
-        )
-        .required("Telegram handle is required"),
+        ),
+      // Uncomment and add other fields as needed:
       // age: Yup.number().required("Age is required").positive().integer(),
       // phoneNumber: Yup.string().required("Phone number is required"),
       // country: Yup.string().required("Country is required"),
@@ -153,7 +158,7 @@ const Profile = () => {
       }
       await dispatch(callApiPostMethod(APIURL.INVITE, values));
       handleGetReferral();
-      formikReferral.resetForm()
+      formikReferral.resetForm();
     },
   });
 
@@ -198,8 +203,9 @@ const Profile = () => {
               <Nav.Link eventKey="profile">
                 <ProfileIcon />
               </Nav.Link>
-              <Nav.Link eventKey="referral">
-                <ReferralIcon />{" "}
+              <Nav.Link eventKey="referral" className="referral">
+                {"Referral"}
+                {/* <ReferralIcon /> */}
               </Nav.Link>
             </Nav>
             <Tab.Content>
@@ -247,8 +253,14 @@ const Profile = () => {
                           <li className="wallet_balance mt-2">
                             <h3>
                               Wallet Balance:{" "}
-                              {truncateToTwoDecimals(aptBalance)} APT |{" "}
-                              {truncateToTwoDecimals(krzBalance)} KRZ
+                              {formatAmount(
+                                Number(truncateToTwoDecimals(aptBalance))
+                              )}{" "}
+                              APT |{" "}
+                              {formatAmount(
+                                Number(truncateToTwoDecimals(krzBalance))
+                              )}{" "}
+                              KRZ
                             </h3>
                           </li>
                         </ul>

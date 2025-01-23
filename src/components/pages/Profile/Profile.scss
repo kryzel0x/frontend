@@ -503,6 +503,12 @@
                 background: radial-gradient(100% 100% at 41.7% 34.47%, rgba($layout_bg, 1) 0%, rgba($layout_bg, 1) 53%) padding-box, linear-gradient(180deg, #1FECFF 1.08%, #009DFF 100%) border-box;
             }
         }
+
+        .referral {
+            color: #fff !important;
+            padding: 0px 70px;
+            font-size: 20px;
+        }
     }
 
     .profile_box {

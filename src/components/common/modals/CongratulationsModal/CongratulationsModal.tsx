@@ -7,6 +7,7 @@ import { UserDetails } from "../../../../utils/utils";
 import { RootState } from "../../../../redux/store";
 import { BONUS_AMOUNT } from "../../../../core/constants";
 import Button from "../../Button/Button";
+import { formatAmount } from "../../../../services/common.service";
 
 const CongratulationsModal = ({ handleClose, show }: CommonModalProps) => {
     const userDetails = useAppSelector(
@@ -25,7 +26,7 @@ const CongratulationsModal = ({ handleClose, show }: CommonModalProps) => {
         Here’s your <span>joining bonus</span> of
       </h3> */}
             <h4>
-                <div><img src={coin} alt="coin" /></div> {BONUS_AMOUNT} <span>KRZ</span>
+                <div><img src={coin} alt="coin" /></div> {formatAmount(BONUS_AMOUNT)} <span>KRZ</span>
                 {/* KRZ */}
             </h4>
             <Button fluid onClick={handleClose}>Start Earning</Button>

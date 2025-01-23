@@ -11,7 +11,7 @@ import { AppDispatch, RootState } from "../../../../redux/store";
 import { handleStakeCoins } from "../../../../services/aptos.service";
 import { useKeylessAccounts } from "../../../../core/useKeylessAccounts";
 import toast from "react-hot-toast";
-import { truncateToTwoDecimals } from "../../../../services/common.service";
+import { formatAmount, truncateToTwoDecimals } from "../../../../services/common.service";
 import { aptosClient, KRYZEL_COIN } from "../../../../core/constants";
 import { setAptBalance, setKrzBalance } from "../../../../redux/slices/user.slice";
 
@@ -127,7 +127,7 @@ const TransactModal = ({ show, handleClose }: CommonModalProps) => {
             <p className="current_bal">
                 Current Balance {" "}: {" "}
                 {/* <img src={coin} alt="coin" /> */}
-                {truncateToTwoDecimals(krzBalance)}{" "}
+                {formatAmount(Number(truncateToTwoDecimals(krzBalance)))}{" "}
                 KRZ
             </p>
             <form onSubmit={formik.handleSubmit}>

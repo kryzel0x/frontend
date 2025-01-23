@@ -2,6 +2,7 @@ import { Container } from "react-bootstrap";
 import logo from "../../../../assets/images/krz-logo.png";
 import Table from "../../../common/Table/Table";
 import "./RevenuePool.scss";
+import { formatAmount } from "../../../../services/common.service";
 
 const RevenuePool = () => {
     const fields = [
@@ -25,7 +26,7 @@ const RevenuePool = () => {
                     <img src={logo} alt="" />
                 </div>
                 <div className="revenue_details">
-                    <h3><span>37680595487</span><>KRZ</></h3>
+                    <h3><span>{formatAmount(37680595487)}</span><>KRZ</></h3>
                     <p>Total $KRZ Staked</p>
                     <h4>in Liquidity Pool Till Date</h4>
                     <h2>
@@ -43,7 +44,7 @@ const RevenuePool = () => {
                                     <td>
                                         <span className="date">{item.date}</span><span className="year">{item.month} {item.year}</span>
                                     </td>
-                                    <td>{item.pool}</td>
+                                    <td>{formatAmount(item.pool)}</td>
                                     <td>{item.revenue}</td>
                                     <td>{item.apy}</td>
                                 </tr>

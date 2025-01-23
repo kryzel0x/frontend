@@ -9,6 +9,7 @@ import useCopyClipboard, { useAppSelector } from "../../../../utils/hooks";
 import toast from "react-hot-toast";
 import { EditIcon } from "../../../../assets/icons/icons";
 import { RootState } from "../../../../redux/store";
+import { formatAmount } from "../../../../services/common.service";
 
 const Standings = ({
   title = "Leaderboard",
@@ -62,7 +63,7 @@ const Standings = ({
               const isGolden = index === 0;
               return (
                 <tr
-                  key={item.walletAddress + index}
+                  key={item?.walletAddress + index}
                   className={clsx(
                     isGolden ? "golden" : "silver",
                     index === 0 && "active"
@@ -71,9 +72,9 @@ const Standings = ({
                   <td>{item?.rank || "N/A"}</td>
                   <td>{item?.name || "N/A"}</td>
                   <td className="d-flex align-items-center">
-                    {collapseAddress(item.walletAddress || "")}
+                    {collapseAddress(item?.walletAddress || "")}
                     <button
-                      onClick={() => copy(item.walletAddress || "")}
+                      onClick={() => copy(item?.walletAddress || "")}
                       type="button"
                       className="copy-btn"
                     >
@@ -81,7 +82,7 @@ const Standings = ({
                     </button>
                   </td>
                   <td>
-                    {(item?.creditScore ?? 0) / Math.pow(10, krzDecimals)}
+                    {(formatAmount((item?.creditScore ?? 0) / Math.pow(10, krzDecimals)))}
                   </td>
                 </tr>
               );
@@ -107,9 +108,9 @@ const Standings = ({
                   </td>
                   <td>{item?.name || "N/A"}</td>
                   <td className="d-flex align-items-center">
-                    {collapseAddress(item.walletAddress || "")}
+                    {collapseAddress(item?.walletAddress || "")}
                     <button
-                      onClick={() => copy(item.walletAddress || "")}
+                      onClick={() => copy(item?.walletAddress || "")}
                       type="button"
                       className="copy-btn"
                     >
@@ -117,7 +118,7 @@ const Standings = ({
                     </button>
                   </td>
                   <td>
-                    {(item?.creditScore ?? 0) / Math.pow(10, krzDecimals)}
+                    {(formatAmount((item?.creditScore ?? 0) / Math.pow(10, krzDecimals)))}
                   </td>
                 </tr>
               );

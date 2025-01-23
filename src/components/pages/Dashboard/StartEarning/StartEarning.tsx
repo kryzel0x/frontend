@@ -6,12 +6,11 @@ import top from "../../../../assets/images/dashboard-banner-top-coin.png";
 import Button from "../../../common/Button/Button";
 import TransactModal from "../../../common/modals/TransactModal/TransactModal";
 import "./StartEarning.scss";
-import {
-  handleGetUserStakes,
-} from "../../../../services/aptos.service";
+import { handleGetUserStakes } from "../../../../services/aptos.service";
 import { useKeylessAccounts } from "../../../../core/useKeylessAccounts";
 import { useAppSelector } from "../../../../utils/hooks";
 import { RootState } from "../../../../redux/store";
+import { formatAmount } from "../../../../services/common.service";
 
 const StartEarning = () => {
   const [show, setShow] = useState(false);
@@ -62,12 +61,12 @@ const StartEarning = () => {
           {stakeAmount > 0 ? (
             <>
               <h1>My Total Stakes</h1>
-              <h2>{stakeAmount / Math.pow(10, krzDecimals)}</h2>
+              <h2>{formatAmount(stakeAmount / Math.pow(10, krzDecimals))}</h2>
             </>
           ) : (
             <>
               <h1>Start earning now!</h1>
-              <h2>10000 KRZ</h2>
+              <h2>{formatAmount(10000)} KRZ</h2>
             </>
           )}
           <Button onClick={() => setShow(true)} className="stake_btn">

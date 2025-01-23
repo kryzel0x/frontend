@@ -77,3 +77,17 @@ export const truncateToTwoDecimals = (number : number) => {
   // Combine the integer part with the truncated decimal part
   return `${integerPart}.${truncatedDecimal}`;
 };
+
+export const formatAmount = (
+  amount: number,
+  // currency: string = "USD",
+  locale: string = "en-US"
+) => {
+  const hasDecimal = amount % 1 !== 0;
+
+  return new Intl.NumberFormat(locale, {
+    style: "decimal",
+    minimumFractionDigits: hasDecimal ? 2 : 0,
+    maximumFractionDigits: hasDecimal ? 2 : 0,
+  }).format(amount);
+};

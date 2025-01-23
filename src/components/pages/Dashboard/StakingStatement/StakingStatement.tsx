@@ -8,6 +8,7 @@ import { useAppSelector } from "../../../../utils/hooks";
 import { RootState } from "../../../../redux/store";
 import { handleGetUserDailyReturn } from "../../../../services/aptos.service";
 import moment from "moment";
+import { formatAmount } from "../../../../services/common.service";
 
 const StakingStatement = () => {
   const fields = [
@@ -56,7 +57,7 @@ const StakingStatement = () => {
             };
           });
 
-          // setMyDailyReturns(formattedData);
+          setMyDailyReturns(formattedData);
           setTableLoading(false);
         } else {
           setTableLoading(false);
@@ -87,10 +88,10 @@ const StakingStatement = () => {
                   <td>
                     <span className="date">{item.date}</span>
                   </td>
-                  <td>{item.amount}</td>
-                  <td>{item.pool}</td>
-                  <td>{item.revenue}</td>
-                  <td>{item.share}</td>
+                  <td>{formatAmount(item.amount)}</td>
+                  <td>{formatAmount(item.pool)}</td>
+                  <td>{formatAmount(item.revenue)}</td>
+                  <td>{formatAmount(item.share)}</td>
                   <td>{item.apy}</td>
                 </tr>
               ))}
