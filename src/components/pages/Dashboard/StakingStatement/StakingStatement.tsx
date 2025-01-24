@@ -2,13 +2,14 @@ import { Container } from "react-bootstrap";
 import Table from "../../../common/Table/Table";
 import "./StakingStatement.scss";
 import coins from "../../../../assets/images/daily-returns-coins.png";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useKeylessAccounts } from "../../../../core/useKeylessAccounts";
-import { useAppSelector } from "../../../../utils/hooks";
-import { RootState } from "../../../../redux/store";
-import { handleGetUserDailyReturn } from "../../../../services/aptos.service";
-import moment from "moment";
+import { useAppDispatch, useAppSelector } from "../../../../utils/hooks";
+import { AppDispatch, RootState } from "../../../../redux/store";
 import { formatAmount } from "../../../../services/common.service";
+import { callApiGetMethod } from "../../../../redux/Actions/api.action";
+import { APIURL } from "../../../../utils/constants";
+import moment from "moment";
 
 const StakingStatement = () => {
   const fields = [
@@ -20,57 +21,81 @@ const StakingStatement = () => {
     { name: <>APY</> },
   ];
 
+  const dispatch: AppDispatch = useAppDispatch();
+
   const { activeAccount } = useKeylessAccounts();
-  const krzDecimals = useAppSelector(
-    (state: RootState) => state.user.krzDecimals
-  );
-  const krzBalance = useAppSelector(
-    (state: RootState) => state.user.krzBalance
-  );
 
   const [myDailyReturns, setMyDailyReturns] = useState([]);
   const [tableLoading, setTableLoading] = useState(false);
+  const [lpAmount, setLpAmount] = useState(0);
+  const [revenueData, setRevenueData] = useState({});
+
+  const krzDecimals = useAppSelector(
+    (state: RootState) => state.user.krzDecimals
+  );
 
   useEffect(() => {
-    const handleGetMyDailyReturns = async () => {
-      try {
-        setTableLoading(true);
-        const res = await handleGetUserDailyReturn(activeAccount);
-        console.log('res', res)
-        if (res && res.length) {
-          // Format the response data
-          const formattedData = res[0].map((item) => {
-            // Precompute frequently used values
-            const decimals = Math.pow(10, krzDecimals);
-            const amountStaked = item.amount_staked / decimals;
-            const liquidityPool = item.liquidity_pool / decimals;
-            const revenueShare = (amountStaked / liquidityPool) * 10000;
-
-            // Return the formatted data
-            return {
-              date: moment.unix(item.date).format("Do MMMM ‘YY"), // Convert UNIX timestamp to readable date
-              amount: amountStaked.toLocaleString(), // Format amount staked
-              pool: liquidityPool.toLocaleString(), // Format liquidity pool
-              revenue: 10000, // Placeholder for revenue (update with actual logic if required)
-              share: revenueShare.toFixed(2), // Revenue share as percentage
-              apy: ((revenueShare / liquidityPool) * 365).toFixed(2), // Simplified APY calculation
-            };
-          });
-
-          setMyDailyReturns(formattedData);
-          setTableLoading(false);
-        } else {
-          setTableLoading(false);
-        }
-      } catch (error) {
+    const handleGetDailyReturn = async () => {
+      setTableLoading(true);
+      const res: any = await dispatch(
+        callApiGetMethod(APIURL.GETDAILYSTAKES, {}, false, false)
+      );
+      if (res && !res.error) {
+        setMyDailyReturns(res?.result);
+        setTableLoading(false);
+      } else {
         setTableLoading(false);
       }
     };
 
+    const handleGetLpAmount = async () => {
+      const res: any = await dispatch(
+        callApiGetMethod(APIURL.GETLPAMOUNT, {}, false, false)
+      );
+      if (res && !res.error) {
+        setLpAmount(res?.result?.totalAmount);
+        setTableLoading(false);
+      } else {
+        setTableLoading(false);
+      }
+    };
     if (activeAccount) {
-      handleGetMyDailyReturns();
+      handleGetDailyReturn();
+      handleGetLpAmount();
     }
-  }, [activeAccount, krzBalance]);
+  }, [activeAccount]);
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const handleGetRevenueByDate = async (timestamp) => {
+      try {
+        const formattedDate = moment.utc(timestamp * 1000).format("YYYY-MM-DD");
+
+        const res = await dispatch(
+          callApiGetMethod(
+            APIURL.GETREVENUE,
+            { date: formattedDate },
+            false,
+            false
+          )
+        );
+        if (res && !res.error) {
+          setRevenueData((prevData) => ({
+            ...prevData,
+            [formattedDate]: res?.data?.amount,
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching revenue data:", error);
+      }
+    };
+
+    myDailyReturns.forEach((item) => {
+      if (item.activationDate) {
+        handleGetRevenueByDate(item.activationDate);
+      }
+    });
+  }, [myDailyReturns]);
 
   return (
     <section className="staking_statements">
@@ -83,18 +108,36 @@ const StakingStatement = () => {
             loading={tableLoading}
           >
             {myDailyReturns.length > 0 &&
-              myDailyReturns.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    <span className="date">{item.date}</span>
-                  </td>
-                  <td>{formatAmount(item.amount)}</td>
-                  <td>{formatAmount(item.pool)}</td>
-                  <td>{formatAmount(item.revenue)}</td>
-                  <td>{formatAmount(item.share)}</td>
-                  <td>{item.apy}</td>
-                </tr>
-              ))}
+              myDailyReturns.map((item, index) => {
+                const revenueAmount = revenueData[moment.utc(item.activationDate * 1000).format("YYYY-MM-DD")];
+                const myRevenue = formatAmount(((item.amount / Math.pow(10, krzDecimals)) / (lpAmount / Math.pow(10, krzDecimals))) * revenueAmount)
+                return (
+                  <tr key={index}>
+                    <td>
+                      <span className="date">
+                        {moment
+                          .unix(item.activationDate)
+                          .utc()
+                          .format("Do MMMM 'YY")}
+                      </span>
+                    </td>
+                    <td>
+                      {formatAmount(item.amount / Math.pow(10, krzDecimals))}{" "}
+                    </td>
+                    <td>
+                      {lpAmount
+                        ? formatAmount(lpAmount / Math.pow(10, krzDecimals))
+                        : "-"}{" "}
+                    </td>
+                    <td>
+                      {formatAmount(revenueAmount)}
+                    </td>
+
+                    <td>{myRevenue}</td>
+                    <td>{(((myRevenue / (lpAmount / Math.pow(10, krzDecimals))) * 365) * 100).toFixed(2) + '%'}</td>
+                  </tr>
+                );
+              })}
           </Table>
         </div>
       </Container>
