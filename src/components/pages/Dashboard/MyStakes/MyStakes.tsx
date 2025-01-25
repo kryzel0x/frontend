@@ -12,6 +12,7 @@ import moment from "moment";
 import { useAppSelector } from "../../../../utils/hooks";
 import { RootState } from "../../../../redux/store";
 import { formatAmount } from "../../../../services/common.service";
+import toast from "react-hot-toast";
 
 const MyStakes = () => {
   const loading = useAppSelector(
@@ -62,7 +63,7 @@ const MyStakes = () => {
     const activation = moment.unix(activationDate).utc();
     const expiry = activation.clone().add(2, "days");
     const secondDay = activation.clone().add(1, "day");
- 
+
     if (now.isBefore(activation)) {
       return "In Process";
     } else if (now.isSame(secondDay, "day")) {
@@ -88,30 +89,35 @@ const MyStakes = () => {
   //   }
   // };
 
-  useEffect(() => {
-    const handleGetMyStakes = async () => {
-      setTableLoading(true);
-      const res = await handleGetUserStakes(activeAccount);
-      if (res && res.length) {
-        const formattedStakes = res[0].map((stake) => ({
-          date: moment.unix(stake.stake_date).utc().format("Do MMMM 'YY"), // Added .utc()
-          amount: stake.amount / Math.pow(10, krzDecimals),
-          expiry: moment.unix(stake.expiry_date).utc().format("Do MMMM 'YY"), // Added .utc()
-          status: getStatus(stake.activation_date),
-        }));
-        setMyStakes(formattedStakes);
-      }
-      setTableLoading(false);
-    };
+  const handleGetMyStakes = async () => {
+    setTableLoading(true);
+    const res = await handleGetUserStakes(activeAccount);
+    console.log('res', res)
+    if (res && res.length) {
+      const formattedStakes = res[0].map((stake) => ({
+        date: moment.unix(stake.stake_date).utc().format("Do MMMM 'YY"), // Added .utc()
+        amount: stake.amount / Math.pow(10, krzDecimals),
+        expiry: moment.unix(stake.expiry_date).utc().format("Do MMMM 'YY"), // Added .utc()
+        status: getStatus(stake.activation_date),
+      }));
+      setMyStakes(formattedStakes);
+    }
+    setTableLoading(false);
+  };
 
+  useEffect(() => {
     if (activeAccount) {
       handleGetMyStakes();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeAccount, krzBalance, krzDecimals]);
 
   const handleRestake = async (index) => {
     const res = await handleRestakeFunc(activeAccount, index);
-    console.log("res", res);
+    if (res?.hash) {
+      toast.success("🎉 KRZ Restaked to Pool", { id: "stake_success" });
+      handleGetMyStakes();
+    }
   };
 
   return (

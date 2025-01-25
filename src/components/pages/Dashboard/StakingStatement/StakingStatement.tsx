@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 import Table from "../../../common/Table/Table";
 import "./StakingStatement.scss";
 import coins from "../../../../assets/images/daily-returns-coins.png";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useKeylessAccounts } from "../../../../core/useKeylessAccounts";
 import { useAppDispatch, useAppSelector } from "../../../../utils/hooks";
 import { AppDispatch, RootState } from "../../../../redux/store";
@@ -69,7 +69,7 @@ const StakingStatement = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleGetRevenueByDate = async (timestamp) => {
       try {
-        const formattedDate = moment.utc(timestamp * 1000).format("YYYY-MM-DD");
+        const formattedDate = timestamp;
 
         const res = await dispatch(
           callApiGetMethod(
@@ -91,8 +91,8 @@ const StakingStatement = () => {
     };
 
     myDailyReturns.forEach((item) => {
-      if (item.activationDate) {
-        handleGetRevenueByDate(item.activationDate);
+      if (item.date) {
+        handleGetRevenueByDate(item.date);
       }
     });
   }, [myDailyReturns]);
@@ -109,32 +109,40 @@ const StakingStatement = () => {
           >
             {myDailyReturns.length > 0 &&
               myDailyReturns.map((item, index) => {
-                const revenueAmount = revenueData[moment.utc(item.activationDate * 1000).format("YYYY-MM-DD")];
-                const myRevenue = formatAmount(((item.amount / Math.pow(10, krzDecimals)) / (lpAmount / Math.pow(10, krzDecimals))) * revenueAmount)
+                const revenueAmount = revenueData[item.date];
+                const myRevenue = formatAmount(
+                  (item.totalStaked /
+                    Math.pow(10, krzDecimals) /
+                    (lpAmount / Math.pow(10, krzDecimals))) *
+                    revenueAmount
+                );
                 return (
                   <tr key={index}>
                     <td>
                       <span className="date">
-                        {moment
-                          .unix(item.activationDate)
-                          .utc()
-                          .format("Do MMMM 'YY")}
+                        {moment(item.date).format("Do MMMM 'YY")}
                       </span>
                     </td>
                     <td>
-                      {formatAmount(item.amount / Math.pow(10, krzDecimals))}{" "}
+                      {formatAmount(
+                        item.totalStaked / Math.pow(10, krzDecimals)
+                      )}{" "}
                     </td>
                     <td>
                       {lpAmount
                         ? formatAmount(lpAmount / Math.pow(10, krzDecimals))
                         : "-"}{" "}
                     </td>
-                    <td>
-                      {formatAmount(revenueAmount)}
-                    </td>
+                    <td>{formatAmount(revenueAmount)}</td>
 
                     <td>{myRevenue}</td>
-                    <td>{(((myRevenue / (lpAmount / Math.pow(10, krzDecimals))) * 365) * 100).toFixed(2) + '%'}</td>
+                    <td>
+                      {(
+                        (myRevenue / (lpAmount / Math.pow(10, krzDecimals))) *
+                        365 *
+                        100
+                      ).toFixed(2) + "%"}
+                    </td>
                   </tr>
                 );
               })}
