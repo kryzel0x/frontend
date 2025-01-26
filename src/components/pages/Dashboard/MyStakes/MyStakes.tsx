@@ -95,9 +95,9 @@ const MyStakes = () => {
     console.log('res', res)
     if (res && res.length) {
       const formattedStakes = res[0].map((stake) => ({
-        date: moment.unix(stake.stake_date).utc().format("Do MMMM 'YY"), // Added .utc()
+        date: moment.unix(stake.stake_date).utc().format("Do MMM 'YY"), // Added .utc()
         amount: stake.amount / Math.pow(10, krzDecimals),
-        expiry: moment.unix(stake.expiry_date).utc().format("Do MMMM 'YY"), // Added .utc()
+        expiry: moment.unix(stake.expiry_date).utc().format("Do MMM 'YY"), // Added .utc()
         status: getStatus(stake.activation_date),
       }));
       setMyStakes(formattedStakes);
@@ -134,7 +134,7 @@ const MyStakes = () => {
                     </td>
                     <td>{formatAmount(item.amount)}</td>
                     <td>{item.expiry}</td>
-                    <td className={item.status.toLowerCase()}>{item.status}</td>
+                    <td className={item.status.toLowerCase()}>{item.status == 'Restake' ? 'Active' : item.status}</td>
                     <td>
                       {item.status === "Restake" && (
                         <Button

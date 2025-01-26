@@ -110,17 +110,15 @@ const StakingStatement = () => {
             {myDailyReturns.length > 0 &&
               myDailyReturns.map((item, index) => {
                 const revenueAmount = revenueData[item.date];
-                const myRevenue = formatAmount(
-                  (item.totalStaked /
-                    Math.pow(10, krzDecimals) /
-                    (lpAmount / Math.pow(10, krzDecimals))) *
-                    revenueAmount
-                );
+                const myRevenue =
+                  (revenueAmount /
+                    (item.lpAmount / Math.pow(10, krzDecimals))) *
+                  (item.totalStaked / Math.pow(10, krzDecimals));
                 return (
                   <tr key={index}>
                     <td>
                       <span className="date">
-                        {moment(item.date).format("Do MMMM 'YY")}
+                        {moment(item.date).format("Do MMM 'YY")}
                       </span>
                     </td>
                     <td>
@@ -129,19 +127,22 @@ const StakingStatement = () => {
                       )}{" "}
                     </td>
                     <td>
-                      {lpAmount
-                        ? formatAmount(lpAmount / Math.pow(10, krzDecimals))
+                      {item.lpAmount
+                        ? formatAmount(
+                            item.lpAmount / Math.pow(10, krzDecimals)
+                          )
                         : "-"}{" "}
                     </td>
                     <td>{formatAmount(revenueAmount)}</td>
 
-                    <td>{myRevenue}</td>
+                    <td>{formatAmount(myRevenue)}</td>
                     <td>
                       {(
-                        (myRevenue / (lpAmount / Math.pow(10, krzDecimals))) *
+                        (myRevenue /
+                          (item.totalStaked / Math.pow(10, krzDecimals))) *
                         365 *
                         100
-                      ).toFixed(2) + "%"}
+                      ).toFixed(0) + "%"}
                     </td>
                   </tr>
                 );
