@@ -27,5 +27,6 @@ export enum APIURL {
     GETCREDITSCORELIST = "/user/get-credit-score-list",
     GETDAILYSTAKES = "/user/stakes/get-daily-returns",
     GETLPAMOUNT = "/user/stakes/get-lp-amount",
-    GETREVENUE = "/admin/api/v1/record/revenue"
+    GETREVENUE = "/admin/api/v1/record/revenue",
+    GETALLDAILYSTAKES = "/user/stakes/get-all-daily-returns",
 }

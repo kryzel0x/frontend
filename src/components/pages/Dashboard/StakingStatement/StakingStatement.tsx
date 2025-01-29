@@ -40,6 +40,7 @@ const StakingStatement = () => {
       const res: any = await dispatch(
         callApiGetMethod(APIURL.GETDAILYSTAKES, {}, false, false)
       );
+      console.log('res', res);
       if (res && !res.error) {
         setMyDailyReturns(res?.result);
         setTableLoading(false);
@@ -70,6 +71,7 @@ const StakingStatement = () => {
     const handleGetRevenueByDate = async (timestamp) => {
       try {
         const formattedDate = timestamp;
+        console.log('formattedDate', formattedDate)
 
         const res = await dispatch(
           callApiGetMethod(
@@ -92,6 +94,7 @@ const StakingStatement = () => {
 
     myDailyReturns.forEach((item) => {
       if (item.date) {
+        console.log('item.date', item.date);
         handleGetRevenueByDate(item.date);
       }
     });
