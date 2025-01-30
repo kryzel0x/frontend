@@ -35,9 +35,11 @@ import Error from "../../common/form/Error/Error";
 import Spinner from "../../common/Spinner/Spinner";
 import {
   formatAmount,
+  formatType,
   truncateToTwoDecimals,
 } from "../../../services/common.service";
 import Poweredby from "../Homepage/PoweredBy/PoweredBy";
+import moment from "moment";
 
 const Profile = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -51,10 +53,14 @@ const Profile = () => {
   const aptBalance = useAppSelector(
     (state: RootState) => state.user.aptBalance
   );
+  const krzDecimals = useAppSelector(
+    (state: RootState) => state.user.krzDecimals
+  );
   const [file] = useState(profile);
   const options = useMemo(() => countryList().getData(), []);
   const [show, setShow] = useState(false);
   const [referralData, setReferralData] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [initialValues, setInitialValues] = useState({
     twitter: "",
     telegram: "",
@@ -71,6 +77,8 @@ const Profile = () => {
     toast.success("Address copied", { id: "address" });
   };
 
+  const [tableLoading, setTableLoading] = useState(false);
+
   // const sexOption = [
   //     { value: "male", label: "Male" },
   //     { value: "female", label: "Female" },
@@ -85,7 +93,9 @@ const Profile = () => {
     initialValues: initialValues,
     enableReinitialize: true, // Ensures the form resets when initialValues change
     validationSchema: Yup.object({
-      name: Yup.string().required("Username is required").min(3, "Name should be atleast 3 characters"),
+      name: Yup.string()
+        .required("Username is required")
+        .min(3, "Name should be atleast 3 characters"),
       twitter: Yup.string()
         .notRequired() // Makes the field optional
         .matches(
@@ -183,6 +193,13 @@ const Profile = () => {
     { name: "Accepted" },
   ];
 
+  const txFields = [
+    { name: "Date" },
+    { name: "Tx Hash" },
+    { name: "Type" },
+    { name: "Amount" },
+  ];
+
   const [imageSrc, setImageSrc] = useState("");
 
   useEffect(() => {
@@ -193,6 +210,22 @@ const Profile = () => {
   const handleImageError = () => {
     setImageSrc(userDetails?.profileImage?.split("=")[0]);
   };
+
+  useEffect(() => {
+    const handleGetTransactions = async () => {
+      setTableLoading(true);
+      const res: any = await dispatch(
+        callApiGetMethod(APIURL.GETTRANSACTIONS, {}, false, false)
+      );
+      if (res && !res.error) {
+        setTransactions(res?.data);
+        setTableLoading(false);
+      } else {
+        setTableLoading(false);
+      }
+    };
+    handleGetTransactions();
+  }, [dispatch]);
 
   return (
     <>
@@ -206,6 +239,9 @@ const Profile = () => {
               <Nav.Link eventKey="referral" className="referral">
                 {"Referral"}
                 {/* <ReferralIcon /> */}
+              </Nav.Link>
+              <Nav.Link eventKey="transactions" className="referral">
+                {"Transactions"}
               </Nav.Link>
             </Nav>
             <Tab.Content>
@@ -307,59 +343,6 @@ const Profile = () => {
                           />
                         </Col>
                       </Row>
-                      {/* <Input
-                                label="Age:"
-                                name="age"
-                                type="number"
-                                value={formik.values.age}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.age && formik.errors.age}
-                                className="margin_input"
-                            />
-                            <div className="custom_phone margin_input">
-                                <Label>Mobile Number:</Label>
-                                <PhoneInput
-                                    country={"us"}
-                                    value={formik.values.phoneNumber}
-                                    onChange={(value) =>
-                                        formik.setFieldValue("phoneNumber", value)
-                                    }
-                                />
-                                {formik.errors.phoneNumber && (
-                                    <Error>{formik.errors.phoneNumber}</Error>
-                                )}
-                            </div>
-                            <div className="custom_select margin_input">
-                                <Label>Country:</Label>
-                                <ReactSelect
-                                    classNamePrefix="select"
-                                    options={options}
-                                    value={options.find(
-                                        (opt) => opt.value === formik.values.country
-                                    )}
-                                    onChange={(option: any) =>
-                                        formik.setFieldValue("country", option.value)
-                                    }
-                                />
-                                {formik.errors.country && (
-                                    <Error>{formik.errors.country}</Error>
-                                )}
-                            </div>
-                            <div className="custom_select margin_input">
-                                <Label>Sex:</Label>
-                                <ReactSelect
-                                    classNamePrefix="select"
-                                    options={sexOption}
-                                    value={sexOption.find(
-                                        (opt) => opt.value === formik.values.sex
-                                    )}
-                                    onChange={(option: any) =>
-                                        formik.setFieldValue("sex", option.value)
-                                    }
-                                />
-                                {formik.errors.sex && <Error>{formik.errors.sex}</Error>}
-                            </div> */}
                       <Button className="dark_btn submit_btn" type="submit">
                         <span>Update Info</span>
                       </Button>
@@ -421,6 +404,53 @@ const Profile = () => {
                               </span>
                             </td>
                             <td>{item.isAccepted ? "Accepted" : "Not Yet"}</td>
+                          </tr>
+                        );
+                      })}
+                  </Table>
+                </div>
+              </Tab.Pane>
+              <Tab.Pane eventKey="transactions">
+                <div className="profile_box referral_box">
+                  <Table
+                    title="Transactions History"
+                    fields={txFields}
+                    className="tx"
+                    loading={tableLoading}
+                  >
+                    {transactions.length > 0 &&
+                      transactions.map((item: any, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>
+                              <span>
+                                {moment(item?.createdAt).format("Do MMM 'YY")}
+                              </span>
+                            </td>
+                            <td>
+                              {collapseAddress(item?.transactionHash)}
+                              {item?.transactionHash && (
+                                <button
+                                  onClick={() => copy(item?.transactionHash)}
+                                  type="button"
+                                  className="tx-copy"
+                                >
+                                  <EditIcon />
+                                </button>
+                              )}
+                            </td>
+                            <td>
+                              {formatType(item?.type == 'return' ? 'Revenue' : item?.type)}
+                            </td>
+                            <td>
+                              {formatAmount((item?.amount))}
+                            </td>
+                            {/* <td>
+                              <span>
+                                {new Date(item?.createdAt).toDateString()}
+                              </span>
+                            </td>
+                            <td>{item.isAccepted ? "Accepted" : "Not Yet"}</td> */}
                           </tr>
                         );
                       })}

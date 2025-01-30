@@ -56,8 +56,6 @@ const RevenuePool = () => {
     { name: "APY" },
   ];
 
-  console.log("dailyReturns", dailyReturns);
-
   return (
     <section className="revenue_pool_sec">
       <Container>

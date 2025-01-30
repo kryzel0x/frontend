@@ -15,8 +15,8 @@ export const SOCIAL_MEDIA = {
     TELEGRAM: "https://t.me/KryzelCommunity",
 }
 
-export const BASE_URL = "https://api-backend.kryzel.io";
-// export const BASE_URL = "http://localhost:4000";
+// export const BASE_URL = "https://api-backend.kryzel.io";
+export const BASE_URL = "http://localhost:4000";
 
 export enum APIURL {
     LOGIN = "login",
@@ -29,4 +29,5 @@ export enum APIURL {
     GETLPAMOUNT = "/user/stakes/get-lp-amount",
     GETREVENUE = "/admin/api/v1/record/revenue",
     GETALLDAILYSTAKES = "/user/stakes/get-all-daily-returns",
+    GETTRANSACTIONS = "/user/transactions",
 }

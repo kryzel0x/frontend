@@ -40,7 +40,6 @@ const StakingStatement = () => {
       const res: any = await dispatch(
         callApiGetMethod(APIURL.GETDAILYSTAKES, {}, false, false)
       );
-      console.log('res', res);
       if (res && !res.error) {
         setMyDailyReturns(res?.result);
         setTableLoading(false);

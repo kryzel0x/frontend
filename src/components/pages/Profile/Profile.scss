@@ -506,7 +506,7 @@
 
         .referral {
             color: #fff !important;
-            padding: 0px 70px;
+            padding: 0px 80px;
             font-size: 20px;
         }
     }
@@ -710,7 +710,9 @@
 
                                 svg {
                                     height: auto;
-                                    path, rect {
+
+                                    path,
+                                    rect {
                                         fill: $secondaryclr;
                                     }
                                 }
@@ -900,4 +902,14 @@
             }
         }
     }
+}
+
+.profile_sec .referral_box .custom_table.tx {
+    margin-top: 0px !important;
+}
+
+.tx-copy {
+    background: transparent;
+    border: none;
+    width: 25px;
 }
