@@ -15,6 +15,7 @@ const RevenuePool = () => {
 
   const [dailyReturns, setDailyReturns] = useState([]);
   const [tableLoading, setTableLoading] = useState(false);
+  const [lpAmount, setLpAmount] = useState(0)
 
   const krzDecimals = useAppSelector(
     (state: RootState) => state.user.krzDecimals
@@ -34,7 +35,16 @@ const RevenuePool = () => {
         setTableLoading(false);
       }
     };
+    const handleGetSumOfLpAmount = async () => {
+      const res: any = await dispatch(
+        callApiGetMethod(APIURL.SUMLPAMOUNT, {}, false, false)
+      );
+      if (res && !res.error) {
+        setLpAmount(res?.data);
+      }
+    }
     handleGetDailyReturn();
+    handleGetSumOfLpAmount();
   }, [dispatch]);
 
   const fields = [
@@ -64,7 +74,7 @@ const RevenuePool = () => {
         </div>
         <div className="revenue_details">
           <h3>
-            <span>{formatAmount(37680595487)}</span>
+            <span>{formatAmount(lpAmount)}</span>
             <>KRZ</>
           </h3>
           <p>Total $KRZ Staked</p>

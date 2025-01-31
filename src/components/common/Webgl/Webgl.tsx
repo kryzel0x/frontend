@@ -8,6 +8,8 @@ const WebGLViewer = () => {
           height: '1100px',
           border: 'none',
           maxWidth: "100%",
+          display: "flex",
+          margin: '100px auto 0px',
         }}
         title="WebGL Viewer"
       />
