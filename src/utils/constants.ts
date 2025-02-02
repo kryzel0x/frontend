@@ -30,5 +30,5 @@ export enum APIURL {
     GETREVENUE = "/admin/api/v1/record/revenue",
     GETALLDAILYSTAKES = "/user/stakes/get-all-daily-returns",
     GETTRANSACTIONS = "/user/transactions",
-    SUMLPAMOUNT = "/user/sum-lp-amount",
+    SUMLPAMOUNT = "/user/stakes/sum-lp-amount",
 }
