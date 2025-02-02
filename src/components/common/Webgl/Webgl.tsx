@@ -1,8 +1,12 @@
+import { RootState } from "../../../redux/store";
+import { useAppSelector } from "../../../utils/hooks";
+
 const WebGLViewer = () => {
+   const token = useAppSelector((state: RootState) => state.user.token);
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <iframe
-        src="/webgl/index.html"
+        src={`/webgl/index.html?token` + token}
         style={{
           width: '90%',
           height: '1100px',

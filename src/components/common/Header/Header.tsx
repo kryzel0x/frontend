@@ -152,9 +152,19 @@ const Header = () => {
                     <li>
                       <NavLink to={ROUTES.LEADERBOARDS}>Leaderboard</NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                       <NavLink to={ROUTES.GAME}>Game</NavLink>
-                    </li>
+                    </li> */}
+                    <li>
+                        <NavLink
+                          onClick={() => ref.current?.click()}
+                          to={`${ROUTES.GAME}?token=${encodeURIComponent(
+                            isLogin
+                          )}`}
+                        >
+                          Game
+                        </NavLink>
+                      </li>
                   </ul>
                 </div>
                 <div className="balance_txt">
@@ -216,7 +226,9 @@ const Header = () => {
                       <li>
                         <NavLink
                           onClick={() => ref.current?.click()}
-                          to={ROUTES.GAME}
+                          to={`${ROUTES.GAME}?token=${encodeURIComponent(
+                            isLogin
+                          )}`}
                         >
                           Game
                         </NavLink>
