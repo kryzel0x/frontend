@@ -27,7 +27,6 @@ const RevenuePool = () => {
       const res: any = await dispatch(
         callApiGetMethod(APIURL.GETALLDAILYSTAKES, {}, false, false)
       );
-      console.log("res", res);
       if (res && !res.error) {
         setDailyReturns(res?.result);
         setTableLoading(false);
@@ -95,21 +94,19 @@ const RevenuePool = () => {
                     </span>
                   </td>
                   <td>
-                    {formatAmount(item.totalLpAmount / Math.pow(10, krzDecimals))}
+                    {formatAmount(item.totalStaked / Math.pow(10, krzDecimals))}
                   </td>
                   <td>
-                    {item.returnAmount % 1 !== 0
-                      ? Number(item.returnAmount).toFixed(2)
-                      : item.returnAmount}
+                    {item.totalRevenue}
                   </td>
 
                   <td>
-                    {(
-                      (item.returnAmount /
+                    {item.totalStaked && (
+                      (item.totalRevenue /
                         (item.totalStaked / Math.pow(10, krzDecimals))) *
                       365 *
                       100
-                    ).toFixed(0) + "%"}
+                    ).toFixed(0)}%
                   </td>
                 </tr>
               );
