@@ -6,10 +6,10 @@ const WebGLViewer = () => {
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <iframe
-        src={`/webgl/index.html?token` + token}
+        src={`/webgl/index.html?token=` + token}
         style={{
           width: '90%',
-          height: '1100px',
+          height: '1000px',
           border: 'none',
           maxWidth: "100%",
           display: "flex",

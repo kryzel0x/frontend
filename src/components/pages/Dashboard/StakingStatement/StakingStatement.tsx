@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useKeylessAccounts } from "../../../../core/useKeylessAccounts";
 import { useAppDispatch, useAppSelector } from "../../../../utils/hooks";
 import { AppDispatch, RootState } from "../../../../redux/store";
-import { formatAmount } from "../../../../services/common.service";
+import { formatAmount, toSentenceCase } from "../../../../services/common.service";
 import { callApiGetMethod } from "../../../../redux/Actions/api.action";
 import { APIURL } from "../../../../utils/constants";
 import moment from "moment";
@@ -14,11 +14,12 @@ import moment from "moment";
 const StakingStatement = () => {
   const fields = [
     { name: <>Date</> },
-    { name: <>Amount Staked (in KRZ)</> },
+    { name: <>Amount Staked (KRZ)</> },
     { name: <>Liquidity Pool</> },
     { name: <>Total Revenue</> },
     { name: <>My Revenue</> },
     { name: <>APY</> },
+    { name: <>Credit</> },
   ];
 
   const dispatch: AppDispatch = useAppDispatch();
@@ -27,7 +28,6 @@ const StakingStatement = () => {
 
   const [myDailyReturns, setMyDailyReturns] = useState([]);
   const [tableLoading, setTableLoading] = useState(false);
-  const [lpAmount, setLpAmount] = useState(0);
   const [revenueData, setRevenueData] = useState({});
 
   const krzDecimals = useAppSelector(
@@ -47,21 +47,8 @@ const StakingStatement = () => {
         setTableLoading(false);
       }
     };
-
-    const handleGetLpAmount = async () => {
-      const res: any = await dispatch(
-        callApiGetMethod(APIURL.GETLPAMOUNT, {}, false, false)
-      );
-      if (res && !res.error) {
-        setLpAmount(res?.result?.totalAmount);
-        setTableLoading(false);
-      } else {
-        setTableLoading(false);
-      }
-    };
     if (activeAccount) {
       handleGetDailyReturn();
-      handleGetLpAmount();
     }
   }, [activeAccount]);
 
@@ -145,6 +132,9 @@ const StakingStatement = () => {
                         365 *
                         100
                       ).toFixed(0) + "%"}
+                    </td>
+                    <td>
+                      {toSentenceCase(item.paymentStatus)}
                     </td>
                   </tr>
                 );
