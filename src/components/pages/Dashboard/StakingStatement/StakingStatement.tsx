@@ -124,7 +124,7 @@ const StakingStatement = () => {
                     </td>
                     <td>{formatAmount(revenueAmount)}</td>
 
-                    <td>{formatAmount(myRevenue)}</td>
+                    <td>{formatAmount(item.returnAmount)}</td>
                     <td>
                       {(
                         (myRevenue /
