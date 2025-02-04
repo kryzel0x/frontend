@@ -38,6 +38,10 @@ const Poweredby = ({ showIcon }: { showIcon?: boolean }) => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email("Invalid email address")
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+          "Only Gmail addresses are allowed"
+        )
         .required("Email address is required"),
     }),
     onSubmit: async ({ email }) => {
@@ -50,13 +54,13 @@ const Poweredby = ({ showIcon }: { showIcon?: boolean }) => {
         if (response.data.statusCode === 200) {
           setTimeout(() => {
             setLoading(false);
-            toast.success("Thanks for subscribing our newsletter!")
+            toast.success("Thanks for subscribing our newsletter!");
             formik.resetForm();
             // window.open(SOCIAL_MEDIA.TELEGRAM, "_blank")
             // setSubmitted(true);
           }, 1000);
         }
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error: unknown) {
         setLoading(false);
       }
@@ -86,9 +90,7 @@ const Poweredby = ({ showIcon }: { showIcon?: boolean }) => {
       <section className="join_sec">
         <Container>
           <h3>Join Our Newsletter</h3>
-          <form
-            onSubmit={formik.handleSubmit}
-          >
+          <form onSubmit={formik.handleSubmit}>
             <div className="email_input">
               <input
                 type="email"
