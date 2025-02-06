@@ -24,7 +24,6 @@ import { clsx, UserDetails } from "../../../utils/utils";
 import Button from "../Button/Button";
 import Login from "../modals/Login/Login";
 import "./Header.scss";
-import { handleGetUserStakes } from "../../../services/aptos.service";
 import { formatAmount } from "../../../services/common.service";
 import CongratulationsModal from "../modals/CongratulationsModal/CongratulationsModal";
 
@@ -149,10 +148,10 @@ const Header = () => {
       }
     };
 
-    if (!userDetails?.walletAddress && activeAccount) {
+    if (isLogin && !userDetails?.walletAddress && activeAccount) {
       handleUpdateWalletAddress();
     }
-  }, [activeAccount, dispatch, userDetails]);
+  }, [activeAccount, dispatch, userDetails, isLogin]);
 
   return (
     <>
