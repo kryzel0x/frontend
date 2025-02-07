@@ -227,7 +227,7 @@ const Profile = () => {
         )
       );
       if (res && !res.error) {
-        setTransactions(res?.data);
+        setTransactions(res?.result);
         setTotalPages(res?.totalPages || 1);
         setTableLoading(false);
       } else {
@@ -235,7 +235,7 @@ const Profile = () => {
       }
     };
     handleGetTransactions();
-  }, [dispatch]);
+  }, [currentPage, dispatch]);
 
   return (
     <>
