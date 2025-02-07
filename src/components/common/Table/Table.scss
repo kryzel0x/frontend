@@ -223,5 +223,68 @@
                 }
             }
         }
+
+        tfoot {
+            tr {
+
+                td {
+                    padding-bottom: 2rem;
+
+                    ul {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        li {
+
+                            &:first-child,
+                            &:last-child {
+                                a {
+                                    border: 2px solid rgba($white, 0.5);
+                                    background-color: transparent;
+                                    color: rgba($white, 0.5);
+                                    transition: 300ms ease-in-out;
+
+                                    &:hover {
+                                        border-color: $white;
+                                        color: $white;
+                                    }
+                                }
+                            }
+
+                            &:not(:last-child) {
+                                margin-right: 1rem;
+                            }
+
+                            a {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 3.4rem;
+                                height: 3.4rem;
+                                border-radius: 0.8rem;
+                                background-color: transparent;
+                                border: none;
+                                outline: none;
+                                color: $white;
+
+
+                                &:hover {
+                                    color: $white;
+                                }
+                            }
+
+                            &.selected,
+                            &.active {
+                                a {
+                                    background: linear-gradient(180deg, #1FECFF 0%, #009DFF 100%);
+                                    color: $black;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

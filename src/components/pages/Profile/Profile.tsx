@@ -56,6 +56,10 @@ const Profile = () => {
   const krzDecimals = useAppSelector(
     (state: RootState) => state.user.krzDecimals
   );
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
+
   const [file] = useState(profile);
   const options = useMemo(() => countryList().getData(), []);
   const [show, setShow] = useState(false);
@@ -215,10 +219,16 @@ const Profile = () => {
     const handleGetTransactions = async () => {
       setTableLoading(true);
       const res: any = await dispatch(
-        callApiGetMethod(APIURL.GETTRANSACTIONS, {}, false, false)
+        callApiGetMethod(
+          APIURL.GETTRANSACTIONS,
+          { page: currentPage + 1, limit: 10 },
+          false,
+          false
+        )
       );
       if (res && !res.error) {
         setTransactions(res?.data);
+        setTotalPages(res?.totalPages || 1);
         setTableLoading(false);
       } else {
         setTableLoading(false);
@@ -417,6 +427,10 @@ const Profile = () => {
                     fields={txFields}
                     className="tx"
                     loading={tableLoading}
+                    pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={({ selected }) => setCurrentPage(selected)}
                   >
                     {transactions.length > 0 &&
                       transactions.map((item: any, index) => {
@@ -440,11 +454,11 @@ const Profile = () => {
                               )}
                             </td>
                             <td>
-                              {formatType(item?.type == 'return' ? 'Revenue' : item?.type)}
+                              {formatType(
+                                item?.type == "return" ? "Revenue" : item?.type
+                              )}
                             </td>
-                            <td>
-                              {formatAmount((item?.amount))}
-                            </td>
+                            <td>{formatAmount(item?.amount)}</td>
                             {/* <td>
                               <span>
                                 {new Date(item?.createdAt).toDateString()}

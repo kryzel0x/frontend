@@ -502,12 +502,30 @@
                 border-bottom-color: $layout_bg;
                 background: radial-gradient(100% 100% at 41.7% 34.47%, rgba($layout_bg, 1) 0%, rgba($layout_bg, 1) 53%) padding-box, linear-gradient(180deg, #1FECFF 1.08%, #009DFF 100%) border-box;
             }
+
+            &:not(:first-child) {
+                border-radius: 2rem 2rem 0 0;
+            }
+
+            @media (max-width: 419px) {
+                &:nth-child(2) {
+                    padding: 0 4rem;
+                }
+
+                &:last-child {
+                    padding: 0 5.4rem;
+                }
+            }
         }
 
         .referral {
             color: #fff !important;
             padding: 0px 80px;
             font-size: 20px;
+
+            @media (max-width: 419px) {
+                font-size: 1.2rem;
+            }
         }
     }
 

@@ -6,7 +6,10 @@ import { useEffect, useState } from "react";
 import { useKeylessAccounts } from "../../../../core/useKeylessAccounts";
 import { useAppDispatch, useAppSelector } from "../../../../utils/hooks";
 import { AppDispatch, RootState } from "../../../../redux/store";
-import { formatAmount, toSentenceCase } from "../../../../services/common.service";
+import {
+  formatAmount,
+  toSentenceCase,
+} from "../../../../services/common.service";
 import { callApiGetMethod } from "../../../../redux/Actions/api.action";
 import { APIURL } from "../../../../utils/constants";
 import moment from "moment";
@@ -29,6 +32,8 @@ const StakingStatement = () => {
   const [myDailyReturns, setMyDailyReturns] = useState([]);
   const [tableLoading, setTableLoading] = useState(false);
   const [revenueData, setRevenueData] = useState({});
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   const krzDecimals = useAppSelector(
     (state: RootState) => state.user.krzDecimals
@@ -38,10 +43,16 @@ const StakingStatement = () => {
     const handleGetDailyReturn = async () => {
       setTableLoading(true);
       const res: any = await dispatch(
-        callApiGetMethod(APIURL.GETDAILYSTAKES, {}, false, false)
+        callApiGetMethod(
+          APIURL.GETDAILYSTAKES,
+          { page: currentPage + 1, limit: 10 },
+          false,
+          false
+        )
       );
       if (res && !res.error) {
         setMyDailyReturns(res?.result);
+        setTotalPages(res?.totalPages || 1);
         setTableLoading(false);
       } else {
         setTableLoading(false);
@@ -50,14 +61,14 @@ const StakingStatement = () => {
     if (activeAccount) {
       handleGetDailyReturn();
     }
-  }, [activeAccount]);
+  }, [activeAccount, currentPage, dispatch]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const handleGetRevenueByDate = async (timestamp) => {
       try {
         const formattedDate = timestamp;
-        console.log('formattedDate', formattedDate)
+        console.log("formattedDate", formattedDate);
 
         const res = await dispatch(
           callApiGetMethod(
@@ -80,7 +91,7 @@ const StakingStatement = () => {
 
     myDailyReturns.forEach((item) => {
       if (item.date) {
-        console.log('item.date', item.date);
+        console.log("item.date", item.date);
         handleGetRevenueByDate(item.date);
       }
     });
@@ -95,6 +106,10 @@ const StakingStatement = () => {
             title="Your Daily Returns"
             fields={fields}
             loading={tableLoading}
+            pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={({ selected }) => setCurrentPage(selected)}
           >
             {myDailyReturns.length > 0 &&
               myDailyReturns.map((item, index) => {
@@ -133,9 +148,7 @@ const StakingStatement = () => {
                         100
                       ).toFixed(0) + "%"}
                     </td>
-                    <td>
-                      {toSentenceCase(item.paymentStatus)}
-                    </td>
+                    <td>{toSentenceCase(item.paymentStatus)}</td>
                   </tr>
                 );
               })}

@@ -12,10 +12,11 @@ import moment from "moment";
 
 const RevenuePool = () => {
   const dispatch: AppDispatch = useAppDispatch();
-
   const [dailyReturns, setDailyReturns] = useState([]);
   const [tableLoading, setTableLoading] = useState(false);
-  const [lpAmount, setLpAmount] = useState(0)
+  const [lpAmount, setLpAmount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   const krzDecimals = useAppSelector(
     (state: RootState) => state.user.krzDecimals
@@ -25,15 +26,20 @@ const RevenuePool = () => {
     const handleGetDailyReturn = async () => {
       setTableLoading(true);
       const res: any = await dispatch(
-        callApiGetMethod(APIURL.GETALLDAILYSTAKES, {}, false, false)
+        callApiGetMethod(
+          APIURL.GETALLDAILYSTAKES,
+          { page: currentPage + 1, limit: 10 },
+          false,
+          false
+        )
       );
       if (res && !res.error) {
         setDailyReturns(res?.result);
-        setTableLoading(false);
-      } else {
-        setTableLoading(false);
+        setTotalPages(res?.totalPages || 1);
       }
+      setTableLoading(false);
     };
+
     const handleGetSumOfLpAmount = async () => {
       const res: any = await dispatch(
         callApiGetMethod(APIURL.SUMLPAMOUNT, {}, false, false)
@@ -41,10 +47,11 @@ const RevenuePool = () => {
       if (res && !res.error) {
         setLpAmount(res?.data);
       }
-    }
+    };
+
     handleGetDailyReturn();
     handleGetSumOfLpAmount();
-  }, [dispatch]);
+  }, [dispatch, currentPage]);
 
   const fields = [
     { name: "Date" },
@@ -69,7 +76,7 @@ const RevenuePool = () => {
     <section className="revenue_pool_sec">
       <Container>
         <div className="revenue_pool_box">
-          <img src={logo} alt="" />
+          <img src={logo} alt="KRZ Logo" />
         </div>
         <div className="revenue_details">
           <h3>
@@ -83,34 +90,45 @@ const RevenuePool = () => {
             $KRZ Staked in Liquidity Pools
           </h2>
         </div>
-        <Table fields={fields} loading={tableLoading}>
-          {dailyReturns.length > 0 &&
-            dailyReturns.map((item: any, index) => {
-              return (
-                <tr key={index}>
-                  <td>
-                    <span className="date">
-                      {moment(item.date).format("Do MMM 'YY")}
-                    </span>
-                  </td>
-                  <td>
-                    {formatAmount(item.totalStaked / Math.pow(10, krzDecimals))}
-                  </td>
-                  <td>
-                    {item.totalRevenue}
-                  </td>
-
-                  <td>
-                    {item.totalStaked && (
+        <Table
+          fields={fields}
+          loading={tableLoading}
+          pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={({ selected }) => setCurrentPage(selected)}
+        >
+          {dailyReturns.length > 0 ? (
+            dailyReturns.map((item: any, index) => (
+              <tr key={index}>
+                <td>
+                  <span className="date">
+                    {moment(item.date).format("Do MMM 'YY")}
+                  </span>
+                </td>
+                <td>
+                  {formatAmount(item.totalStaked / Math.pow(10, krzDecimals))}
+                </td>
+                <td>{item.totalRevenue}</td>
+                <td>
+                  {item.totalStaked &&
+                    (
                       (item.totalRevenue /
                         (item.totalStaked / Math.pow(10, krzDecimals))) *
                       365 *
                       100
-                    ).toFixed(0)}%
-                  </td>
-                </tr>
-              );
-            })}
+                    ).toFixed(0)}
+                  %
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={fields.length} className="text-center">
+                No Data Available
+              </td>
+            </tr>
+          )}
         </Table>
       </Container>
     </section>
