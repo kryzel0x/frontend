@@ -31,7 +31,6 @@ const StakingStatement = () => {
 
   const [myDailyReturns, setMyDailyReturns] = useState([]);
   const [tableLoading, setTableLoading] = useState(false);
-  const [revenueData, setRevenueData] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -63,39 +62,39 @@ const StakingStatement = () => {
     }
   }, [activeAccount, currentPage, dispatch]);
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const handleGetRevenueByDate = async (timestamp) => {
-      try {
-        const formattedDate = timestamp;
-        console.log("formattedDate", formattedDate);
+//   useEffect(() => {
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//     const handleGetRevenueByDate = async (timestamp) => {
+//       try {
+//         const formattedDate = timestamp;
+//         console.log("formattedDate", formattedDate);
 
-        const res = await dispatch(
-          callApiGetMethod(
-            APIURL.GETREVENUE,
-            { date: formattedDate },
-            false,
-            false
-          )
-        );
-        if (res && !res.error) {
-          setRevenueData((prevData) => ({
-            ...prevData,
-            [formattedDate]: res?.data?.amount,
-          }));
-        }
-      } catch (error) {
-        console.error("Error fetching revenue data:", error);
-      }
-    };
+//         const res = await dispatch(
+//           callApiGetMethod(
+//             APIURL.GETREVENUE,
+//             { date: formattedDate },
+//             false,
+//             false
+//           )
+//         );
+//         if (res && !res.error) {
+//           setRevenueData((prevData) => ({
+//             ...prevData,
+//             [formattedDate]: res?.data?.amount,
+//           }));
+//         }
+//       } catch (error) {
+//         console.error("Error fetching revenue data:", error);
+//       }
+//     };
 
-    myDailyReturns.forEach((item) => {
-      if (item.date) {
-        console.log("item.date", item.date);
-        handleGetRevenueByDate(item.date);
-      }
-    });
-  }, [myDailyReturns]);
+//     myDailyReturns.forEach((item) => {
+//       if (item.date) {
+//         console.log("item.date", item.date);
+//         handleGetRevenueByDate(item.date);
+//       }
+//     });
+//   }, [myDailyReturns]);
 
   return (
     <section className="staking_statements">
@@ -113,9 +112,8 @@ const StakingStatement = () => {
           >
             {myDailyReturns.length > 0 &&
               myDailyReturns.map((item, index) => {
-                const revenueAmount = revenueData[item.date];
                 const myRevenue =
-                  (revenueAmount /
+                  (item.totalRevenue /
                     (item.lpAmount / Math.pow(10, krzDecimals))) *
                   (item.totalStaked / Math.pow(10, krzDecimals));
                 return (
@@ -137,7 +135,8 @@ const StakingStatement = () => {
                           )
                         : "-"}{" "}
                     </td>
-                    <td>{formatAmount(revenueAmount)}</td>
+                    {/* <td>{formatAmount(revenueAmount)}</td> */}
+                    <td>{formatAmount(item.totalRevenue)}</td>
 
                     <td>{formatAmount(item.returnAmount)}</td>
                     <td>
