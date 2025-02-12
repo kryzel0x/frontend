@@ -38,10 +38,6 @@ const Poweredby = ({ showIcon }: { showIcon?: boolean }) => {
     validationSchema: Yup.object({
       email: Yup.string()
         .email("Invalid email address")
-        .matches(
-          /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
-          "Only Gmail addresses are allowed"
-        )
         .required("Email address is required"),
     }),
     onSubmit: async ({ email }) => {
