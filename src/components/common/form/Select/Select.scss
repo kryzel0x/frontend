@@ -1,0 +1,34 @@
+@import "../../../../assets/theme/_var.scss";
+
+.small_selector {
+    .select__control {
+        background-color: transparent;
+        font-size: 1.4rem;
+        width: 10rem;
+        height: 3.4rem;
+        padding: 0 1rem;
+
+        .select__single-value {
+            text-align: left;
+        }
+
+        .select__value-container {
+            padding: 0;
+        }
+
+        .select__indicators {
+            .select__indicator {
+                width: 1.4rem;
+                height: 0.7rem;
+                background-image: url("../../../../assets/icons/down-arrow-2.svg") ;
+            }
+        }
+    }
+
+    .select__menu {
+        .select__option {
+            padding: 0.4rem 0.8rem;
+            font-size: 1.4rem;
+        }
+    }
+}

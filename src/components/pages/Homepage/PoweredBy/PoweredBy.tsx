@@ -69,7 +69,7 @@ const Poweredby = ({ showIcon }: { showIcon?: boolean }) => {
         <Container>
           <h3>Powered By</h3>
           <img className="aptos" src={aptos} alt="aptos" />
-          <h4>Partners</h4>
+          {/* <h4>Partners</h4>
           <div className="partners">
             <div>
               <img src={quillaudits} alt="quillaudits" />
@@ -80,7 +80,7 @@ const Poweredby = ({ showIcon }: { showIcon?: boolean }) => {
             <div>
               <img src={coinband} alt="coinband" />
             </div>
-          </div>
+          </div> */}
         </Container>
       </section>
       <section className="join_sec">

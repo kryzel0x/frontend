@@ -54,7 +54,7 @@
                 }
 
                 &:not(:last-child) {
-                    margin-right: 1.1rem;
+                    margin-right: 1.2rem;
                 }
 
                 &::before {
@@ -95,22 +95,65 @@
                 .graph_box_header {
                     display: flex;
                     align-items: center;
-                    justify-content: space-between;
                     margin-bottom: 6rem;
+
+                    @media (max-width: 991px) {
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+
+                        .custom_select,
+                        .position-relative {
+                            width: calc(50% - 1rem);
+
+                            .select__control {
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                    @media (max-width: 519px) {
+
+                        .custom_select,
+                        .position-relative {
+                            width: 100%;
+
+                            .react-datepicker-wrapper {
+                                width: 100%;
+
+                                input {
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        .position-relative {
+                            margin-bottom: 1.5rem;
+                        }
+                    }
 
                     h3 {
                         font-size: 1.7rem;
                         font-weight: 700;
                         line-height: 1.9rem;
+
+                        @media (max-width: 991px) {
+                            width: 100%;
+                        }
+
                     }
 
                     p {
+                        margin-left: auto;
                         display: flex;
                         align-items: center;
                         font-weight: 400;
                         font-size: 2.9rem;
                         font-family: $secondaryfont;
                         line-height: 1;
+
+                        @media (max-width: 767px) {
+                            width: 100%;
+                        }
 
                         img {
                             flex-shrink: 0;
