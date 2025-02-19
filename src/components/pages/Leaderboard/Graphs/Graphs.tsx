@@ -71,6 +71,7 @@ const Graphs = () => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchGraphData = async () => {
     if (!startDate || !endDate) return;
 
@@ -97,7 +98,7 @@ const Graphs = () => {
     if (startDate && endDate) {
       fetchGraphData();
     }
-  }, [startDate, endDate, timeFilter, activeTab]);
+  }, [startDate, endDate, timeFilter, activeTab, fetchGraphData]);
 
   const getGradientColors = (tab: ReportFilter) => {
     switch (tab) {
@@ -108,17 +109,17 @@ const Graphs = () => {
         };
       case "liquidity_staking":
         return {
-          colors: ["#ff00ff"],
+          colors: ["#00c8ff"],
           ids: ["purpleGradient"],
         };
       case "crash_game":
         return {
-          colors: ["#00ffc8"],
+          colors: ["#7c4dff"],
           ids: ["cyanGreenGradient"],
         };
       case "off_chain_activities":
         return {
-          colors: ["#F5EB67"],
+          colors: ["#00ff99"],
           ids: ["yellowGradient"],
         };
     }
