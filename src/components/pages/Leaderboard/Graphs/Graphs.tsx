@@ -36,17 +36,17 @@ const Graphs = () => {
     const today = new Date();
     return new Date(today.getFullYear(), today.getMonth(), 1);
   };
-  const [startDate, setStartDate] = useState<Date>(getFirstDayOfMonth());
-  const [endDate, setEndDate] = useState<Date>(new Date());
+  // const [startDate, setStartDate] = useState<Date>(getFirstDayOfMonth());
+  // const [endDate, setEndDate] = useState<Date>(new Date());
   const [timeFilter, setTimeFilter] = useState(timeFilterOptions[0]);
   const [activeTab, setActiveTab] = useState<ReportFilter>("total_balance");
   const [graphData, setGraphData] = useState<any[]>([]);
 
-  const onChange = (dates: [Date, Date]) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
+  // const onChange = (dates: [Date, Date]) => {
+  //   const [start, end] = dates;
+  //   setStartDate(start);
+  //   setEndDate(end);
+  // };
 
   const handleTimeFilterChange = (selectedOption: any) => {
     setTimeFilter(selectedOption);
@@ -73,7 +73,7 @@ const Graphs = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchGraphData = async () => {
-    if (!startDate || !endDate) return;
+    // if (!startDate || !endDate) return;
 
     const res = await dispatch(
       callApiGetMethod(
@@ -81,8 +81,8 @@ const Graphs = () => {
         {
           timeFilter: timeFilter.value,
           reportFilter: getReportFilterValue(activeTab),
-          startDate: startDate.toISOString().split("T")[0],
-          endDate: endDate.toISOString().split("T")[0],
+          // startDate: startDate.toISOString().split("T")[0],
+          // endDate: endDate.toISOString().split("T")[0],
         },
         false,
         false
@@ -95,10 +95,11 @@ const Graphs = () => {
   };
 
   useEffect(() => {
-    if (startDate && endDate) {
+    // if (startDate && endDate) {
       fetchGraphData();
-    }
-  }, [startDate, endDate, timeFilter, activeTab, fetchGraphData]);
+    // }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeFilter, activeTab]);
 
   const getGradientColors = (tab: ReportFilter) => {
     switch (tab) {
@@ -161,7 +162,7 @@ const Graphs = () => {
                         onChange={handleTimeFilterChange}
                         isSearchable={false}
                       />
-                      <div className="position-relative">
+                      {/* <div className="position-relative">
                         <DatePicker
                           selected={startDate}
                           onChange={onChange}
@@ -171,7 +172,7 @@ const Graphs = () => {
                           selectsDisabledDaysInRange
                           className="date_range"
                         />
-                      </div>
+                      </div> */}
                       {/* <p>
                         <img src={logo} alt="logo" />
                         {formatAmount(2895)} <span>KRZ</span>
