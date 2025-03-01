@@ -5,6 +5,7 @@ import "./Modal.scss";
 
 export type CommonModalProps = {
     show?: boolean,
+    handleShow?: () => void,
     handleClose?: () => void,
 }
 

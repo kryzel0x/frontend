@@ -1,4 +1,3 @@
-import DatePicker from "react-datepicker";
 import { Container, Nav, Tab } from "react-bootstrap";
 import "./Graphs.scss";
 import {
@@ -96,9 +95,9 @@ const Graphs = () => {
 
   useEffect(() => {
     // if (startDate && endDate) {
-      fetchGraphData();
+    fetchGraphData();
     // }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeFilter, activeTab]);
 
   const getGradientColors = (tab: ReportFilter) => {
@@ -154,7 +153,7 @@ const Graphs = () => {
                 <Tab.Pane key={tab} eventKey={tab}>
                   <div className="graph_box">
                     <div className="graph_box_header">
-                      <h3>Report : </h3>
+                      <h3>Report: </h3>
                       <Select
                         className="small_selector my-lg-0 my-4 mx-lg-4"
                         options={timeFilterOptions}
@@ -178,103 +177,131 @@ const Graphs = () => {
                         {formatAmount(2895)} <span>KRZ</span>
                       </p> */}
                     </div>
-                    <ResponsiveContainer
-                      width="100%"
-                      height={document.body.clientWidth > 767 ? 400 : 200}
-                    >
-                      <AreaChart
-                        data={graphData}
-                        margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+                    {graphData && graphData.length > 0 ? (
+                      <ResponsiveContainer
+                        width="100%"
+                        height={document.body.clientWidth > 767 ? 400 : 200}
                       >
-                        <defs>
-                          {getGradientColors(tab as ReportFilter).colors.map(
-                            (color, index) => (
-                              <linearGradient
-                                key={index}
-                                id={
-                                  getGradientColors(tab as ReportFilter).ids[
-                                    index
-                                  ]
-                                }
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                              >
-                                <stop
-                                  offset="5%"
-                                  stopColor={color}
-                                  stopOpacity={0.8}
-                                />
-                                <stop
-                                  offset="95%"
-                                  stopColor={color}
-                                  stopOpacity={0}
-                                />
-                              </linearGradient>
-                            )
-                          )}
-                        </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#2a2a2a" />
-                        <XAxis dataKey="date" stroke="#ccc" />
-                        <YAxis stroke="#ccc" />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: "#2a2a2a",
-                            border: "none",
-                            borderRadius: "8px",
-                            color: "#fff",
-                          }}
-                        />
-                        {tab === "total_balance" ? (
-                          <>
+                        <AreaChart
+                          data={graphData}
+                          margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+                        >
+                          <defs>
+                            {getGradientColors(tab as ReportFilter).colors.map(
+                              (color, index) => (
+                                <linearGradient
+                                  key={index}
+                                  id={
+                                    getGradientColors(tab as ReportFilter).ids[
+                                      index
+                                    ]
+                                  }
+                                  x1="0"
+                                  y1="0"
+                                  x2="0"
+                                  y2="1"
+                                >
+                                  <stop
+                                    offset="5%"
+                                    stopColor={color}
+                                    stopOpacity={0.8}
+                                  />
+                                  <stop
+                                    offset="95%"
+                                    stopColor={color}
+                                    stopOpacity={0}
+                                  />
+                                </linearGradient>
+                              )
+                            )}
+                          </defs>
+                          <CartesianGrid
+                            strokeDasharray="3 3"
+                            stroke="#2a2a2a"
+                          />
+                          <XAxis dataKey="date" stroke="#ccc" />
+                          <YAxis stroke="#ccc" />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: "#2a2a2a",
+                              border: "none",
+                              borderRadius: "8px",
+                              color: "#fff",
+                            }}
+                          />
+                          {tab === "total_balance" ? (
+                            <>
+                              <Area
+                                type="monotone"
+                                dataKey="value1"
+                                stroke="#00c8ff"
+                                fill="url(#color1)"
+                                strokeWidth={4}
+                              />
+                              <Area
+                                type="monotone"
+                                dataKey="value2"
+                                stroke="#7c4dff"
+                                fill="url(#color2)"
+                                strokeWidth={4}
+                              />
+                              <Area
+                                type="monotone"
+                                dataKey="value3"
+                                stroke="#00ff99"
+                                fill="url(#color3)"
+                                strokeWidth={4}
+                              />
+                            </>
+                          ) : (
                             <Area
+                              dot={
+                                <circle
+                                  r={6}
+                                  fill={
+                                    getGradientColors(tab as ReportFilter)
+                                      .colors[0]
+                                  }
+                                  strokeWidth={10}
+                                />
+                              }
                               type="monotone"
                               dataKey="value1"
-                              stroke="#00c8ff"
-                              fill="url(#color1)"
+                              stroke={
+                                getGradientColors(tab as ReportFilter).colors[0]
+                              }
+                              fill={`url(#${
+                                getGradientColors(tab as ReportFilter).ids[0]
+                              })`}
                               strokeWidth={4}
                             />
-                            <Area
-                              type="monotone"
-                              dataKey="value2"
-                              stroke="#7c4dff"
-                              fill="url(#color2)"
-                              strokeWidth={4}
-                            />
-                            <Area
-                              type="monotone"
-                              dataKey="value3"
-                              stroke="#00ff99"
-                              fill="url(#color3)"
-                              strokeWidth={4}
-                            />
-                          </>
-                        ) : (
-                          <Area
-                            dot={
-                              <circle
-                                r={6}
-                                fill={
-                                  getGradientColors(tab as ReportFilter)
-                                    .colors[0]
-                                }
-                                strokeWidth={10}
-                              />
-                            }
-                            type="monotone"
-                            dataKey="value1"
-                            stroke={
-                              getGradientColors(tab as ReportFilter).colors[0]
-                            }
-                            fill={`url(#${
-                              getGradientColors(tab as ReportFilter).ids[0]
-                            })`}
-                            strokeWidth={4}
-                          />
-                        )}
-                      </AreaChart>
-                    </ResponsiveContainer>
+                          )}
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <div
+                        className="no-data-container"
+                        style={{
+                          height: document.body.clientWidth > 767 ? 400 : 200,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          width: "100%",
+                          backgroundColor: "rgba(42, 42, 42, 0.5)",
+                          borderRadius: "8px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "#ccc",
+                            fontSize: "18px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          No data available
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </Tab.Pane>
               ))}

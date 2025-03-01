@@ -33,12 +33,13 @@ const Homepage = () => {
       const urlHash = window.location.hash;
       const params = new URLSearchParams(urlHash.substring(1));
       const idToken = params.get("id_token");
+      const state = params.get("state");
       if (idToken) {
         try {
           dispatch(setLoading(true));
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const res: any = await dispatch(
-            callApiPostMethod(APIURL.GOOGLELOGIN, { token: idToken }, {}, false)
+            callApiPostMethod(APIURL.GOOGLELOGIN, { token: idToken, referralCode: state }, {}, false)
           );
 
           if (!res.error) {

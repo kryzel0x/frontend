@@ -39,5 +39,6 @@ export const RESPONSES: Record<string, number> = {
     sex: string | null;
     telegram: string | null;
     twitter: string | null;
+    referralCode: string | null;
   };
   

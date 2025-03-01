@@ -1,0 +1,328 @@
+// .referral-share {
+//     margin: 20px 0;
+
+//     .referral-card {
+//       background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+//       border-radius: 12px;
+//       padding: 24px;
+//       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+//       h2 {
+//         font-size: 24px;
+//         font-weight: 600;
+//         color: #fff;
+//         margin-bottom: 16px;
+//         text-align: center;
+//       }
+
+//       .referral-intro {
+//         color: #ccc;
+//         text-align: center;
+//         margin-bottom: 24px;
+//       }
+
+//       .referral-link-container {
+//         margin-bottom: 20px;
+
+//         .referral-link {
+//           display: flex;
+//           align-items: center;
+//           background-color: rgba(0, 0, 0, 0.2);
+//           border: 1px solid #3a3a3a;
+//           border-radius: 8px;
+//           overflow: hidden;
+
+//           .referral-url {
+//             flex-grow: 1;
+//             background: transparent;
+//             border: none;
+//             color: #00c8ff;
+//             padding: 12px 16px;
+//             font-size: 14px;
+//             width: 100%;
+
+//             &:focus {
+//               outline: none;
+//             }
+//           }
+
+//           .copy-btn {
+//             background: #3a3a3a;
+//             border: none;
+//             color: #fff;
+//             padding: 12px 16px;
+//             cursor: pointer;
+//             transition: all 0.2s ease;
+
+//             &:hover {
+//               background: #4a4a4a;
+//             }
+//           }
+//         }
+//       }
+
+//       .referral-code-display {
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         gap: 8px;
+//         margin-bottom: 24px;
+
+//         .label {
+//           color: #ccc;
+//           font-size: 14px;
+//         }
+
+//         .code {
+//           background: #3a3a3a;
+//           color: #00ff99;
+//           padding: 4px 12px;
+//           border-radius: 4px;
+//           font-weight: 600;
+//           letter-spacing: 1px;
+//         }
+//       }
+
+//       .share-methods {
+//         margin-bottom: 24px;
+
+//         h3 {
+//           font-size: 18px;
+//           font-weight: 500;
+//           color: #fff;
+//           margin-bottom: 16px;
+//           text-align: center;
+//         }
+
+//         .share-buttons {
+//           text-align: center;
+
+//           .share-btn {
+//             display: flex;
+//             flex-direction: column;
+//             align-items: center;
+//             justify-content: center;
+//             background: transparent;
+//             border: none;
+//             color: #ccc;
+//             transition: all 0.2s ease;
+//             cursor: pointer;
+//             text-decoration: none;
+//             padding: 10px;
+//             border-radius: 8px;
+//             width: 100%;
+
+//             &:hover {
+//               background: rgba(255, 255, 255, 0.05);
+//               color: #fff;
+//             }
+
+//             span {
+//               margin-top: 8px;
+//               font-size: 12px;
+//             }
+
+//             &.twitter:hover {
+//               color: #1DA1F2;
+//             }
+
+//             &.facebook:hover {
+//               color: #4267B2;
+//             }
+
+//             &.email:hover {
+//               color: #D44638;
+//             }
+//           }
+//         }
+//       }
+
+//       .referral-benefits {
+//         h3 {
+//           font-size: 18px;
+//           font-weight: 500;
+//           color: #fff;
+//           margin-bottom: 16px;
+//           text-align: center;
+//         }
+
+//         ul {
+//           padding-left: 16px;
+
+//           li {
+//             color: #ccc;
+//             margin-bottom: 8px;
+//             position: relative;
+
+//             &:before {
+//               content: "•";
+//               color: #7c4dff;
+//               font-weight: bold;
+//               position: absolute;
+//               left: -16px;
+//             }
+//           }
+//         }
+//       }
+//     }
+
+//     .copy-toast {
+//       position: fixed;
+//       bottom: 20px;
+//       left: 50%;
+//       transform: translateX(-50%);
+//       background: #00ff99;
+//       color: #1a1a1a;
+//       border: none;
+//       border-radius: 8px;
+
+//       .toast-body {
+//         display: flex;
+//         align-items: center;
+//         gap: 8px;
+//         padding: 12px 16px;
+//         font-weight: 500;
+//       }
+//     }
+//   }
+
+//   @media (max-width: 767px) {
+//     .referral-share {
+//       .referral-card {
+//         padding: 16px;
+
+//         h2 {
+//           font-size: 20px;
+//         }
+
+//         .share-methods {
+//           .share-buttons {
+//             .share-btn {
+//               padding: 8px 4px;
+
+//               span {
+//                 font-size: 10px;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+
+
+@use "../../../assets/theme/_var.scss" as *;
+
+.referral_share {
+    .referral_card {
+        background: linear-gradient(180deg, #212121 0%, #000000 100%) padding-box, linear-gradient(180deg, #1FECFF 0%, #009DFF 100%) border-box;
+        border: 1.5px solid transparent;
+        border-radius: 3rem;
+        padding: 3.6rem;
+        margin-bottom: 6rem;
+
+        h2 {
+            text-align: center;
+            font-size: 4rem;
+            font-weight: 500;
+            color: $secondaryclr;
+            margin-bottom: 2rem;
+
+            @media (max-width: 1479px) {
+                font-size: 3.6rem;
+            }
+
+            @media (max-width: 1399px) {
+                font-size: 3.2rem;
+            }
+
+            @media (max-width: 991px) {
+                font-size: 2.8rem;
+            }
+
+            @media (max-width: 575px) {
+                font-size: 2.4rem;
+                margin-bottom: 1.4rem;
+            }
+        }
+
+        .referral_intro {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: $white;
+            text-align: center;
+        }
+
+        .referral_link {
+            .referrel_input {
+                .input_in {
+                    input {
+                        &:read-only {
+                            background: $black !important;
+                            height: 8rem;
+                            padding-right: 9rem;
+                            border-radius: 50rem;
+                            color: $white !important;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    .right_input_icon {
+                        right: 2rem;
+                    }
+
+                    button {
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
+
+                        svg {
+                            path {
+                                fill: $secondaryclr;
+
+                                &:first-of-type {
+                                    stroke: black;
+                                    stroke-width: 2px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .referral-benefits {
+            margin: 2rem 0 0;
+
+            h3 {
+                font-size: 2rem;
+                font-weight: 400;
+                margin-bottom: 1.2rem;
+            }
+
+            ul {
+                li {
+                    font-size: 1.6rem;
+                    font-weight: 400;
+
+                    &:not(:last-child) {
+                        margin-bottom: 0.8rem;
+                    }
+
+                    &::before {
+                        content: "";
+                        width: 0.6rem;
+                        height: 0.6rem;
+                        border-radius: 50%;
+                        background-color: $secondaryclr;
+                        display: inline-block;
+                        transform: translateY(-0.3rem);
+                        flex-shrink: 0;
+                        margin-right: 0.6rem;
+                    }
+                }
+            }
+        }
+    }
+}

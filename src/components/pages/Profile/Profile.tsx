@@ -6,7 +6,6 @@ import {
   EditIcon,
   LogoutIcon,
   ProfileIcon,
-  ReferralIcon,
 } from "../../../assets/icons/icons";
 import profile from "../../../assets/images/profile-pic.png";
 import Button from "../../common/Button/Button";
@@ -31,7 +30,6 @@ import Table from "../../common/Table/Table";
 import { collapseAddress } from "../../../core/utils";
 import { useKeylessAccounts } from "../../../core/useKeylessAccounts";
 import { setUserDetails } from "../../../redux/slices/user.slice";
-import Error from "../../common/form/Error/Error";
 import Spinner from "../../common/Spinner/Spinner";
 import {
   formatAmount,
@@ -40,6 +38,7 @@ import {
 } from "../../../services/common.service";
 import Poweredby from "../Homepage/PoweredBy/PoweredBy";
 import moment from "moment";
+import ReferralShare from "./ReferralShare";
 
 const Profile = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -370,6 +369,7 @@ const Profile = () => {
               </Tab.Pane>
               <Tab.Pane eventKey="referral">
                 <div className="profile_box referral_box">
+                  <ReferralShare referralCode={userDetails?.referralCode} userName={userDetails.name}/>
                   <form onSubmit={formikReferral.handleSubmit}>
                     <h2>Add Referral Email Id</h2>
                     <div className="inputs">
