@@ -399,10 +399,6 @@ const Profile = () => {
                   <Table title="Referred Emails" fields={fields}>
                     {referralData.length > 0 &&
                       referralData.map((item: any, index) => {
-                        const isoDate = "2024-12-14T14:12:27.539Z";
-
-                        // Create a Date object
-                        new Date(isoDate);
                         return (
                           <tr key={index}>
                             <td>

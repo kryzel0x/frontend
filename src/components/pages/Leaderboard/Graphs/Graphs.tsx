@@ -89,7 +89,20 @@ const Graphs = () => {
     );
 
     if (res && !res.error && res.result) {
-      setGraphData(res.result);
+      // For total_balance, calculate the sum of all three values
+      if (activeTab === "total_balance") {
+        const processedData = res.result.map((item: any) => ({
+          ...item,
+          totalValue: (
+            (parseFloat(item.value1) || 0) +
+            (parseFloat(item.value2) || 0) +
+            (parseFloat(item.value3) || 0)
+          ).toFixed(2)
+        }));
+        setGraphData(processedData);
+      } else {
+        setGraphData(res.result);
+      }
     }
   };
 
@@ -104,8 +117,8 @@ const Graphs = () => {
     switch (tab) {
       case "total_balance":
         return {
-          colors: ["#00c8ff", "#7c4dff", "#00ff99"],
-          ids: ["color1", "color2", "color3"],
+          colors: ["#00c8ff"],
+          ids: ["totalBalanceGradient"],
         };
       case "liquidity_staking":
         return {
@@ -161,21 +174,6 @@ const Graphs = () => {
                         onChange={handleTimeFilterChange}
                         isSearchable={false}
                       />
-                      {/* <div className="position-relative">
-                        <DatePicker
-                          selected={startDate}
-                          onChange={onChange}
-                          startDate={startDate}
-                          endDate={endDate}
-                          selectsRange
-                          selectsDisabledDaysInRange
-                          className="date_range"
-                        />
-                      </div> */}
-                      {/* <p>
-                        <img src={logo} alt="logo" />
-                        {formatAmount(2895)} <span>KRZ</span>
-                      </p> */}
                     </div>
                     {graphData && graphData.length > 0 ? (
                       <ResponsiveContainer
@@ -230,29 +228,20 @@ const Graphs = () => {
                             }}
                           />
                           {tab === "total_balance" ? (
-                            <>
-                              <Area
-                                type="monotone"
-                                dataKey="value1"
-                                stroke="#00c8ff"
-                                fill="url(#color1)"
-                                strokeWidth={4}
-                              />
-                              <Area
-                                type="monotone"
-                                dataKey="value2"
-                                stroke="#7c4dff"
-                                fill="url(#color2)"
-                                strokeWidth={4}
-                              />
-                              <Area
-                                type="monotone"
-                                dataKey="value3"
-                                stroke="#00ff99"
-                                fill="url(#color3)"
-                                strokeWidth={4}
-                              />
-                            </>
+                            <Area
+                              type="monotone"
+                              dataKey="totalValue"
+                              stroke="#00c8ff"
+                              fill="url(#totalBalanceGradient)"
+                              strokeWidth={4}
+                              dot={
+                                <circle
+                                  r={6}
+                                  fill="#00c8ff"
+                                  strokeWidth={10}
+                                />
+                              }
+                            />
                           ) : (
                             <Area
                               dot={
