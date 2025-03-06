@@ -26,14 +26,14 @@ const ReferralShare = ({ referralCode, userName }: ReferralShareProps) => {
                 <h2>Share your referral link</h2>
                 {userName && (
                     <p className="referral_intro">
-                        Hey {userName}! Share your unique referral link with friends and
-                        earn rewards.
+                        Hey {userName}, Invite your friends to join Kryzel Testnet and earn rewards!
                     </p>
                 )}
 
                 <div className="referral-link-container">
                     <div className="referral_link">
                         <Input
+                            label={"Your unique referral link:"}
                             value={referralUrl}
                             readOnly
                             className="referrel_input"
@@ -56,11 +56,12 @@ const ReferralShare = ({ referralCode, userName }: ReferralShareProps) => {
                     <h3>Benefits</h3>
                     <ul>
                         <li>
-                            You both get 300 KRZ tokens as bonus when your friend signs up
+                            Earn 300 KRZ tokens for you and your friend when they sign up.
                         </li>
-                        <li>No limit to how many friends you can refer</li>
-                        <li>The more friends join, the more rewards you earn!</li>
+                        <li>No referral limit – invite as many friends as you want!</li>
+                        <li>More referrals = More rewards!</li>
                     </ul>
+                    <p>Start sharing and maximize your rewards!</p>
                 </div>
             </div>
 
