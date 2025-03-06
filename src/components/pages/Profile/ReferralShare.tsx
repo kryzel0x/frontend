@@ -30,7 +30,7 @@ const ReferralShare = ({ referralCode, userName }: ReferralShareProps) => {
                     </p>
                 )}
 
-                <div className="referral-link-container">
+                <div className="referral-link-container mt-3">
                     <div className="referral_link">
                         <Input
                             label={"Your unique referral link:"}
@@ -61,7 +61,7 @@ const ReferralShare = ({ referralCode, userName }: ReferralShareProps) => {
                         <li>No referral limit – invite as many friends as you want!</li>
                         <li>More referrals = More rewards!</li>
                     </ul>
-                    <p>Start sharing and maximize your rewards!</p>
+                    <p className="mt-3">Start sharing and maximize your rewards!</p>
                 </div>
             </div>
 
