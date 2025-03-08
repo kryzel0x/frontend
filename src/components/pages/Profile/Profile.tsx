@@ -265,10 +265,10 @@ const Profile = () => {
                           referrerPolicy="no-referrer"
                           onError={handleImageError}
                         />
-                        <label>
+                        {/* <label>
                           Upload Photo
                           <input type="file" />
-                        </label>
+                        </label> */}
                       </div>
                       <div>
                         <h1>{userDetails?.name}</h1>
