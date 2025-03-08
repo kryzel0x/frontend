@@ -2,11 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Col, Container, Nav, Row, Tab } from "react-bootstrap";
 import "react-phone-input-2/lib/style.css";
 import countryList from "react-select-country-list";
-import {
-  EditIcon,
-  LogoutIcon,
-  ProfileIcon,
-} from "../../../assets/icons/icons";
+import { EditIcon, LogoutIcon, ProfileIcon } from "../../../assets/icons/icons";
 import profile from "../../../assets/images/profile-pic.png";
 import Button from "../../common/Button/Button";
 import Input from "../../common/form/Input/Input";
@@ -39,6 +35,7 @@ import {
 import Poweredby from "../Homepage/PoweredBy/PoweredBy";
 import moment from "moment";
 import ReferralShare from "./ReferralShare";
+import Swal from "sweetalert2";
 
 const Profile = () => {
   const dispatch: AppDispatch = useAppDispatch();
@@ -98,39 +95,39 @@ const Profile = () => {
     validationSchema: Yup.object({
       name: Yup.string()
         .required("Username is required")
-        .min(3, "Name should be atleast 3 characters"),
+        .min(3, "Name should be at least 3 characters"),
       twitter: Yup.string()
-        .notRequired() // Makes the field optional
+        .notRequired()
         .matches(
-          /^@?(\w){1,15}$/,
-          "Invalid Twitter username. It must start with an optional '@' and be 1-15 characters long, containing only letters, numbers, or underscores."
+          /^@?(?!\d+$)[a-zA-Z0-9_]{3,15}$/,
+          "Invalid Twitter username. It must contain at least one letter and be 3-15 characters long, allowing only letters, numbers, or underscores."
         ),
       telegram: Yup.string()
-        .notRequired() // Makes the field optional
+        .notRequired()
         .matches(
-          /^[a-zA-Z0-9_]{5,32}$/,
-          "Invalid Telegram username. It must be 5-32 characters long, containing only letters, numbers, or underscores."
+          /^(?!\d+$)[a-zA-Z0-9_]{3,32}$/,
+          "Invalid Telegram username. It must contain at least one letter and be 3-32 characters long, allowing only letters, numbers, or underscores."
         ),
-      // Uncomment and add other fields as needed:
-      // age: Yup.number().required("Age is required").positive().integer(),
-      // phoneNumber: Yup.string().required("Phone number is required"),
-      // country: Yup.string().required("Country is required"),
-      // sex: Yup.string().required("Sex is required"),
     }),
     onSubmit: async (values) => {
+      // Normalize values: Convert empty strings to null for comparison
+      const normalizedValues = Object.keys(values).reduce((acc, key) => {
+        acc[key] = values[key] === "" ? null : values[key];
+        return acc;
+      }, {});
+
       // Create an object with only the changed fields
-      const changedValues = Object.keys(values).reduce((acc, key) => {
-        if (values[key] !== formik.initialValues[key]) {
-          acc[key] = values[key];
+      const changedValues = Object.keys(normalizedValues).reduce((acc, key) => {
+        if (
+          normalizedValues[key] !==
+          (formik.initialValues[key] === "" ? null : formik.initialValues[key])
+        ) {
+          acc[key] = normalizedValues[key];
         }
         return acc;
       }, {});
 
       if (Object.keys(changedValues).length > 0) {
-        // If there are changes, append '+' to phoneNumber before sending
-        // if (changedValues.phoneNumber) {
-        //     changedValues.phoneNumber = "+" + changedValues.phoneNumber;
-        // }
         const res: any = await dispatch(
           callApiPostMethod(APIURL.PROFILE, changedValues)
         );
@@ -331,6 +328,7 @@ const Profile = () => {
                             placeholder="X (Twitter) "
                             name="twitter"
                             value={formik.values.twitter}
+                            disabled={initialValues.twitter ? true : false}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             error={
@@ -344,6 +342,7 @@ const Profile = () => {
                             placeholder="Telegram"
                             name="telegram"
                             value={formik.values.telegram}
+                            disabled={initialValues.telegram ? true : false}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             error={
@@ -351,6 +350,24 @@ const Profile = () => {
                             }
                           />
                         </Col>
+                        <p
+                          className="mt-4"
+                          style={{ fontSize: "12px", color: "#A08F92" }}
+                        >
+                          Note: Once you submit your Twitter or Telegram
+                          username, you won't be able to change it again. For
+                          any issues, contact us at{" "}
+                          <a
+                            href="mailto:support@kryzel.io"
+                            style={{
+                              color: "#05a6ff",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            support@kryzel.io
+                          </a>
+                          .
+                        </p>
                       </Row>
                       <Button className="dark_btn submit_btn" type="submit">
                         <span>Update Info</span>
@@ -369,7 +386,10 @@ const Profile = () => {
               </Tab.Pane>
               <Tab.Pane eventKey="referral">
                 <div className="profile_box referral_box">
-                  <ReferralShare referralCode={userDetails?.referralCode} userName={userDetails.name}/>
+                  <ReferralShare
+                    referralCode={userDetails?.referralCode}
+                    userName={userDetails.name}
+                  />
                   <form onSubmit={formikReferral.handleSubmit}>
                     <h2>Add Referral Email Id</h2>
                     <div className="inputs">
