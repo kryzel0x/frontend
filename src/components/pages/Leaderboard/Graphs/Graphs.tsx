@@ -70,7 +70,7 @@ const Graphs = () => {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   const fetchGraphData = async () => {
     // if (!startDate || !endDate) return;
 

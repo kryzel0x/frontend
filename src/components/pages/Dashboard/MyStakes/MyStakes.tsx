@@ -92,7 +92,6 @@ const MyStakes = () => {
   const handleGetMyStakes = async () => {
     setTableLoading(true);
     const res = await handleGetUserStakes(activeAccount);
-    console.log('res', res)
     if (res && res.length) {
       const formattedStakes = res[0]
         .map((stake) => ({

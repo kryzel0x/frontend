@@ -8,14 +8,18 @@ import TransactModal from "../../../common/modals/TransactModal/TransactModal";
 import "./StartEarning.scss";
 import { handleGetUserStakes } from "../../../../services/aptos.service";
 import { useKeylessAccounts } from "../../../../core/useKeylessAccounts";
-import { useAppSelector } from "../../../../utils/hooks";
-import { RootState } from "../../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../../utils/hooks";
+import { AppDispatch, RootState } from "../../../../redux/store";
 import { formatAmount } from "../../../../services/common.service";
+import { APIURL } from "../../../../utils/constants";
+import { callApiGetMethod } from "../../../../redux/Actions/api.action";
 
 const StartEarning = () => {
   const [show, setShow] = useState(false);
   const { activeAccount } = useKeylessAccounts();
   const [stakeAmount, setStakeAmount] = useState(0);
+  const [totalbalance, setTotalbalance] = useState(0);
+
   const krzDecimals = useAppSelector(
     (state: RootState) => state.user.krzDecimals
   );
@@ -51,6 +55,50 @@ const StartEarning = () => {
     }
   }, [activeAccount]);
 
+  const dispatch: AppDispatch = useAppDispatch();
+
+  const fetchGraphData = async () => {
+    // if (!startDate || !endDate) return;
+
+    const res = await dispatch(
+      callApiGetMethod(
+        APIURL.GRAPH,
+        {
+          timeFilter: "daily",
+          reportFilter: "total_balance",
+        },
+        false,
+        false
+      )
+    );
+
+    if (res && !res.error && res.result) {
+      // Process the data
+      const processedData = res?.result.map((item: any) => {
+        // Format the date
+        return {
+          "Total Balance": (
+            (parseFloat(item.value1) || 0) +
+            (parseFloat(item.value2) || 0) +
+            (parseFloat(item.value3) || 0)
+          ).toFixed(2),
+        };
+      });
+
+      const totalSum = processedData
+        .reduce((sum, item) => {
+          return sum + parseFloat(item["Total Balance"]);
+        }, 0)
+        .toFixed(2);
+
+      setTotalbalance(totalSum);
+    }
+  };
+
+  useEffect(() => {
+    fetchGraphData();
+  }, []);
+
   return (
     <section className="start_earning">
       <Container>
@@ -62,6 +110,12 @@ const StartEarning = () => {
             <>
               <h1>My Total Stakes</h1>
               <h2>{formatAmount(stakeAmount / Math.pow(10, krzDecimals))}</h2>
+            </>
+          ) : totalbalance ? (
+            <>
+              <h1>Total KRZ earned </h1>
+              <h2>{formatAmount(totalbalance)} KRZ</h2>
+              <h3 className="mb-5">Stake more, to earn more</h3>
             </>
           ) : (
             <>
