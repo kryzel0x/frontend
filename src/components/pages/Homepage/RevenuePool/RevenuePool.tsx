@@ -81,7 +81,7 @@ const RevenuePool = () => {
         <div className="revenue_details">
           <h3>
             <span>{formatAmount(lpAmount)}</span>
-            <>KRZ</>
+            <> KRZ</>
           </h3>
           <p>Total $KRZ Staked</p>
           <h4>in Liquidity Pool Till Date</h4>
@@ -103,7 +103,7 @@ const RevenuePool = () => {
               <tr key={index}>
                 <td>
                   <span className="date">
-                    {moment(item.date).format("Do MMM 'YY")}
+                    {moment(item.date).format("DD MMM YY")}
                   </span>
                 </td>
                 <td>

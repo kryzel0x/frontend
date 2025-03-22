@@ -17,12 +17,12 @@ import moment from "moment";
 const StakingStatement = () => {
   const fields = [
     { name: <>Date</> },
-    { name: <>Amount Staked (KRZ)</> },
+    { name: <>Staked (KRZ)</> },
     { name: <>Liquidity Pool</> },
     { name: <>Total Revenue</> },
     { name: <>My Revenue</> },
     { name: <>APY</> },
-    { name: <>Credit</> },
+    // { name: <>Credit</> },
   ];
 
   const dispatch: AppDispatch = useAppDispatch();
@@ -120,7 +120,7 @@ const StakingStatement = () => {
                   <tr key={index}>
                     <td>
                       <span className="date">
-                        {moment(item.date).format("Do MMM 'YY")}
+                        {moment(item.date).format("DD MMM YY")}
                       </span>
                     </td>
                     <td>
@@ -147,7 +147,7 @@ const StakingStatement = () => {
                         100
                       ).toFixed(0) + "%"}
                     </td>
-                    <td>{toSentenceCase(item.paymentStatus)}</td>
+                    {/* <td>{toSentenceCase(item.paymentStatus)}</td> */}
                   </tr>
                 );
               })}

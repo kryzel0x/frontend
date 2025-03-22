@@ -454,7 +454,7 @@ const Profile = () => {
                           <tr key={index}>
                             <td>
                               <span>
-                                {moment(item?.createdAt).format("Do MMM 'YY")}
+                                {moment(item?.createdAt).format("DD MMM YY")}
                               </span>
                             </td>
                             <td>

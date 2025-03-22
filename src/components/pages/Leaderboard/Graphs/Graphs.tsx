@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from "recharts";
 import { useEffect, useState } from "react";
 import { AppDispatch } from "../../../../redux/store";
@@ -31,21 +32,10 @@ const timeFilterOptions = [
 
 const Graphs = () => {
   const dispatch: AppDispatch = useAppDispatch();
-  const getFirstDayOfMonth = () => {
-    const today = new Date();
-    return new Date(today.getFullYear(), today.getMonth(), 1);
-  };
-  // const [startDate, setStartDate] = useState<Date>(getFirstDayOfMonth());
-  // const [endDate, setEndDate] = useState<Date>(new Date());
+
   const [timeFilter, setTimeFilter] = useState(timeFilterOptions[0]);
   const [activeTab, setActiveTab] = useState<ReportFilter>("total_balance");
   const [graphData, setGraphData] = useState<any[]>([]);
-
-  // const onChange = (dates: [Date, Date]) => {
-  //   const [start, end] = dates;
-  //   setStartDate(start);
-  //   setEndDate(end);
-  // };
 
   const handleTimeFilterChange = (selectedOption: any) => {
     setTimeFilter(selectedOption);
@@ -70,6 +60,16 @@ const Graphs = () => {
     }
   };
 
+  // Function to format date as "DD MMM"
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
+    } catch (e) {
+      return dateString;
+    }
+  };
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchGraphData = async () => {
     // if (!startDate || !endDate) return;
@@ -89,20 +89,33 @@ const Graphs = () => {
     );
 
     if (res && !res.error && res.result) {
-      // For total_balance, calculate the sum of all three values
-      if (activeTab === "total_balance") {
-        const processedData = res.result.map((item: any) => ({
-          ...item,
-          totalValue: (
-            (parseFloat(item.value1) || 0) +
-            (parseFloat(item.value2) || 0) +
-            (parseFloat(item.value3) || 0)
-          ).toFixed(2)
-        }));
-        setGraphData(processedData);
-      } else {
-        setGraphData(res.result);
-      }
+      // Process the data
+      const processedData = res.result.map((item: any) => {
+        // Format the date
+        const formattedDate = formatDate(item.date);
+        
+        if (activeTab === "total_balance") {
+          return {
+            ...item,
+            date: formattedDate,
+            "Total Balance": (
+              (parseFloat(item.value1) || 0) +
+              (parseFloat(item.value2) || 0) +
+              (parseFloat(item.value3) || 0)
+            ).toFixed(2)
+          };
+        } else {
+          // For other tabs, use the proper name instead of "value1"
+          const properName = getTabName(activeTab);
+          return {
+            ...item,
+            date: formattedDate,
+            [properName]: item.value1
+          };
+        }
+      });
+      
+      setGraphData(processedData);
     }
   };
 
@@ -112,6 +125,22 @@ const Graphs = () => {
     // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeFilter, activeTab]);
+
+  // Function to get the proper display name for each tab
+  const getTabName = (tab: ReportFilter): string => {
+    switch (tab) {
+      case "total_balance":
+        return "Total Balance";
+      case "liquidity_staking":
+        return "Liquidity Staking";
+      case "crash_game":
+        return "Crash Game";
+      case "off_chain_activities":
+        return "Off-Chain Activities";
+      default:
+        return "Value";
+    }
+  };
 
   const getGradientColors = (tab: ReportFilter) => {
     switch (tab) {
@@ -227,10 +256,13 @@ const Graphs = () => {
                               color: "#fff",
                             }}
                           />
+                          <Legend />
+                          
                           {tab === "total_balance" ? (
                             <Area
                               type="monotone"
-                              dataKey="totalValue"
+                              dataKey="Total Balance"
+                              name="Total Balance"
                               stroke="#00c8ff"
                               fill="url(#totalBalanceGradient)"
                               strokeWidth={4}
@@ -255,7 +287,8 @@ const Graphs = () => {
                                 />
                               }
                               type="monotone"
-                              dataKey="value1"
+                              dataKey={getTabName(tab as ReportFilter)}
+                              name={getTabName(tab as ReportFilter)}
                               stroke={
                                 getGradientColors(tab as ReportFilter).colors[0]
                               }

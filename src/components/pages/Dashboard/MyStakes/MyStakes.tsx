@@ -92,13 +92,18 @@ const MyStakes = () => {
   const handleGetMyStakes = async () => {
     setTableLoading(true);
     const res = await handleGetUserStakes(activeAccount);
+    console.log('res', res)
     if (res && res.length) {
-      const formattedStakes = res[0].map((stake) => ({
-        date: moment.unix(stake.stake_date).utc().format("Do MMM 'YY"), // Added .utc()
-        amount: stake.amount / Math.pow(10, krzDecimals),
-        expiry: moment.unix(stake.expiry_date).utc().format("Do MMM 'YY"), // Added .utc()
-        status: getStatus(stake.activation_date),
-      }));
+      const formattedStakes = res[0]
+        .map((stake) => ({
+          stake_date: stake.stake_date, // Keep the original timestamp for sorting
+          date: moment.unix(stake.stake_date).utc().format("DD MMM YY"),
+          amount: stake.amount / Math.pow(10, krzDecimals),
+          expiry: moment.unix(stake.expiry_date).utc().format("DD MMM YY"),
+          status: getStatus(stake.activation_date),
+        }))
+        .sort((a, b) => b.stake_date - a.stake_date); // Sort in descending order (newest first)
+      
       setMyStakes(formattedStakes);
     }
     setTableLoading(false);
