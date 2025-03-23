@@ -3,17 +3,17 @@
 .bottom_spacing {}
 
 .standings_sec {
-    padding-bottom: 19.8rem;
+    padding-bottom: 8rem;
     position: relative;
     z-index: 1;
 
-    @media (max-width: 1399px) {
-        padding-bottom: 14rem;
-    }
+    // @media (max-width: 1399px) {
+    //     padding-bottom: 14rem;
+    // }
 
-    @media (max-width: 767px) {
-        padding-bottom: 10rem;
-    }
+    // @media (max-width: 767px) {
+    //     padding-bottom: 10rem;
+    // }
 
     &::before,
     &::after {
