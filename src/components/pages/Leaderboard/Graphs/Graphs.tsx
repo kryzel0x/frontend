@@ -30,12 +30,20 @@ const timeFilterOptions = [
   { label: "Yearly", value: "yearly" },
 ];
 
+interface GraphDataItem {
+  date: string;
+  value1: number;
+  value2: number;
+  value3: number;
+  "Total Balance"?: number;
+}
+
 const Graphs = () => {
   const dispatch: AppDispatch = useAppDispatch();
 
   const [timeFilter, setTimeFilter] = useState(timeFilterOptions[0]);
   const [activeTab, setActiveTab] = useState<ReportFilter>("total_balance");
-  const [graphData, setGraphData] = useState<any[]>([]);
+  const [graphData, setGraphData] = useState<GraphDataItem[]>([]);
 
   const handleTimeFilterChange = (selectedOption: any) => {
     setTimeFilter(selectedOption);
@@ -70,59 +78,56 @@ const Graphs = () => {
     }
   };
 
-   
   const fetchGraphData = async () => {
-    // if (!startDate || !endDate) return;
+    try {
+      const res = await dispatch(
+        callApiGetMethod(
+          APIURL.GRAPH,
+          {
+            timeFilter: timeFilter.value,
+            reportFilter: getReportFilterValue(activeTab),
+          },
+          false,
+          false
+        )
+      );
 
-    const res = await dispatch(
-      callApiGetMethod(
-        APIURL.GRAPH,
-        {
-          timeFilter: timeFilter.value,
-          reportFilter: getReportFilterValue(activeTab),
-          // startDate: startDate.toISOString().split("T")[0],
-          // endDate: endDate.toISOString().split("T")[0],
-        },
-        false,
-        false
-      )
-    );
-
-    if (res && !res.error && res.result) {
-      // Process the data
-      const processedData = res.result.map((item: any) => {
-        // Format the date
-        const formattedDate = formatDate(item.date);
-        
-        if (activeTab === "total_balance") {
-          return {
-            ...item,
-            date: formattedDate,
-            "Total Balance": (
+      if (res && !res.error && res.result) {
+        const processedData = res.result.map((item: any) => {
+          const formattedDate = formatDate(item.date);
+          
+          if (activeTab === "total_balance") {
+            const totalValue = (
               (parseFloat(item.value1) || 0) +
               (parseFloat(item.value2) || 0) +
               (parseFloat(item.value3) || 0)
-            ).toFixed(2)
-          };
-        } else {
-          // For other tabs, use the proper name instead of "value1"
-          const properName = getTabName(activeTab);
-          return {
-            ...item,
-            date: formattedDate,
-            [properName]: item.value1
-          };
-        }
-      });
-      
-      setGraphData(processedData);
+            );
+            
+            return {
+              ...item,
+              date: formattedDate,
+              "Total Balance": parseFloat(totalValue.toFixed(2))
+            };
+          } else {
+            const properName = getTabName(activeTab);
+            return {
+              ...item,
+              date: formattedDate,
+              [properName]: parseFloat(item.value1)
+            };
+          }
+        });
+        
+        setGraphData(processedData);
+        console.log("Processed Graph Data:", processedData);
+      }
+    } catch (error) {
+      console.error("Error fetching graph data:", error);
     }
   };
 
   useEffect(() => {
-    // if (startDate && endDate) {
     fetchGraphData();
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeFilter, activeTab]);
 
@@ -247,7 +252,11 @@ const Graphs = () => {
                             stroke="#2a2a2a"
                           />
                           <XAxis dataKey="date" stroke="#ccc" />
-                          <YAxis stroke="#ccc" />
+                          <YAxis 
+                            stroke="#ccc" 
+                            domain={['auto', 'auto']} 
+                            padding={{ top: 20, bottom: 20 }}
+                          />
                           <Tooltip
                             contentStyle={{
                               backgroundColor: "#2a2a2a",
@@ -255,6 +264,10 @@ const Graphs = () => {
                               borderRadius: "8px",
                               color: "#fff",
                             }}
+                            formatter={(value, name) => [
+                              `${parseFloat(value as string).toFixed(2)}`, 
+                              name
+                            ]}
                           />
                           <Legend />
                           
