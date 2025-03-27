@@ -7,15 +7,15 @@
     display: flex;
     align-items: center;
     text-align: center;
-    background: url("../../../../assets/images/dashboard-banner.png") top center/contain no-repeat;
-    padding: 10rem 0;
+    background: url("../../../../assets/images/dashboard-banner.png") 70% center/680px no-repeat;
+    padding: 19.5rem 0;
 
     @media (max-width: 1399px) {
         padding: 10rem 0;
     }
 
     @media (max-width: 767px) {
-        padding: 14rem 0 24rem;
+        padding: 14rem 0 8rem;
         min-height: auto;
     }
 
@@ -37,18 +37,18 @@
 
 
         .top_shadow {
-            top: -30rem;
-            right: -6rem;
+            top: 0rem;
+            right: -16rem;
         }
 
         .left_shadow {
-            left: -5rem;
-            top: 2rem;
+            left: -15rem;
+            top: 30rem;
         }
 
         .right_shadow {
             right: -36rem;
-            bottom: -60rem;
+            bottom: -10rem;
         }
 
         @media (max-width: 1679px) {
@@ -99,7 +99,9 @@
             }
 
             .right_shadow {
-                width: 28rem;
+                right: -5rem;
+                bottom: -12rem;
+                width: 18rem;
             }
         }
 
@@ -113,9 +115,9 @@
             }
 
             .right_shadow {
-                width: 24rem;
-                right: 0;
-                bottom: -22rem;
+                right: -5rem;
+                bottom: -12rem;
+                width: 18rem;
             }
         }
 
@@ -125,37 +127,47 @@
             }
 
             .left_shadow {
-                top: 18rem;
+                top: 8rem;
                 width: 10rem;
+                left: -5rem;
             }
 
             .right_shadow {
                 right: -5rem;
-                bottom: -22rem;
+                bottom: -12rem;
+                width: 18rem;
             }
         }
 
         h1 {
-            font-size: 5rem;
-            font-weight: 400;
+            font-size: 6.2rem;
+            font-weight: 900;
             line-height: 6rem;
             text-align: center;
-            margin-bottom: 2.1rem;
+            margin-bottom: 17rem;
+            max-width: 86.5rem;
+            margin-inline: auto;
 
             @media (max-width: 1679px) {
+                line-height: 1.4;
                 font-size: 4.4rem;
+                margin-bottom: 12rem;
             }
 
             @media (max-width: 1599px) {
                 font-size: 4rem;
+                margin-bottom: 10rem;
             }
 
             @media (max-width: 1479px) {
                 font-size: 3.6rem;
+                margin-bottom: 8rem;
+                max-width: 60rem;
             }
 
             @media (max-width: 1399px) {
                 font-size: 3.2rem;
+                margin-bottom: 6rem;
             }
 
             @media (max-width: 991px) {
@@ -164,7 +176,7 @@
 
             @media (max-width: 575px) {
                 font-size: 2.4rem;
-                margin-bottom: 1.4rem;
+                margin-bottom: 3.4rem;
             }
         }
 
@@ -201,8 +213,119 @@
         }
 
         h3 {
+            font-weight: 400;
+            font-size: 5rem;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-align: center;
+            margin-bottom: 2.1rem;
+
+            @media (max-width: 1679px) {
+                font-size: 4.4rem;
+            }
+
+            @media (max-width: 1599px) {
+                font-size: 4rem;
+            }
+
+            @media (max-width: 1479px) {
+                font-size: 3.6rem;
+            }
+
+            @media (max-width: 1399px) {
+                font-size: 3.2rem;
+            }
+
+            @media (max-width: 991px) {
+                font-size: 2.8rem;
+            }
+
+            @media (max-width: 575px) {
+                font-size: 2.4rem;
+                margin-bottom: 1.4rem;
+            }
+        }
+
+        h5 {
+            max-width: 61.5rem;
+            margin-inline: auto;
+            font-weight: 400;
+            font-size: 5rem;
+            line-height: 121%;
+            margin-top: 21.1rem;
+            letter-spacing: 0%;
+            text-align: center;
+
+            @media (max-width: 1679px) {
+                font-size: 4.4rem;
+                margin-top: 12rem;
+                line-height: 1.4;
+            }
+
+            @media (max-width: 1599px) {
+                font-size: 4rem;
+                margin-top: 10rem;
+            }
+
+            @media (max-width: 1479px) {
+                font-size: 3.6rem;
+                margin-top: 8rem;
+            }
+
+            @media (max-width: 1399px) {
+                font-size: 3.2rem;
+                margin-top: 6rem;
+            }
+
+            @media (max-width: 991px) {
+                font-size: 2.8rem;
+            }
+
+            @media (max-width: 575px) {
+                font-size: 2.4rem;
+                margin-top: 3.4rem;
+            }
+        }
+
+        h6 {
             font-family: $secondaryfont;
-            font-size: 30px;
+            font-weight: 700;
+            font-size: 7.5rem;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-align: center;
+            margin-top: 4rem;
+
+
+            @media (max-width: 1679px) {
+                font-size: 6.4rem;
+                margin-top: 12rem;
+                line-height: 1.4;
+            }
+
+            // @media (max-width: 1599px) {
+            //     font-size: 5rem;
+            //     margin-top: 10rem;
+            // }
+
+            @media (max-width: 1479px) {
+                font-size: 5rem;
+                margin-top: 10rem;
+            }
+
+            @media (max-width: 1399px) {
+                font-size: 4.6rem;
+                margin-top: 6rem;
+            }
+
+            @media (max-width: 991px) {
+                font-size: 4rem;
+            }
+
+            @media (max-width: 575px) {
+                font-size: 3.4rem;
+                margin-top: 1.4rem;
+            }
         }
 
         .stake_btn {
@@ -220,6 +343,7 @@
                 height: 6rem;
                 font-size: 2.4rem;
             }
+
             @media (max-width: 767px) {
                 font-size: 2rem;
                 height: 5rem;

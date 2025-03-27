@@ -55,11 +55,9 @@ const ReferralShare = ({ referralCode, userName }: ReferralShareProps) => {
                 <div className="referral-benefits">
                     <h3>Benefits</h3>
                     <ul>
-                        <li>
-                            Earn 300 KRZ tokens for you and your friend when they sign up.
-                        </li>
-                        <li>No referral limit – invite as many friends as you want!</li>
-                        <li>More referrals = More rewards!</li>
+                        <li>300 KRZ rewards for you and your friend on sign-up.</li>
+                        <li>Invite up to 3 friends to join Kryzel.</li>
+                        <li>Share rewards. Spread ownership. BUIDL together..</li>
                     </ul>
                     <p className="mt-4">Start sharing and maximize your rewards!</p>
                 </div>

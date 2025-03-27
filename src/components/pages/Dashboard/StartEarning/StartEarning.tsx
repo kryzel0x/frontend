@@ -104,11 +104,12 @@ const StartEarning = () => {
           <img src={top} alt="top-shadow" className="top_shadow" />
           <img src={left} alt="left-shadow" className="left_shadow" />
           <img src={right} alt="right-shadow" className="right_shadow" />
+          <h1>You’re Building the Future of Sports Prediction</h1>
           {stakeAmount > 0 ? (
             <>
-              <h1>My Total Stakes</h1>
+              <h3>My Total Stakes</h3>
               <h2>{formatAmount(stakeAmount / Math.pow(10, krzDecimals))}</h2>
-              <h3 className="mb-5">Stake more, to earn more</h3>
+              <h4 className="mb-5">Stake more, to earn more</h4>
             </>
           ) : (
             // ) : totalbalance ? (
@@ -119,7 +120,7 @@ const StartEarning = () => {
             //   </>
             // ) : (
             <>
-              <h1>Start earning now!</h1>
+              <h3>Start earning now!</h3>
               <h2>{formatAmount(10000)} KRZ</h2>
             </>
           )}
@@ -127,6 +128,11 @@ const StartEarning = () => {
             Stake [+] to Liquidity Pool
           </Button>
           <TransactModal show={show} handleClose={() => setShow(false)} />
+
+          <h5>Stake. Play. Tell the world.
+            Your journey starts here.</h5>
+
+          <h6>This is ownership, not just participation.</h6>
           {/* <div className="earn_details">
                         <div className="earn_details_box">
                             <h3> Wallet Balance</h3>
