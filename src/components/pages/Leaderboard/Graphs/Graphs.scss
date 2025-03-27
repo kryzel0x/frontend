@@ -95,7 +95,7 @@
                 .graph_box_header {
                     display: flex;
                     align-items: center;
-                    margin-bottom: 6rem;
+                    margin-bottom: 2rem;
 
                     @media (max-width: 991px) {
                         flex-wrap: wrap;
@@ -166,6 +166,11 @@
                             line-height: 1.2;
                         }
                     }
+                }
+
+                h3.graph_heading {
+                    text-align: center;
+                    margin-bottom: 2rem;
                 }
 
                 .recharts-area-dots {

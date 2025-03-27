@@ -72,7 +72,9 @@ const Graphs = () => {
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
-      return `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
+      return `${date.getDate()} ${date.toLocaleString("default", {
+        month: "short",
+      })}`;
     } catch (e) {
       return dateString;
     }
@@ -95,29 +97,28 @@ const Graphs = () => {
       if (res && !res.error && res.result) {
         const processedData = res.result.map((item: any) => {
           const formattedDate = formatDate(item.date);
-          
+
           if (activeTab === "total_balance") {
-            const totalValue = (
+            const totalValue =
               (parseFloat(item.value1) || 0) +
               (parseFloat(item.value2) || 0) +
-              (parseFloat(item.value3) || 0)
-            );
-            
+              (parseFloat(item.value3) || 0);
+
             return {
               ...item,
               date: formattedDate,
-              "Total Balance": parseFloat(totalValue.toFixed(2))
+              "Total Balance": parseFloat(totalValue.toFixed(2)),
             };
           } else {
             const properName = getTabName(activeTab);
             return {
               ...item,
               date: formattedDate,
-              [properName]: parseFloat(item.value1)
+              [properName]: parseFloat(item.value1),
             };
           }
         });
-        
+
         setGraphData(processedData);
         console.log("Processed Graph Data:", processedData);
       }
@@ -209,6 +210,15 @@ const Graphs = () => {
                         isSearchable={false}
                       />
                     </div>
+                    {tab === "total_balance" ? (
+                      <h3 className="graph_heading">Your KRZ earnings & performance score</h3>
+                    ) : tab === "liquidity_staking" ? (
+                      <h3 className="graph_heading">Contribute to the protocol, earn more points</h3>
+                    ) : tab === "crash_game" ? (
+                      <h3 className="graph_heading">Test your instincts, multiply your gains</h3>
+                    ) : tab === "off_chain_activities" ? (
+                      <h3 className="graph_heading">Boost your KRZ earnings by spreading the word</h3>
+                    ) : null}
                     {graphData && graphData.length > 0 ? (
                       <ResponsiveContainer
                         width="100%"
@@ -252,9 +262,9 @@ const Graphs = () => {
                             stroke="#2a2a2a"
                           />
                           <XAxis dataKey="date" stroke="#ccc" />
-                          <YAxis 
-                            stroke="#ccc" 
-                            domain={['auto', 'auto']} 
+                          <YAxis
+                            stroke="#ccc"
+                            domain={["auto", "auto"]}
                             padding={{ top: 20, bottom: 20 }}
                           />
                           <Tooltip
@@ -265,12 +275,12 @@ const Graphs = () => {
                               color: "#fff",
                             }}
                             formatter={(value, name) => [
-                              `${parseFloat(value as string).toFixed(2)}`, 
-                              name
+                              `${parseFloat(value as string).toFixed(2)}`,
+                              name,
                             ]}
                           />
                           <Legend />
-                          
+
                           {tab === "total_balance" ? (
                             <Area
                               type="monotone"
@@ -280,11 +290,7 @@ const Graphs = () => {
                               fill="url(#totalBalanceGradient)"
                               strokeWidth={4}
                               dot={
-                                <circle
-                                  r={6}
-                                  fill="#00c8ff"
-                                  strokeWidth={10}
-                                />
+                                <circle r={6} fill="#00c8ff" strokeWidth={10} />
                               }
                             />
                           ) : (

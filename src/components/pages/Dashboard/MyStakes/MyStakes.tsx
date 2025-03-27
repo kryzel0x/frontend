@@ -22,15 +22,13 @@ const MyStakes = () => {
     {
       name: (
         <>
-          Date of <br />
-          Staking
+          Date
         </>
       ),
     },
     {
       name: (
         <>
-          Amount <br />
           Staked (in KRZ)
         </>
       ),
@@ -38,8 +36,7 @@ const MyStakes = () => {
     {
       name: (
         <>
-          Expiry <br />
-          Date
+          Expiry Date
         </>
       ),
     },

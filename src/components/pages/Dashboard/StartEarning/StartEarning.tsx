@@ -124,7 +124,7 @@ const StartEarning = () => {
             </>
           )}
           <Button onClick={() => setShow(true)} className="stake_btn">
-            Stake [+] to Reserve Pool
+            Stake [+] to Liquidity Pool
           </Button>
           <TransactModal show={show} handleClose={() => setShow(false)} />
           {/* <div className="earn_details">

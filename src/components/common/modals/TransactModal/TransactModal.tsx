@@ -193,7 +193,7 @@ const TransactModal = ({ show, handleClose }: CommonModalProps) => {
                     disabled={loading || !formik.values.amount || !formik.isValid}
                     loading={loading}
                 >
-                    Stake[+] to Reserve Pool
+                    Stake[+] to Liquidity Pool
                 </Button>
             </form>
         </Modal>

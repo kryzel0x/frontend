@@ -41,9 +41,9 @@ const LeaderBoardSec = () => {
     return (
         <section className={clsx("leaderboard_sec")}>
             <Container>
-                <h2>Boost Your Rewards, Elevate Your Game!</h2>
-                <p>Start with 10,000 KRZ – Whatever you earn beyond this converts into real KRZ at the end of the testnet.</p>
-                <Button>Climb the leaderboard – The higher you rank, the bigger your final rewards.</Button>
+                <h2>Race to the Top. Earn Real KRZ. <br/>Shape the Protocol.</h2>
+                <p>Only what you earn beyond your 10,000 KRZ counts.</p>
+                <Button>Rise in the ranks - Stake, Play, and Amplify, and take your place in the new era.</Button>
                 {/* {!hideheading && <h2 className="title_txt">Leaderboard</h2>}
                 <Slider {...settings}>
                     {
