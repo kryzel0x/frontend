@@ -58,7 +58,7 @@ const ReferralShare = ({ referralCode, userName }: ReferralShareProps) => {
                         <li>
                             Earn 300 KRZ tokens for you and your friend when they sign up.
                         </li>
-                        <li>No referral limit – invite as many friends as you want!</li>
+                        <li>Invite upto 3 Friends!</li>
                         <li>More referrals = More rewards!</li>
                     </ul>
                     <p className="mt-4">Start sharing and maximize your rewards!</p>
