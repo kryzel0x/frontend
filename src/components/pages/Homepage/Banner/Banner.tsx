@@ -14,7 +14,7 @@ const Banner = () => {
                     <div className="banner_in">
                         <h2>
                             World’s First AI-Powered Decentralized <br />
-                            Sports Betting Protocol
+                            Sports Prediction Protocol
                         </h2>
                         <h1>
                             Start Your <br />
